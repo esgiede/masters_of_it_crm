@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="clients")
 public class Client implements Serializable {
@@ -62,6 +64,7 @@ public class Client implements Serializable {
 		this.phone = phone;
 	}
 	@OneToMany(mappedBy = "client")
+	@JsonIgnoreProperties("client")
 	public Set<Project> getProject() {
 		return project;
 	}

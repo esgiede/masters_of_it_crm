@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "projects")
 public class Project implements Serializable {
@@ -27,7 +29,8 @@ public class Project implements Serializable {
 	private Date startDate;
 	private Date endDate;
 	private Client client;
-	private Set<Employee> employee = new HashSet<Employee>();
+	private Employee employee;
+	//private Set<Employee> employee = new HashSet<Employee>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,22 +62,25 @@ public class Project implements Serializable {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "client_id")
+	@JsonIgnoreProperties("project")
 	public Client getClient() {
 		return client;
 	}
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "employee_id")
-	public Set<Employee> getEmployee() {
+	@JsonIgnoreProperties("project")
+	public Employee getEmployee() {
 		return employee;
 	}
-	public void setEmployee(Set<Employee> employee) {
+	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
 	
 	
 	

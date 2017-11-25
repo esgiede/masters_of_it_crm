@@ -13,7 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "employees")
@@ -56,8 +59,8 @@ public class Employee implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "project_id")
+	@OneToMany(mappedBy = "employee")
+	@JsonIgnoreProperties("employee")
 	public Set<Project> getProject() {
 		return project;
 	}
