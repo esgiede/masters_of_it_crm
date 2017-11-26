@@ -16,4 +16,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Project> getAllProjects() {
 		return projectDAO.getAllProjects();
 	}
+	
+	public synchronized boolean addProject(Project project) {
+		projectDAO.addProject(project);
+		return true;
+	}
 }

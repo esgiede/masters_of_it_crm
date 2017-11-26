@@ -6,4 +6,5 @@ import com.moi.entity.Project;
 
 public interface ProjectService {
 	List<Project> getAllProjects();
+	boolean addProject(Project project);
 }

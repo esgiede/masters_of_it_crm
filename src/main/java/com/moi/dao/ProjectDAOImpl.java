@@ -23,4 +23,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 		return (List<Project>) entityManager.createQuery(hql).getResultList();
 	}
 	
+	public void addProject(Project project) {
+		entityManager.persist(project);
+	}
+	
 }
