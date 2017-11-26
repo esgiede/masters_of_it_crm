@@ -8,6 +8,7 @@ import com.moi.entity.Employee;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
 	
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
@@ -23,5 +25,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return (List<Employee>) entityManager.createQuery(hql).getResultList();
 	}
 	
+	public void addEmployee(Employee employee) {
+		entityManager.persist(employee);
+	}
 	
 }

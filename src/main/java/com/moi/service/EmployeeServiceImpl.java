@@ -18,5 +18,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDAO.getAllEmployees();
 	}
 	
-	
+	public synchronized boolean addEmployee(Employee employee){
+            employeeDAO.addEmployee(employee);
+            return true;
+        }
 }
+

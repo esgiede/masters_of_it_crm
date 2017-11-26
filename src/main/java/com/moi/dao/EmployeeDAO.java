@@ -6,4 +6,5 @@ import com.moi.entity.Employee;
 
 public interface EmployeeDAO {
 	List<Employee> getAllEmployees();
+	void addEmployee(Employee employee);
 }
