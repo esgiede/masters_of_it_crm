@@ -22,5 +22,9 @@ public class ClientDAOImpl implements ClientDAO {
 		String hql = "FROM Client as clt ORDER BY clt.clientId";
 		return (List<Client>) entityManager.createQuery(hql).getResultList();
 	}
+	
+	public void addClient(Client client) {
+		entityManager.persist(client);
+	}
 
 }

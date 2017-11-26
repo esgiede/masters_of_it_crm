@@ -6,4 +6,5 @@ import com.moi.entity.Client;
 
 public interface ClientDAO {
 	List<Client> getAllClients();
+	void addClient(Client client);
 }

@@ -6,4 +6,5 @@ import com.moi.entity.Client;
 
 public interface ClientService {
 	List<Client> getAllClients();
+	boolean addClient(Client client);
 }

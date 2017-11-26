@@ -15,4 +15,9 @@ public class ClientServiceImpl implements ClientService {
 	public List<Client> getAllClients() {
 		return clientDAO.getAllClients();
 	}
+	
+	public synchronized boolean addClient(Client client) {
+		clientDAO.addClient(client);
+		return true;
+	}
 }
