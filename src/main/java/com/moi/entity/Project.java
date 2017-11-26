@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,8 +29,8 @@ public class Project implements Serializable {
 	private Date startDate;
 	private Date endDate;
 	private Client client;
-	private Employee employee;
-	//private Set<Employee> employee = new HashSet<Employee>();
+	
+	private Set<ProjectsHasEmployees> phe = new HashSet<ProjectsHasEmployees>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,14 +71,13 @@ public class Project implements Serializable {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "employee_id")
+	@OneToMany(mappedBy = "project")
 	@JsonIgnoreProperties("project")
-	public Employee getEmployee() {
-		return employee;
+	public Set<ProjectsHasEmployees> getPhe() {
+		return phe;
 	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setPhe(Set<ProjectsHasEmployees> phe) {
+		this.phe = phe;
 	}
 	
 	

@@ -4,15 +4,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,7 +23,7 @@ public class Employee implements Serializable {
 	private String name;
 	private String lastName;
 	private String role;
-	private Set<Project> project = new HashSet<Project>();
+	private Set<ProjectsHasEmployees> phe = new HashSet<ProjectsHasEmployees>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,12 +57,13 @@ public class Employee implements Serializable {
 	}
 	@OneToMany(mappedBy = "employee")
 	@JsonIgnoreProperties("employee")
-	public Set<Project> getProject() {
-		return project;
+	public Set<ProjectsHasEmployees> getPhe() {
+		return phe;
 	}
-	public void setProject(Set<Project> project) {
-		this.project = project;
+	public void setPhe(Set<ProjectsHasEmployees> phe) {
+		this.phe = phe;
 	}
+	
 	
 	
 }
