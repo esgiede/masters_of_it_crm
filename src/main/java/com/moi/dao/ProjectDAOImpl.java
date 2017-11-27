@@ -26,5 +26,27 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public void addProject(Project project) {
 		entityManager.persist(project);
 	}
+
+	public Project getProjectById(int projectId) {
+		return entityManager.find(Project.class, projectId);
+	}
+
+	public void updateProject(Project project) {
+		Project pct = getProjectById(project.getProjectId());
+		pct.setName(project.getName());
+		pct.setStartDate(project.getStartDate());
+		pct.setEndDate(project.getEndDate());
+		entityManager.flush();
+	}
+
+	public void deleteProject(int projectId) {
+		entityManager.remove(getProjectById(projectId));
+	}
+
+	public boolean projectExist(String name) {
+		String hql = "FROM Project as pct WHERE pct.name = ?";
+		int count = entityManager.createQuery(hql).setParameter(1, name).getResultList().size();
+		return count > 0 ? true : false;
+	}
 	
 }

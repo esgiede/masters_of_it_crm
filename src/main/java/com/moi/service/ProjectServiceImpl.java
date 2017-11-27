@@ -18,7 +18,24 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	public synchronized boolean addProject(Project project) {
-		projectDAO.addProject(project);
-		return true;
+		 if (projectDAO.projectExist(project.getName())) {
+	            return false;
+         } else {
+	            projectDAO.addProject(project);
+	            return true;
+         }
+	}
+
+	public Project getProjectById(int projectId) {
+		Project obj = projectDAO.getProjectById(projectId);
+		return obj;
+	}
+
+	public void updateProject(Project project) {
+		projectDAO.updateProject(project);
+	}
+
+	public void deleteProject(int projectId) {
+		projectDAO.deleteProject(projectId);
 	}
 }

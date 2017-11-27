@@ -27,4 +27,26 @@ public class ClientsHasProjectsDAOImpl implements ClientsHasProjectsDAO {
 		entityManager.persist(chp);
 	}
 
+	public ClientsHasProjects getChpById(int chpId) {
+		return entityManager.find(ClientsHasProjects.class, chpId);
+	}
+
+	public void updateClientsHasProjects(ClientsHasProjects chp) {
+		ClientsHasProjects chps = getChpById(chp.getChpId());
+		chps.setClient(chp.getClient());
+		chps.setProject(chp.getProject());
+		entityManager.flush();
+	}
+
+	public void deleteClientsHasProjects(int chpId) {
+		entityManager.remove(chpId);
+		
+	}
+
+	public boolean cphExist(int clientId, int projectId) {
+		String hql = "FROM ClientsHasProjects as chps WHERE chps.clientId = ? and chps.projectId = ?";
+		int count = entityManager.createQuery(hql).setParameter(1, clientId).setParameter(2, projectId).getResultList().size();
+		return count > 0 ? true : false;
+	}
+
 }

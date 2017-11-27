@@ -19,8 +19,25 @@ public class ClientsHasProjectsServiceImpl implements ClientsHasProjectsService 
 	}
 
 	public synchronized boolean addClientsHasProjects(ClientsHasProjects chp) {
-		clientsHasProjectsDAO.addClientsHasProjects(chp);
-		return true;
+		if (clientsHasProjectsDAO.cphExist(chp.getClientId(), chp.getProjectId())) {
+            return false;
+        } else {
+            clientsHasProjectsDAO.addClientsHasProjects(chp);
+            return true;
+        }
+	}
+
+	public ClientsHasProjects getChpById(int chpId) {
+		ClientsHasProjects obj = clientsHasProjectsDAO.getChpById(chpId);
+		return obj;
+	}
+
+	public void updateClientsHasProjects(ClientsHasProjects chp) {
+		clientsHasProjectsDAO.updateClientsHasProjects(chp);
+	}
+
+	public void deleteClientsHasProjects(int chpId) {
+		clientsHasProjectsDAO.deleteClientsHasProjects(chpId);
 	}
 	
 }

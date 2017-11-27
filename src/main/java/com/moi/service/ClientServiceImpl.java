@@ -15,9 +15,26 @@ public class ClientServiceImpl implements ClientService {
 	public List<Client> getAllClients() {
 		return clientDAO.getAllClients();
 	}
-	
+
 	public synchronized boolean addClient(Client client) {
-		clientDAO.addClient(client);
-		return true;
+		if (clientDAO.clientExist(client.getName())) {
+			return false;
+		} else {
+			clientDAO.addClient(client);
+			return true;
+		}
+	}
+
+	public Client getClientById(int clientId) {
+		Client obj = clientDAO.getClientById(clientId);
+		return obj;
+	}
+
+	public void updateClient(Client client) {
+		clientDAO.updateClient(client);
+	}
+
+	public void deleteClient(int clientId) {
+		clientDAO.deleteClient(clientId);
 	}
 }

@@ -19,7 +19,24 @@ public class ProjectsHasEmployeesServiceImpl implements ProjectsHasEmployeesServ
 	}
 
 	public synchronized boolean addProjectsHasEmployees(ProjectsHasEmployees phe) {
-		projectsHasEmployeesDAO.addProjectsHasEmployees(phe);
-		return true;
+		 if (projectsHasEmployeesDAO.projectExist(phe.getEmployeeId(), phe.getProjectId())) {
+	            return false;
+         } else {
+	            projectsHasEmployeesDAO.addProjectsHasEmployees(phe);
+	            return true;
+         }
+	}
+
+	public ProjectsHasEmployees getPheById(int pheId) {
+		ProjectsHasEmployees obj = projectsHasEmployeesDAO.getPheById(pheId);
+		return obj;
+	}
+
+	public void updateProjectsHasEmployees(ProjectsHasEmployees phe) {
+		projectsHasEmployeesDAO.updateProjectHasEmployees(phe);
+	}
+
+	public void deleteProjectsHasEmployees(int pheId) {
+		projectsHasEmployeesDAO.deleteProjectsHasEmployees(pheId);
 	}
 }
