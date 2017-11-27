@@ -23,6 +23,8 @@ public class ProjectsHasEmployees implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int pheId;
+	private int projectId;
+	private int employeeId;
 	private Project project;
 	private Employee employee;
 	
@@ -35,8 +37,22 @@ public class ProjectsHasEmployees implements Serializable {
 	public void setPheId(int pheId) {
 		this.pheId = pheId;
 	}
+	@Column(name = "project_id")
+	public int getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
+	@Column(name = "employee_id")
+	public int getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "project_id")
+	@JoinColumn(name = "project_id", insertable = false, updatable = false)
 	@JsonIgnoreProperties("phe")
 	public Project getProject() {
 		return project;
@@ -45,7 +61,7 @@ public class ProjectsHasEmployees implements Serializable {
 		this.project = project;
 	}
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "employee_id")
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
 	@JsonIgnoreProperties("phe")
 	public Employee getEmployee() {
 		return employee;

@@ -18,4 +18,8 @@ public class ProjectsHasEmployeesServiceImpl implements ProjectsHasEmployeesServ
 		return projectsHasEmployeesDAO.getAllPhe();
 	}
 
+	public synchronized boolean addProjectsHasEmployees(ProjectsHasEmployees phe) {
+		projectsHasEmployeesDAO.addProjectsHasEmployees(phe);
+		return true;
+	}
 }

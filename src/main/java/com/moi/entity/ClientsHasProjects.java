@@ -22,21 +22,37 @@ public class ClientsHasProjects implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int chpID;
+	private int chpId;
+	private int projectId;
+	private int clientId;
 	private Client client;
 	private Project project;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "chp_id")
-	public int getChpID() {
-		return chpID;
+	public int getChpId() {
+		return chpId;
 	}
-	public void setChpID(int chpID) {
-		this.chpID = chpID;
+	public void setChpId(int chpId) {
+		this.chpId = chpId;
+	}
+	@Column(name = "project_id")
+	public int getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
+	@Column(name = "client_id")
+	public int getClientId() {
+		return clientId;
+	}
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
 	}
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "client_id")
+	@JoinColumn(name = "client_id", insertable = false, updatable = false)
 	@JsonIgnoreProperties("chp")
 	public Client getClient() {
 		return client;
@@ -45,7 +61,7 @@ public class ClientsHasProjects implements Serializable {
 		this.client = client;
 	}
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "project_id")
+	@JoinColumn(name = "project_id", insertable = false, updatable = false)
 	@JsonIgnoreProperties("chp")
 	public Project getProject() {
 		return project;

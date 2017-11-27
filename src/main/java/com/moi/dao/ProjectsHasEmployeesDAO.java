@@ -6,4 +6,5 @@ import com.moi.entity.ProjectsHasEmployees;
 
 public interface ProjectsHasEmployeesDAO {
 	List<ProjectsHasEmployees> getAllPhe();
+	void addProjectsHasEmployees(ProjectsHasEmployees phe);
 }

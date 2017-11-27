@@ -23,4 +23,8 @@ public class ProjectsHasEmployeesImpl implements ProjectsHasEmployeesDAO {
 		return (List<ProjectsHasEmployees>) entityManager.createQuery(hql).getResultList();
 	}
 	
+	public void addProjectsHasEmployees(ProjectsHasEmployees phe) {
+		entityManager.persist(phe);
+	}
+	
 }
