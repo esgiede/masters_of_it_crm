@@ -30,9 +30,9 @@ public class Project implements Serializable {
 	private String name;
 	private Date startDate;
 	private Date endDate;
-	private Client client;
 	
 	private Set<ProjectsHasEmployees> phe = new HashSet<ProjectsHasEmployees>();
+	private Set<ClientsHasProjects> chp = new HashSet<ClientsHasProjects>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,15 +64,6 @@ public class Project implements Serializable {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "client_id")
-	@JsonIgnoreProperties("project")
-	public Client getClient() {
-		return client;
-	}
-	public void setClient(Client client) {
-		this.client = client;
-	}
 	@OneToMany(mappedBy = "project")
 	@JsonIgnoreProperties("project")
 	public Set<ProjectsHasEmployees> getPhe() {
@@ -80,6 +71,14 @@ public class Project implements Serializable {
 	}
 	public void setPhe(Set<ProjectsHasEmployees> phe) {
 		this.phe = phe;
+	}
+	@OneToMany(mappedBy = "project")
+	@JsonIgnoreProperties("project")
+	public Set<ClientsHasProjects> getChp() {
+		return chp;
+	}
+	public void setChp(Set<ClientsHasProjects> chp) {
+		this.chp = chp;
 	}
 	
 	

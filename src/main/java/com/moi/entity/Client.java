@@ -24,7 +24,8 @@ public class Client implements Serializable {
 	private String address;
 	private String contact;
 	private int phone;
-	private Set<Project> project = new HashSet<Project>();
+	
+	private Set<ClientsHasProjects> chp = new HashSet<ClientsHasProjects>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,13 +66,12 @@ public class Client implements Serializable {
 	}
 	@OneToMany(mappedBy = "client")
 	@JsonIgnoreProperties("client")
-	public Set<Project> getProject() {
-		return project;
+	public Set<ClientsHasProjects> getChp() {
+		return chp;
 	}
-	public void setProject(Set<Project> project) {
-		this.project = project;
+	public void setChp(Set<ClientsHasProjects> chp) {
+		this.chp = chp;
 	}
-	
 	
 	
 }
