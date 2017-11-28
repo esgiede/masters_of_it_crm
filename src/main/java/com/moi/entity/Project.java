@@ -33,6 +33,8 @@ public class Project implements Serializable {
 	private Date endDate;
 	private Client client;
 	private Employee employee;
+	private int clientId;
+	private int employeeId;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,6 +83,20 @@ public class Project implements Serializable {
 	}
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	@Column(name = "client_id")
+	public int getClientId() {
+		return clientId;
+	}
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
+	@Column(name = "employee_id")
+	public int getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 	
 	

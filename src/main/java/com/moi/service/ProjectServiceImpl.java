@@ -18,12 +18,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	public synchronized boolean addProject(Project project) {
-		 if (projectDAO.projectExist(project.getName())) {
-	            return false;
-         } else {
+		 
 	            projectDAO.addProject(project);
 	            return true;
-         }
+         
 	}
 
 	public Project getProjectById(int projectId) {
