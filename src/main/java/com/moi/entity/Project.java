@@ -31,9 +31,8 @@ public class Project implements Serializable {
 	private String name;
 	private Date startDate;
 	private Date endDate;
-	
-	private Set<ProjectsHasEmployees> phe = new HashSet<ProjectsHasEmployees>();
-	private Set<ClientsHasProjects> chp = new HashSet<ClientsHasProjects>();
+	private Client client;
+	private Employee employee;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,22 +64,25 @@ public class Project implements Serializable {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	@OneToMany(mappedBy = "project")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "client_id", insertable = false, updatable = false)
 	@JsonIgnoreProperties("project")
-	public Set<ProjectsHasEmployees> getPhe() {
-		return phe;
+	public Client getClient() {
+		return client;
 	}
-	public void setPhe(Set<ProjectsHasEmployees> phe) {
-		this.phe = phe;
+	public void setClient(Client client) {
+		this.client = client;
 	}
-	@OneToMany(mappedBy = "project")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
 	@JsonIgnoreProperties("project")
-	public Set<ClientsHasProjects> getChp() {
-		return chp;
+	public Employee getEmployee() {
+		return employee;
 	}
-	public void setChp(Set<ClientsHasProjects> chp) {
-		this.chp = chp;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
+	
 	
 	
 	

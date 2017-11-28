@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -25,7 +26,8 @@ public class Client implements Serializable {
 	private String contact;
 	private int phone;
 	
-	private Set<ClientsHasProjects> chp = new HashSet<ClientsHasProjects>();
+	private Set<Project> project = new HashSet<Project>();
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +38,7 @@ public class Client implements Serializable {
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
+	@NotNull
 	@Column(name = "name")
 	public String getName() {
 		return name;
@@ -43,6 +46,7 @@ public class Client implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@NotNull
 	@Column(name = "address")
 	public String getAddress() {
 		return address;
@@ -50,6 +54,7 @@ public class Client implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	@NotNull
 	@Column(name = "contact")
 	public String getContact() {
 		return contact;
@@ -57,6 +62,7 @@ public class Client implements Serializable {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
+	@NotNull
 	@Column(name = "phone")
 	public int getPhone() {
 		return phone;
@@ -66,11 +72,11 @@ public class Client implements Serializable {
 	}
 	@OneToMany(mappedBy = "client")
 	@JsonIgnoreProperties("client")
-	public Set<ClientsHasProjects> getChp() {
-		return chp;
+	public Set<Project> getProject() {
+		return project;
 	}
-	public void setChp(Set<ClientsHasProjects> chp) {
-		this.chp = chp;
+	public void setProject(Set<Project> project) {
+		this.project = project;
 	}
 	
 	

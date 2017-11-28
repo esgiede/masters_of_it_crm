@@ -5,14 +5,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.moi.entity.Client;
 
 @Transactional
 @Repository
-public class ClientDAOImpl implements ClientDAO {
+public class ClientDAOImpl implements ClientDAO{
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -50,5 +50,5 @@ public class ClientDAOImpl implements ClientDAO {
 		int count = entityManager.createQuery(hql).setParameter(1, name).getResultList().size();
 		return count > 0 ? true : false;
 	}
-
+	
 }

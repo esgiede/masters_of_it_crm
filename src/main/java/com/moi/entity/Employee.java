@@ -23,7 +23,8 @@ public class Employee implements Serializable {
 	private String name;
 	private String lastName;
 	private String role;
-	private Set<ProjectsHasEmployees> phe = new HashSet<ProjectsHasEmployees>();
+	
+	private Set<Project> project = new HashSet<Project>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,13 +58,12 @@ public class Employee implements Serializable {
 	}
 	@OneToMany(mappedBy = "employee")
 	@JsonIgnoreProperties("employee")
-	public Set<ProjectsHasEmployees> getPhe() {
-		return phe;
+	public Set<Project> getProject() {
+		return project;
 	}
-	public void setPhe(Set<ProjectsHasEmployees> phe) {
-		this.phe = phe;
+	public void setProject(Set<Project> project) {
+		this.project = project;
 	}
-	
 	
 	
 }

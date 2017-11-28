@@ -55,4 +55,5 @@ public class ClientController {
 		clientService.deleteClient(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
+	
 }
