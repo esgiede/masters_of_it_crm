@@ -19,16 +19,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "employee_id")
 	private int employeeId;
 	private String name;
 	private String lastName;
 	private String role;
 	
 	private Set<Project> project = new HashSet<Project>();
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "employee_id")
+
 	public int getEmployeeId() {
 		return employeeId;
 	}
