@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.moi.entity.Client;
 import com.moi.entity.Employee;
 import com.moi.service.EmployeeService;
 
@@ -23,13 +22,13 @@ public class EmployeeController {
 	@GetMapping("employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Integer id) {
 		Employee employee = employeeService.getEmployeeById(id);
-		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
+		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 	
 	@GetMapping("employees")
-	public ResponseEntity<List<Employee>> getAllEmplpyees() {
+	public ResponseEntity<List<Employee>> getAllEmployees() {
 		List<Employee> list = employeeService.getAllEmployees();
-		return new ResponseEntity<List<Employee>>(list, HttpStatus.OK);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}
 	
@@ -38,17 +37,17 @@ public class EmployeeController {
 		employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getEmployeeId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 
 	@PutMapping("employees")
 	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
 		employeeService.updateEmployee(employee);
-		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
+		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 	@DeleteMapping("employees/{id}")
 	public ResponseEntity<Void> employeeClient(@PathVariable("id") Integer id) {
 		employeeService.deleteEmployee(id);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

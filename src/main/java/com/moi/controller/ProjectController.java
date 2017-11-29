@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.moi.entity.Client;
 import com.moi.entity.Project;
 import com.moi.service.ProjectService;
 
@@ -28,13 +27,13 @@ public class ProjectController {
 	@GetMapping("projects/{id}")
 	public ResponseEntity<Project> getProjectById(@PathVariable("id") Integer id) {
 		Project project = projectService.getProjectById(id);
-		return new ResponseEntity<Project>(project, HttpStatus.OK);
+		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 	
 	@GetMapping("projects")
 	public ResponseEntity<List<Project>> getAllProjects() {
 		List<Project> list = projectService.getAllProjects();
-		return new ResponseEntity<List<Project>>(list, HttpStatus.OK);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}
 	
@@ -43,18 +42,18 @@ public class ProjectController {
                 projectService.addProject(project);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(builder.path("/project/{id}").buildAndExpand(project.getProjectId()).toUri());
-                return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+                return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("projects")
 	public ResponseEntity<Project> updateProject(@RequestBody Project project) {
 		projectService.updateProject(project);
-		return new ResponseEntity<Project>(project, HttpStatus.OK);
+		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 	@DeleteMapping("projects/{id}")
 	public ResponseEntity<Void> deleteProject(@PathVariable("id") Integer id) {
 		projectService.deleteProject(id);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 }

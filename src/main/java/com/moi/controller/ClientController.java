@@ -27,30 +27,30 @@ public class ClientController {
 	@GetMapping("clients/{id}")
 	public ResponseEntity<Client> getClientById(@PathVariable("id") Integer id) {
 		Client client = clientService.getClientById(id);
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
+		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 	@GetMapping("clients")
 	public ResponseEntity<List<Client>> getAllClients() {
 		List<Client> list = clientService.getAllClients();
-		return new ResponseEntity<List<Client>>(list, HttpStatus.OK);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}
 	@PostMapping("clients")
-	public ResponseEntity<Void> addCLient(@RequestBody Client client, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addClient(@RequestBody Client client, UriComponentsBuilder builder) {
 		clientService.addClient(client);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getClientId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("clients")
 	public ResponseEntity<Client> updateClient(@RequestBody Client client) {
 		clientService.updateClient(client);
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
+		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 	@DeleteMapping("clients/{id}")
 	public ResponseEntity<Void> deleteClient(@PathVariable("id") Integer id) {
 		clientService.deleteClient(id);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 }
