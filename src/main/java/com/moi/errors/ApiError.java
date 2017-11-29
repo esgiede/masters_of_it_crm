@@ -1,4 +1,4 @@
-package com.moi.controller;
+package com.moi.errors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.moi.controller;
+package com.moi.errors;
 
 abstract class ApiSubError {
 }

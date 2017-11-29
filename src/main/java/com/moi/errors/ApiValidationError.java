@@ -1,4 +1,4 @@
-package com.moi.controller;
+package com.moi.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
