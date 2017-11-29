@@ -10,5 +10,4 @@ public interface ProjectDAO {
 	void addProject(Project project);
 	void updateProject(Project project);
 	void deleteProject(int projectId);
-	boolean projectExist(String name);
 }

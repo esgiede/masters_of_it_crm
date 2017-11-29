@@ -40,7 +40,7 @@ public class ProjectController {
 	
 	@PostMapping("projects")
 	public ResponseEntity<Void> addProject(@RequestBody Project project, UriComponentsBuilder builder) {
-                boolean flag = projectService.addProject(project);
+                projectService.addProject(project);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(builder.path("/project/{id}").buildAndExpand(project.getProjectId()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);

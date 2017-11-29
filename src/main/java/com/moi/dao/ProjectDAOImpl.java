@@ -42,11 +42,4 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public void deleteProject(int projectId) {
 		entityManager.remove(getProjectById(projectId));
 	}
-
-	public boolean projectExist(String name) {
-		String hql = "FROM Project as pct WHERE pct.name = ?";
-		int count = entityManager.createQuery(hql).setParameter(1, name).getResultList().size();
-		return count > 0 ? true : false;
-	}
-	
 }

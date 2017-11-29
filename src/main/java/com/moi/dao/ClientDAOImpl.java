@@ -44,11 +44,5 @@ public class ClientDAOImpl implements ClientDAO{
 		entityManager.remove(getClientById(clientId));
 
 	}
-
-	public boolean clientExist(String name) {
-		String hql = "FROM Client as clt WHERE clt.name = ?";
-		int count = entityManager.createQuery(hql).setParameter(1, name).getResultList().size();
-		return count > 0 ? true : false;
-	}
 	
 }

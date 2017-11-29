@@ -35,7 +35,7 @@ public class EmployeeController {
 	
 	@PostMapping("employees")
 	public ResponseEntity<Void> addEmployee(@RequestBody Employee employee, UriComponentsBuilder builder) {
-		boolean flag = employeeService.addEmployee(employee);
+		employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getEmployeeId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);

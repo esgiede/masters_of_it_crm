@@ -18,10 +18,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	public synchronized boolean addProject(Project project) {
-		 
 	            projectDAO.addProject(project);
 	            return true;
-         
 	}
 
 	public Project getProjectById(int projectId) {

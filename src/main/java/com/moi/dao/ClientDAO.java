@@ -11,6 +11,5 @@ public interface ClientDAO {
 	void addClient(Client client);
 	void updateClient(Client client);
 	void deleteClient(int clientId);
-	boolean clientExist(String name);
 	
 }

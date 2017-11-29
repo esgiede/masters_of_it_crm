@@ -37,10 +37,7 @@ public class ClientController {
 	}
 	@PostMapping("clients")
 	public ResponseEntity<Void> addCLient(@RequestBody Client client, UriComponentsBuilder builder) {
-		boolean flag = clientService.addClient(client);
-        if (flag == false) {
-	    return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+		clientService.addClient(client);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getClientId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);

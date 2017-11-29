@@ -19,12 +19,8 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	public synchronized boolean addClient(Client client) {
-		if (clientDAO.clientExist(client.getName())) {
-			return false;
-		} else {
 			clientDAO.addClient(client);
 			return true;
-		}
 	}
 
 	public Client getClientById(int clientId) {
