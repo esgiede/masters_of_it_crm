@@ -10,5 +10,4 @@ public interface EmployeeDAO {
 	void addEmployee(Employee employee);
 	void UpdateEmployee(Employee employee);
 	void deleteEmployee(int employeeId);
-	boolean employeeExist(String name, String lastName);
 }

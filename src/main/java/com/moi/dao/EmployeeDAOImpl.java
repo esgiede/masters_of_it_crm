@@ -44,11 +44,5 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public void deleteEmployee(int employeeId) {
 		entityManager.remove(getEmployeeById(employeeId));
 	}
-
-	public boolean employeeExist(String name, String lastName) {
-		String hql = "FROM Employee as empl WHERE empl.name = ? and empl.category";
-		int count = entityManager.createQuery(hql).setParameter(1, name).setParameter(2, lastName).getResultList().size();
-		return count > 0 ? true : false;
-	}
 	
 }

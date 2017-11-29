@@ -13,29 +13,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name="clients")
+@Data
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "client_id")
-	@Getter @Setter private int clientId;
+	private int clientId;
 	@Column(name = "name")
-	@Getter @Setter private String name;
+	private String name;
 	@Column(name = "address")
-	@Getter @Setter private String address;
+	private String address;
 	@Column(name = "contact")
-	@Getter @Setter private String contact;
+	private String contact;
 	@Column(name = "phone")
-	@Getter @Setter private int phone;
+	private int phone;
 	@OneToMany(mappedBy = "client")
 	@JsonIgnoreProperties("client")
-	@Getter @Setter private Set<Project> project = new HashSet<Project>();
-	
-	
+	private Set<Project> project = new HashSet<Project>();
+
 }
