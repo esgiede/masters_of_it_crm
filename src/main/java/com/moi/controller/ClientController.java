@@ -24,7 +24,7 @@ public class ClientController {
 	@Autowired
 	private ClientService clientService;
 	
-	@GetMapping("client/{id}")
+	@GetMapping("clients/{id}")
 	public ResponseEntity<Client> getClientById(@PathVariable("id") Integer id) {
 		Client client = clientService.getClientById(id);
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
@@ -35,7 +35,7 @@ public class ClientController {
 		return new ResponseEntity<List<Client>>(list, HttpStatus.OK);
 		
 	}
-	@PostMapping("client")
+	@PostMapping("clients")
 	public ResponseEntity<Void> addCLient(@RequestBody Client client, UriComponentsBuilder builder) {
 		boolean flag = clientService.addClient(client);
         if (flag == false) {
@@ -45,12 +45,12 @@ public class ClientController {
         headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getClientId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	@PutMapping("client")
+	@PutMapping("clients")
 	public ResponseEntity<Client> updateClient(@RequestBody Client client) {
 		clientService.updateClient(client);
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
-	@DeleteMapping("client/{id}")
+	@DeleteMapping("clients/{id}")
 	public ResponseEntity<Void> deleteClient(@PathVariable("id") Integer id) {
 		clientService.deleteClient(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

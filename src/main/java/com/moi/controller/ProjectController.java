@@ -25,7 +25,7 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 	
-	@GetMapping("project/{id}")
+	@GetMapping("projects/{id}")
 	public ResponseEntity<Project> getProjectById(@PathVariable("id") Integer id) {
 		Project project = projectService.getProjectById(id);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
@@ -38,7 +38,7 @@ public class ProjectController {
 		
 	}
 	
-	@PostMapping("project")
+	@PostMapping("projects")
 	public ResponseEntity<Void> addProject(@RequestBody Project project, UriComponentsBuilder builder) {
                 boolean flag = projectService.addProject(project);
                 HttpHeaders headers = new HttpHeaders();
@@ -46,12 +46,12 @@ public class ProjectController {
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("project")
+	@PutMapping("projects")
 	public ResponseEntity<Project> updateProject(@RequestBody Project project) {
 		projectService.updateProject(project);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
-	@DeleteMapping("project/{id}")
+	@DeleteMapping("projects/{id}")
 	public ResponseEntity<Void> deleteProject(@PathVariable("id") Integer id) {
 		projectService.deleteProject(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

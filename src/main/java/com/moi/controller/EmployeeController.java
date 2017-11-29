@@ -20,7 +20,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@GetMapping("employee/{id}")
+	@GetMapping("employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Integer id) {
 		Employee employee = employeeService.getEmployeeById(id);
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
@@ -33,7 +33,7 @@ public class EmployeeController {
 		
 	}
 	
-	@PostMapping("employee")
+	@PostMapping("employees")
 	public ResponseEntity<Void> addEmployee(@RequestBody Employee employee, UriComponentsBuilder builder) {
 		boolean flag = employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
@@ -41,12 +41,12 @@ public class EmployeeController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
-	@PutMapping("employee")
+	@PutMapping("employees")
 	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
 		employeeService.updateEmployee(employee);
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
-	@DeleteMapping("employee/{id}")
+	@DeleteMapping("employees/{id}")
 	public ResponseEntity<Void> employeeClient(@PathVariable("id") Integer id) {
 		employeeService.deleteEmployee(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
