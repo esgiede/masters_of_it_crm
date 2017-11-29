@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 @Entity
@@ -34,7 +34,7 @@ public class Client implements Serializable {
 	@Column(name = "phone")
 	private int phone;
 	@OneToMany(mappedBy = "client")
-	@JsonIgnoreProperties("client")
+	@JsonBackReference
 	private Set<Project> project = new HashSet<Project>();
 
 }

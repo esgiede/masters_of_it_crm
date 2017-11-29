@@ -14,11 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "projects")
@@ -38,11 +35,11 @@ public class Project implements Serializable {
 	private Date endDate;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)
-	@JsonIgnoreProperties("project")
+	@JsonManagedReference
 	private Client client;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
-	@JsonIgnoreProperties("project")
+	@JsonManagedReference
 	private Employee employee;
 	@Column(name = "client_id")
 	private int clientId;
