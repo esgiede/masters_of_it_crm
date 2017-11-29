@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,48 +24,17 @@ public class Employee implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "employee_id")
-	private int employeeId;
-	private String name;
-	private String lastName;
-	private String role;
-	
-	private Set<Project> project = new HashSet<Project>();
-
-	public int getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}
+	@Getter @Setter private int employeeId;
 	@Column(name = "name")
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	@Getter @Setter private String name;
 	@Column(name = "last_name")
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	@Getter @Setter private String lastName;
 	@Column(name = "role")
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
+	@Getter @Setter private String role;
 	@OneToMany(mappedBy = "employee")
 	@JsonIgnoreProperties("employee")
-	public Set<Project> getProject() {
-		return project;
-	}
-	public void setProject(Set<Project> project) {
-		this.project = project;
-	}
+	@Getter @Setter private Set<Project> project = new HashSet<Project>();
+
 	
 	
 }
