@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,22 +20,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "employees")
+@Data
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "employee_id")
-	@Getter @Setter private int employeeId;
+	private int employeeId;
 	@Column(name = "name")
-	@Getter @Setter private String name;
+	private String name;
 	@Column(name = "last_name")
-	@Getter @Setter private String lastName;
+	private String lastName;
 	@Column(name = "role")
-	@Getter @Setter private String role;
+	private String role;
 	@OneToMany(mappedBy = "employee")
 	@JsonIgnoreProperties("employee")
-	@Getter @Setter private Set<Project> project = new HashSet<Project>();
+	private Set<Project> project = new HashSet<Project>();
 
 	
 	
