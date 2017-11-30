@@ -1,39 +1,53 @@
 package com.moi.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.moi.dao.ClientDAO;
 import com.moi.entity.Client;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class ClientServiceImpl implements ClientService{
 
 	@Autowired
-	private ClientDAO clientDAO;
+	ClientRepository clientRepository;
 
-	public List<Client> getAllClients() {
-		return clientDAO.getAllClients();
+	public ClientServiceImpl(ClientRepository clientRepository){
+		this.clientRepository = clientRepository;
 	}
-
-	public synchronized boolean addClient(Client client) {
-			clientDAO.addClient(client);
-			return true;
+	@Override
+	public List<Client> getAllClients(){
+		List<Client> list = new LinkedList<>();
+		for(Client clt : clientRepository.findAll())
+		{
+			list.add(clt);
+		}
+		return list;
 	}
-
-	public Client getClientById(int clientId) {
-		Client obj = clientDAO.getClientById(clientId);
-		return obj;
+	@Override
+	public Client getClientById(Long clientId) {
+		return clientRepository.findOne(clientId);
 	}
-
+	@Override
+	public boolean addClient(Client client) {
+		clientRepository.save(client);
+		return true;
+	}
+	@Override
 	public void updateClient(Client client) {
-		clientDAO.updateClient(client);
+		clientRepository.save(client);
+	}
+	@Override
+	public void deleteClient(Long clientId) {
+		clientRepository.delete(clientId);
 	}
 
-	public void deleteClient(int clientId) {
-		clientDAO.deleteClient(clientId);
-	}
+
+
 	
 }

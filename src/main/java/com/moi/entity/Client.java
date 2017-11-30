@@ -25,7 +25,7 @@ public class Client implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "client_id")
-	private int clientId;
+	private Long clientId;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "address")
