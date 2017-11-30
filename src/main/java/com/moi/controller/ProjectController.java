@@ -25,7 +25,7 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@GetMapping("projects/{id}")
-	public ResponseEntity<Project> getProjectById(@PathVariable("id") Integer id) {
+	public ResponseEntity<Project> getProjectById(@PathVariable("id") Long id) {
 		Project project = projectService.getProjectById(id);
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
@@ -51,7 +51,7 @@ public class ProjectController {
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 	@DeleteMapping("projects/{id}")
-	public ResponseEntity<Void> deleteProject(@PathVariable("id") Integer id) {
+	public ResponseEntity<Void> deleteProject(@PathVariable("id") Long id) {
 		projectService.deleteProject(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

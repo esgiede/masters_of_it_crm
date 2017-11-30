@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -26,7 +28,7 @@ public class Project implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "project_id")
-	private int projectId;
+	private Long projectId;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "start_date")
@@ -35,11 +37,11 @@ public class Project implements Serializable {
 	private Date endDate;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)
-	@JsonManagedReference
+	@JsonBackReference(value = "client")
 	private Client client;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
-	@JsonManagedReference
+	@JsonBackReference(value = "employee")
 	private Employee employee;
 	@Column(name = "client_id")
 	private int clientId;

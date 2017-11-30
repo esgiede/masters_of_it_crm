@@ -1,37 +1,45 @@
 package com.moi.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.moi.dao.ProjectDAO;
 import com.moi.entity.Project;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
-	private ProjectDAO projectDAO;
+	private ProjectRepository projectRepository;
 
 	public List<Project> getAllProjects() {
-		return projectDAO.getAllProjects();
+		List<Project> list = new LinkedList<>();
+		for(Project prj : projectRepository.findAll())
+		{
+			list.add(prj);
+		}
+		return list;
 	}
 	
 	public synchronized boolean addProject(Project project) {
-	            projectDAO.addProject(project);
-	            return true;
+		projectRepository.save(project);
+		return true;
 	}
 
-	public Project getProjectById(int projectId) {
-		Project obj = projectDAO.getProjectById(projectId);
+	public Project getProjectById(Long projectId) {
+		Project obj = projectRepository.findOne(projectId);
 		return obj;
 	}
 
 	public void updateProject(Project project) {
-		projectDAO.updateProject(project);
+		projectRepository.save(project);
 	}
 
-	public void deleteProject(int projectId) {
-		projectDAO.deleteProject(projectId);
+	public void deleteProject(Long projectId) {
+		projectRepository.delete(projectId);
 	}
 }

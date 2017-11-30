@@ -38,7 +38,7 @@ public class Employee implements Serializable {
 	@Column(name = "role")
 	private String role;
 	@OneToMany(mappedBy = "employee")
-	@JsonIgnore
+	@JsonManagedReference(value = "employee")
 	private Set<Project> project = new HashSet<Project>();
 
 	
