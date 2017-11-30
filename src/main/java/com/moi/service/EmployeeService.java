@@ -6,8 +6,8 @@ import com.moi.entity.Employee;
 
 public interface EmployeeService {
 	List<Employee> getAllEmployees();
-	Employee getEmployeeById(int employeeId);
+	Employee getEmployeeById(Long employeeId);
 	boolean addEmployee(Employee employee);
 	void updateEmployee(Employee employee);
-	void deleteEmployee(int employeeId);
+	void deleteEmployee(Long employeeId);
 }

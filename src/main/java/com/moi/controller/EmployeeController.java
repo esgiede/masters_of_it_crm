@@ -20,7 +20,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	
 	@GetMapping("employees/{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Integer id) {
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
 		Employee employee = employeeService.getEmployeeById(id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
@@ -46,7 +46,7 @@ public class EmployeeController {
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 	@DeleteMapping("employees/{id}")
-	public ResponseEntity<Void> employeeClient(@PathVariable("id") Integer id) {
+	public ResponseEntity<Void> employeeClient(@PathVariable("id") Long id) {
 		employeeService.deleteEmployee(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
