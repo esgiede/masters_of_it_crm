@@ -24,14 +24,12 @@ public class EmployeeController {
 		Employee employee = employeeService.getEmployeeById(id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
-	
 	@GetMapping("employees")
 	public ResponseEntity<List<Employee>> getAllEmployees() {
 		List<Employee> list = employeeService.getAllEmployees();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}
-	
 	@PostMapping("employees")
 	public ResponseEntity<Void> addEmployee(@RequestBody Employee employee, UriComponentsBuilder builder) {
 		employeeService.addEmployee(employee);
@@ -39,7 +37,6 @@ public class EmployeeController {
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getEmployeeId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
-
 	@PutMapping("employees")
 	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
 		employeeService.updateEmployee(employee);
