@@ -14,8 +14,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "employees")
@@ -34,8 +32,8 @@ public class Employee implements Serializable {
 	@Column(name = "role")
 	private String role;
 	@OneToMany(mappedBy = "employee")
-	@JsonManagedReference(value = "employee")
-	private Set<Project> project = new HashSet<Project>();
+	@JsonIgnore
+	private Set<Project> project = new HashSet<>();
 
 	
 	
