@@ -1,12 +1,9 @@
 package test.rest.tests;
 
+import com.moi.entity.Client;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.jayway.restassured.RestAssured.*;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class ClientControllerRestTest{
@@ -29,15 +26,15 @@ public class ClientControllerRestTest{
                 .body("name",equalTo("Drutex sp. z.o.o"))
                 .body("address", equalTo("Bytow, ul. slaska 6"))
                 .body("contact", equalTo("Jan Nowak"))
-        .statusCode(200);
+                .statusCode(200);
     }
     @Test
     public void addClient() {
-        Map<String,String> client = new HashMap<>();
-        client.put("name", "Klient testowy");
-        client.put("address", "Lublin, ul. Morwowa");
-        client.put("contact", "Jan Kowalski");
-        client.put("phone", "111111111");
+        Client client = new Client();
+        client.setName("Klient testowy");
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact("Jan kowalski");
+        client.setPhone(111111111);
 
         given()
                 .contentType("application/json")
@@ -47,11 +44,11 @@ public class ClientControllerRestTest{
     }
     @Test
     public void addClientConflict() {
-        Map<String,String> client = new HashMap<>();
-        client.put("name", "Klient testowy");
-        client.put("address", "Lublin, ul. Morwowa");
-        client.put("contact", "Jan Kowalski");
-        client.put("phone", "111111111");
+        Client client = new Client();
+        client.setName("Klient testowy");
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact("Jan kowalski");
+        client.setPhone(111111111);
 
         given()
                 .contentType("application/json")
