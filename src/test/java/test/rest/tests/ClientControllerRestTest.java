@@ -20,11 +20,12 @@ public class ClientControllerRestTest{
     public void wrongUrl(){
         given().when().get("clientss").then().statusCode(404);
     }
+
     @Test
     public void verifyClientName() {
         given().when().get("/clients/1").then()
                 .body("name",equalTo("Drutex sp. z.o.o"))
-                .body("address", equalTo("Bytow, ul. slaska 6"))
+                .body("address", equalTo("Bytow, ul. Slaska 6"))
                 .body("contact", equalTo("Jan Nowak"))
                 .statusCode(200);
     }
@@ -55,6 +56,25 @@ public class ClientControllerRestTest{
                 .body(client)
                 .when().post("/clients").then()
                 .statusCode(409);
+    }
+    @Test
+    public void updateClient() {
+        Client client = new Client();
+        client.setClientId((long) 2);
+        client.setName("Test edycji");
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact("Jan kowalski");
+        client.setPhone(111111111);
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().put("/clients").then()
+                .statusCode(200);
+
+        given().when().get("/clients/2").then()
+                .body("name",equalTo("Test edycji"))
+                .statusCode(200);
     }
 
 }
