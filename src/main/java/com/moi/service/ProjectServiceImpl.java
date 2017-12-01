@@ -25,14 +25,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return list;
 	}
 	
-	public synchronized boolean addProject(Project project) {
+	public synchronized void addProject(Project project) {
 		projectRepository.save(project);
-		return true;
 	}
 
 	public Project getProjectById(Long projectId) {
-		Project obj = projectRepository.findOne(projectId);
-		return obj;
+		return projectRepository.findOne(projectId);
 	}
 
 	public void updateProject(Project project) {

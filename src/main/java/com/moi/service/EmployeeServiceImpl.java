@@ -26,14 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return list;
 	}
 	
-	public synchronized boolean addEmployee(Employee employee){
+	public synchronized void addEmployee(Employee employee){
             employeeRepository.save(employee);
-            return true;
-        }
+	}
 
 	public Employee getEmployeeById(Long employeeId) {
-		Employee obj = employeeRepository.findOne(employeeId);
-		return obj;
+		return employeeRepository.findOne(employeeId);
 	}
 
 	public void updateEmployee(Employee employee) {

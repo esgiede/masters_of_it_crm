@@ -34,9 +34,8 @@ public class ClientServiceImpl implements ClientService{
 		return clientRepository.findOne(clientId);
 	}
 	@Override
-	public boolean addClient(Client client) {
+	public void addClient(Client client) {
 		clientRepository.save(client);
-		return true;
 	}
 	@Override
 	public void updateClient(Client client) {
