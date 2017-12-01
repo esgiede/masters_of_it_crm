@@ -1,12 +1,9 @@
 package com.moi.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 @Entity
