@@ -42,7 +42,7 @@ public class ClientControllerRestTest{
         client.setName("Test dodawania klienta");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Jan kowalski");
-        client.setPhone(111111111);
+        client.setPhone("111111111");
 
         given()
                 .contentType("application/json")
@@ -56,7 +56,7 @@ public class ClientControllerRestTest{
         client.setName("Test dodawania klienta");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Jan kowalski");
-        client.setPhone(111111111);
+        client.setPhone("111111111");
 
         given()
                 .contentType("application/json")
@@ -71,7 +71,7 @@ public class ClientControllerRestTest{
         client.setName("Wyedytowana nazwa");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Jan kowalski");
-        client.setPhone(111111111);
+        client.setPhone("111111111");
 
         given()
                 .contentType("application/json")
@@ -90,7 +90,7 @@ public class ClientControllerRestTest{
         client.setName("Test edycji adresu");
         client.setAddress("Krakow, ul. Poznanska");
         client.setContact("Jan kowalski");
-        client.setPhone(111111111);
+        client.setPhone("111111111");
 
         given()
                 .contentType("application/json")
@@ -109,7 +109,7 @@ public class ClientControllerRestTest{
         client.setName("Test edycji kontaktu");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Damian Nowak");
-        client.setPhone(111111111);
+        client.setPhone("111111111");
 
         given()
                 .contentType("application/json")
@@ -128,7 +128,7 @@ public class ClientControllerRestTest{
         client.setName("Test edycji telefonu");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Jan kowalski");
-        client.setPhone(222222222);
+        client.setPhone("222222222");
 
         given()
                 .contentType("application/json")
@@ -137,7 +137,7 @@ public class ClientControllerRestTest{
                 .statusCode(200);
 
         given().when().get("/clients/5").then()
-                .body("phone",equalTo(222222222))
+                .body("phone",equalTo("222222222"))
                 .statusCode(200);
     }
     @Test
@@ -147,7 +147,7 @@ public class ClientControllerRestTest{
         client.setName("Wyedytowana nazwa2");
         client.setAddress("Wyedytowany adres");
         client.setContact("Wyedytowany kontakt");
-        client.setPhone(333333333);
+        client.setPhone("333333333");
 
         given()
                 .contentType("application/json")
@@ -159,11 +159,104 @@ public class ClientControllerRestTest{
                 .body("name",equalTo("Wyedytowana nazwa2"))
                 .body("address",equalTo("Wyedytowany adres"))
                 .body("contact",equalTo("Wyedytowany kontakt"))
-                .body("phone",equalTo(333333333))
+                .body("phone",equalTo("333333333"))
                 .statusCode(200);
     }
     @Test
     public void deleteClient() {
         given().when().delete("clients/7").then().statusCode(204);
+    }
+    @Test
+    public void addClientEmptyName() {
+        Client client = new Client();
+        client.setName(null);
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact("Jan kowalski");
+        client.setPhone("111111111");
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().post("/clients").then()
+                .statusCode(500);
+    }
+    @Test
+    public void addClientEmptyAddress() {
+        Client client = new Client();
+        client.setName("Test dodawania klienta");
+        client.setAddress(null);
+        client.setContact("Jan kowalski");
+        client.setPhone("111111111");
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().post("/clients").then()
+                .statusCode(500);
+    }
+    @Test
+    public void addClientEmptyContact() {
+        Client client = new Client();
+        client.setName("Test dodawania klienta");
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact(null);
+        client.setPhone("111111111");
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().post("/clients").then()
+                .statusCode(500);
+    }
+    @Test
+    public void addClientEmptyPhone() {
+        Client client = new Client();
+        client.setName("Test dodawania klienta");
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact("Jan kowalski");
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().post("/clients").then()
+                .statusCode(500);
+    }
+    @Test
+    public void addClientEmptyAllParameters() {
+        Client client = new Client();
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().post("/clients").then()
+                .statusCode(500);
+    }
+    @Test
+    public void addClientPhoneTooShort() {
+        Client client = new Client();
+        client.setName("Test dodawania klienta");
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact(null);
+        client.setPhone("111");
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().post("/clients").then()
+                .statusCode(500);
+    }
+    @Test
+    public void addClientPhoneTooLong() {
+        Client client = new Client();
+        client.setName("Test dodawania klienta");
+        client.setAddress("Lublin, ul. Morwowa");
+        client.setContact(null);
+        client.setPhone("1111111111111");
+
+        given()
+                .contentType("application/json")
+                .body(client)
+                .when().post("/clients").then()
+                .statusCode(500);
     }
 }

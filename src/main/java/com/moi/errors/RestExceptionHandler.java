@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
+
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -52,6 +54,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleDataIntegrityViolationException(
             DataIntegrityViolationException ex) {
         ApiError apiError = new ApiError(CONFLICT);
+        apiError.setMessage("Wprowadź poprawnie wszystkie parametry");
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ResponseEntity<Object> handleConstraintViolationException(
+            ConstraintViolationException ex) {
+        ApiError apiError = new ApiError(INTERNAL_SERVER_ERROR);
         apiError.setMessage("Wprowadź poprawnie wszystkie parametry");
         return buildResponseEntity(apiError);
     }
