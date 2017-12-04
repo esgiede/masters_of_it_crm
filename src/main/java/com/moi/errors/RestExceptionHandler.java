@@ -1,5 +1,6 @@
 package com.moi.errors;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -31,6 +32,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         String error = "Method not supported";
         return buildResponseEntity(new ApiError(HttpStatus.METHOD_NOT_ALLOWED, error, ex));
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String error = "Podaj prawidłowy typ danych";
+        return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, error, ex));
     }
 
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)

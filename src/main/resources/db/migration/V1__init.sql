@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 01 Gru 2017, 11:15
+-- Czas generowania: 04 Gru 2017, 07:55
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 7.1.11
 
@@ -36,6 +36,19 @@ CREATE TABLE `clients` (
   `phone` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Zrzut danych tabeli `clients`
+--
+
+INSERT INTO `clients` (`client_id`, `name`, `address`, `contact`, `phone`) VALUES
+(1, 'Drutex sp. z o.o.', 'Bytow, ul. Slaska 123', 'Jan Kowalczyk', 794355428),
+(2, 'Test edycji nazwy', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
+(3, 'Test edycji adresu', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
+(4, 'Test edycji kontaktu', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
+(5, 'Test edycji numeru telefonu', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
+(6, 'Test edycji wszystkich parametrów', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
+(7, 'Test usuwania', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111);
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +61,17 @@ CREATE TABLE `employees` (
   `last_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `role` enum('Front-end developer','Back-end developer','Software tester','Analyst','Scrum master','Project manager') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Zrzut danych tabeli `employees`
+--
+
+INSERT INTO `employees` (`employee_id`, `name`, `last_name`, `role`) VALUES
+(5, 'Jan ', 'Kowalski', 'Front-end developer'),
+(6, 'Marcin', 'Nowak', 'Back-end developer'),
+(7, 'Joanna', 'Brzoza', 'Software tester'),
+(8, 'Jakub', 'Wolny', 'Analyst'),
+(9, 'Miros?â€šaw', 'Kamionka', 'Project manager');
 
 -- --------------------------------------------------------
 
@@ -63,6 +87,13 @@ CREATE TABLE `projects` (
   `client_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Zrzut danych tabeli `projects`
+--
+
+INSERT INTO `projects` (`project_id`, `name`, `start_date`, `end_date`, `client_id`) VALUES
+(5, 'Wykonanie aplikacji webowej', '2017-12-09', NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -75,7 +106,19 @@ CREATE TABLE `projects_has_employees` (
   `employee_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
+--
+-- Zrzut danych tabeli `projects_has_employees`
+--
+
+INSERT INTO `projects_has_employees` (`phe_id`, `project_id`, `employee_id`) VALUES
+(5, 5, 7),
+(10, 5, 5),
+(11, 5, 6);
+
 -- --------------------------------------------------------
+
+-- Indeksy dla zrzutĂłw tabel
+--
 
 --
 -- Indexes for table `clients`
@@ -107,6 +150,9 @@ ALTER TABLE `projects_has_employees`
   ADD KEY `employee_id` (`employee_id`);
 
 --
+-- Indexes for table `schema_version`
+--
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -114,25 +160,25 @@ ALTER TABLE `projects_has_employees`
 -- AUTO_INCREMENT dla tabeli `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `client_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `project_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `projects_has_employees`
 --
 ALTER TABLE `projects_has_employees`
-  MODIFY `phe_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `phe_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Ograniczenia dla zrzutĂłw tabel
