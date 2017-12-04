@@ -67,11 +67,16 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`employee_id`, `name`, `last_name`, `role`) VALUES
-(5, 'Jan ', 'Kowalski', 'Front-end developer'),
-(6, 'Marcin', 'Nowak', 'Back-end developer'),
-(7, 'Joanna', 'Brzoza', 'Software tester'),
-(8, 'Jakub', 'Wolny', 'Analyst'),
-(9, 'Miros?â€šaw', 'Kamionka', 'Project manager');
+(1, 'Jan ', 'Kowalski', 'Front-end developer'),
+(2, 'Marcin', 'Nowak', 'Back-end developer'),
+(3, 'Joanna', 'Brzoza', 'Software tester'),
+(4, 'Jakub', 'Wolny', 'Analyst'),
+(5, 'Miroslaw', 'Kamionka', 'Project manager'),
+(6, 'Edycja', 'Imienia', 'Project manager'),
+(7, 'Edycja', 'Nazwiska', 'Project manager'),
+(8, 'Edycja', 'Stanowiska', 'Project manager'),
+(9, 'Edycja', 'Wpisu', 'Project manager'),
+(10, 'Usuniecie', 'Wpisu', 'Project manager');
 
 -- --------------------------------------------------------
 
@@ -111,9 +116,9 @@ CREATE TABLE `projects_has_employees` (
 --
 
 INSERT INTO `projects_has_employees` (`phe_id`, `project_id`, `employee_id`) VALUES
-(5, 5, 7),
-(10, 5, 5),
-(11, 5, 6);
+(1, 5, 1),
+(2, 5, 2),
+(3, 5, 3);
 
 -- --------------------------------------------------------
 

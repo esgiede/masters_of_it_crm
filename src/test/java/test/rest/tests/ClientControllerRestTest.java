@@ -29,14 +29,7 @@ public class ClientControllerRestTest{
         given().when().post("clients/11").then().statusCode(405);
     }
     @Test
-    public void methodNotSupportedPut(){
-        given().when().put("clients/12").then().statusCode(405);
-    }
-    /*@Test
-    public void emptyRequestBody(){
-        Client client = new Client();
-        given().when().post("clients").then().statusCode(400);
-    }*/
+    public void methodNotSupportedPut(){ given().when().put("clients/12").then().statusCode(405); }
     @Test
     public void verifyClientName() {
         given().when().get("/clients/1").then()
