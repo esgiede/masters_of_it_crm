@@ -23,9 +23,9 @@ public class Project implements Serializable {
 	@Column(name = "name")
 	private String name;
 	@Column(name = "start_date")
-	private Date startDate;
+	private String startDate;
 	@Column(name = "end_date")
-	private Date endDate;
+	private String endDate;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)
 	@JsonBackReference(value = "client")

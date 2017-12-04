@@ -21,9 +21,7 @@ public class EmployeeControllerRestTest {
         given().when().get("employes").then().statusCode(404);
     }
     @Test
-    public void methodNotSupportedDelete(){
-        given().when().delete("employees").then().statusCode(405);
-    }
+    public void methodNotSupportedDelete(){ given().when().delete("employees").then().statusCode(405); }
     @Test
     public void methodNotSupportedPost(){
         given().when().post("employees/11").then().statusCode(405);
@@ -31,9 +29,10 @@ public class EmployeeControllerRestTest {
     @Test
     public void methodNotSupportedPut(){ given().when().put("employees/12").then().statusCode(405); }
     @Test
-    public void verifyClientName() {
-        given().when().get("/clients/1").then()
-                .body("name",equalTo("Drutex sp. z o.o."))
+    public void verifyEmployeeName() {
+        given().when().get("/employees/1").then()
+                .body("name",equalTo("Jan"))
+                .body("lastName",equalTo("Kowalski"))
                 .statusCode(200);
     }
     @Test
