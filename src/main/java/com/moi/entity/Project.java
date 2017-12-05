@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
@@ -20,8 +21,10 @@ public class Project implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "project_id")
 	private Long projectId;
+	@NotNull
 	@Column(name = "name")
 	private String name;
+	@NotNull
 	@Column(name = "start_date")
 	private String startDate;
 	@Column(name = "end_date")
@@ -30,6 +33,7 @@ public class Project implements Serializable {
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)
 	@JsonBackReference(value = "client")
 	private Client client;
+	@NotNull
 	@Column(name = "client_id")
 	private int clientId;
 	@ManyToMany(cascade = {CascadeType.ALL})

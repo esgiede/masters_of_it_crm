@@ -165,5 +165,37 @@ public class ProjectControllerRestTest {
     public void deleteProject(){
         given().when().delete("projects/9").then().statusCode(204);
     }
+    @Test
+    public void addProjectEmptyName() {
+        Project project = new Project();
+        project.setName(null);
+        project.setStartDate("2017-12-09");
+        project.setEndDate(null);
+        project.setClientId(3);
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().post("/projects").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
+    }
+    @Test
+    public void addProjectEmptyStartDate(){
+        //TO DO
+    }
+    @Test
+    public void addProjectEmptyClientId(){
+        //TO DO
+    }
+    @Test
+    public void addProjectInvalidStartDateFormat(){
+        //TO DO
+    }
+    @Test
+    public void addProjectInvalidEndDateFormat(){
+        //TO DO
+    }
+
 
 }

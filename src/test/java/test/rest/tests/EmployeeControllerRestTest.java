@@ -136,7 +136,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().post("/employees").then()
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
@@ -150,7 +150,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().post("/employees").then()
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
@@ -164,7 +164,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().post("/employees").then()
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
@@ -178,7 +178,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().post("/employees").then()
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
