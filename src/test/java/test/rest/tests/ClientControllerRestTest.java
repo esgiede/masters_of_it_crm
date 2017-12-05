@@ -78,7 +78,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .statusCode(409);
+                .statusCode(500);
     }
     @Test
     public void updateClientName() {

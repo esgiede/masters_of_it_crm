@@ -53,25 +53,30 @@ public class ProjectControllerRestTest {
                 .when().post("/projects").then()
                 .statusCode(201);
     }
+    ///////////////////////////////////////////////////////
     @Test
-    public void addProjectWithEmployees(){
+    public void addEmployeeToProject(){
         Project project = new Project();
-        project.setName("Nowy projekt2");
+        project.setProjectId((long)10);
+        project.setName("Nowy projekt");
         project.setStartDate("2017-10-10");
         project.setEndDate("2018-10-10");
         project.setClientId(2);
 
         Set<Employee> employees = new HashSet<>();
 
-        employees.add(new Employee("Jan", "Kowalski", "Front-end developer"));
+        employees.add(given()
+        .body(project)
+        .when().get("/employees/2")
+        .as(Employee.class));
 
         project.setEmployees(employees);
 
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().post("/projects").then()
-                .statusCode(201);
+                .when().put("/projects").then()
+                .statusCode(200);
     }
     @Test
     public void updateProjectName() {
@@ -151,15 +156,42 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void editEmployeesInProject(){
-        //TO DO
-    }
-    @Test
-    public void addEmployeesToProject (){
-        //TO DO
+        Project project = new Project();
+        project.setProjectId((long)6);
+        project.setName("Test edycji pracownikow");
+        project.setStartDate("2017-12-09");
+        project.setEndDate(null);
+        project.setClientId(1);
+
+        Set<Employee> employees = new HashSet<>();
+
+        employees.add(given()
+                .body(project)
+                .when().get("/employees/3")
+                .as(Employee.class));
+
+        project.setEmployees(employees);
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().put("/projects").then()
+                .statusCode(200);
     }
     @Test
     public void deleteEmployeesInProject(){
-        //TO DO
+        Project project = new Project();
+        project.setProjectId((long)8);
+        project.setName("Test usuwania pracownikow");
+        project.setStartDate("2017-12-09");
+        project.setEndDate("2017-12-09");
+        project.setClientId(1);
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().put("/projects").then()
+                .statusCode(200);
     }
     @Test
     public void deleteProject(){
@@ -182,19 +214,48 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void addProjectEmptyStartDate(){
-        //TO DO
-    }
-    @Test
-    public void addProjectEmptyClientId(){
-        //TO DO
+        Project project = new Project();
+        project.setName("Pusta data rozpoczecia");
+        project.setStartDate(null);
+        project.setEndDate(null);
+        project.setClientId(3);
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().post("/projects").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
     }
     @Test
     public void addProjectInvalidStartDateFormat(){
-        //TO DO
+        Project project = new Project();
+        project.setName("Niepoprawny format daty");
+        project.setStartDate("test");
+        project.setEndDate(null);
+        project.setClientId(3);
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().post("/projects").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
     }
     @Test
     public void addProjectInvalidEndDateFormat(){
-        //TO DO
+        Project project = new Project();
+        project.setName("Niepoprawny format daty");
+        project.setStartDate("2017-12-12");
+        project.setEndDate("test");
+        project.setClientId(3);
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().post("/projects").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
     }
 
 

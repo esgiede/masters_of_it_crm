@@ -27,12 +27,5 @@ public class Employee implements Serializable {
 	@Column(name = "role")
 	private String role;
 
-	public Employee() {
-	}
 
-	public Employee(String name, String lastName, String role) {
-		this.name = name;
-		this.lastName = lastName;
-		this.role = role;
-	}
 }

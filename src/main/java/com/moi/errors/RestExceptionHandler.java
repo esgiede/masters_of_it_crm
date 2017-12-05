@@ -54,7 +54,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<Object> handleDataIntegrityViolationException(
             DataIntegrityViolationException ex) {
-        ApiError apiError = new ApiError(CONFLICT);
+        ApiError apiError = new ApiError(INTERNAL_SERVER_ERROR);
         apiError.setMessage("Wprowadź poprawnie wszystkie parametry");
         return buildResponseEntity(apiError);
     }
