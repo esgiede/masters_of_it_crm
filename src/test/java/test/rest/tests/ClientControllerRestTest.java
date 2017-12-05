@@ -14,7 +14,11 @@ public class ClientControllerRestTest{
     }
     @Test
     public void badRequest(){
-        given().when().get("clients/b").then().statusCode(404);
+
+        given()
+                .when().get("clients/b").then()
+                .body("message", equalTo("Podaj prawidłowy typ danych"))
+                .statusCode(404);
     }
     @Test
     public void wrongUrl(){
@@ -22,14 +26,26 @@ public class ClientControllerRestTest{
     }
     @Test
     public void methodNotSupportedDelete(){
-        given().when().delete("clients").then().statusCode(405);
+
+        given()
+                .when().delete("clients").then()
+                .body("message",equalTo("Method not supported"))
+                .statusCode(405);
     }
     @Test
     public void methodNotSupportedPost(){
-        given().when().post("clients/11").then().statusCode(405);
+
+        given()
+                .when().post("clients/11").then()
+                .body("message",equalTo("Method not supported"))
+                .statusCode(405);
     }
     @Test
-    public void methodNotSupportedPut(){ given().when().put("clients/12").then().statusCode(405); }
+    public void methodNotSupportedPut(){
+        given()
+                .when().put("clients/12").then()
+                .body("message",equalTo("Method not supported"))
+                .statusCode(405); }
     @Test
     public void verifyClientName() {
         given().when().get("/clients/1").then()
@@ -65,7 +81,7 @@ public class ClientControllerRestTest{
                 .statusCode(409);
     }
     @Test
-    public void updateClientsName() {
+    public void updateClientName() {
         Client client = new Client();
         client.setClientId((long) 2);
         client.setName("Wyedytowana nazwa");
@@ -84,7 +100,7 @@ public class ClientControllerRestTest{
                 .statusCode(200);
     }
     @Test
-    public void updateClientsAddress() {
+    public void updateClientAddress() {
         Client client = new Client();
         client.setClientId((long) 3);
         client.setName("Test edycji adresu");
@@ -103,7 +119,7 @@ public class ClientControllerRestTest{
                 .statusCode(200);
     }
     @Test
-    public void updateClientsContact() {
+    public void updateClientContact() {
         Client client = new Client();
         client.setClientId((long) 4);
         client.setName("Test edycji kontaktu");
@@ -122,7 +138,7 @@ public class ClientControllerRestTest{
                 .statusCode(200);
     }
     @Test
-    public void updateClientsPhone() {
+    public void updateClientPhone() {
         Client client = new Client();
         client.setClientId((long) 5);
         client.setName("Test edycji telefonu");
@@ -178,6 +194,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
@@ -192,6 +209,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
@@ -206,6 +224,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
@@ -219,6 +238,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
@@ -229,6 +249,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
@@ -243,6 +264,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
@@ -257,6 +279,7 @@ public class ClientControllerRestTest{
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
 }

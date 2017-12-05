@@ -126,5 +126,61 @@ public class EmployeeControllerRestTest {
     public void deleteClient() {
         given().when().delete("employees/10").then().statusCode(204);
     }
+    @Test
+    public void addEmployeeEmptyName() {
+        Employee employee = new Employee();
+        employee.setName(null);
+        employee.setLastName("Wpis");
+        employee.setRole("Analyst");
+
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().put("/employees").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
+    }
+    @Test
+    public void addEmployeeEmptyLastName() {
+        Employee employee = new Employee();
+        employee.setName("Jan");
+        employee.setLastName(null);
+        employee.setRole("Analyst");
+
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().put("/employees").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
+    }
+    @Test
+    public void addEmployeeEmptyRole() {
+        Employee employee = new Employee();
+        employee.setName("Jan");
+        employee.setLastName("Kowalski");
+        employee.setRole(null);
+
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().put("/employees").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
+    }
+    @Test
+    public void addEmployeeInvalidRole() {
+        Employee employee = new Employee();
+        employee.setName("Jan");
+        employee.setLastName("Kowalski");
+        employee.setRole("invalid role");
+
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().put("/employees").then()
+                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
+                .statusCode(500);
+    }
 
 }

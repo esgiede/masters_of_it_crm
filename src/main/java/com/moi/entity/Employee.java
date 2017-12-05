@@ -3,6 +3,7 @@ package com.moi.entity;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -16,13 +17,22 @@ public class Employee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "employee_id")
 	private Long employeeId;
+	@NotNull
 	@Column(name = "name")
 	private String name;
+	@NotNull
 	@Column(name = "last_name")
 	private String lastName;
+	@NotNull
 	@Column(name = "role")
 	private String role;
 
-	
-	
+	public Employee() {
+	}
+
+	public Employee(String name, String lastName, String role) {
+		this.name = name;
+		this.lastName = lastName;
+		this.role = role;
+	}
 }

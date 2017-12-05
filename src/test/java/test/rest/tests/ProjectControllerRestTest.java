@@ -4,9 +4,7 @@ import com.moi.entity.Employee;
 import com.moi.entity.Project;
 import org.junit.Test;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -57,7 +55,23 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void addProjectWithEmployees(){
-        //TO DO
+        Project project = new Project();
+        project.setName("Nowy projekt2");
+        project.setStartDate("2017-10-10");
+        project.setEndDate("2018-10-10");
+        project.setClientId(2);
+
+        Set<Employee> employees = new HashSet<>();
+
+        employees.add(new Employee("Jan", "Kowalski", "Front-end developer"));
+
+        project.setEmployees(employees);
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().post("/projects").then()
+                .statusCode(201);
     }
     @Test
     public void updateProjectName() {
