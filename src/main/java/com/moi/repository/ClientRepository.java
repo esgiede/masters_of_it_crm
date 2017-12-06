@@ -1,4 +1,4 @@
-package com.moi.service;
+package com.moi.repository;
 
 import com.moi.entity.Client;
 import org.springframework.data.repository.CrudRepository;
