@@ -4,6 +4,7 @@ import com.moi.entity.Employee;
 import com.moi.entity.Project;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -43,8 +44,8 @@ public class ProjectControllerRestTest {
     public void addProject() {
         Project project = new Project();
         project.setName("Nowy projekt");
-        project.setStartDate("2017-10-10");
-        project.setEndDate("2018-10-10");
+        project.setStartDate(LocalDate.parse("2017-10-10"));
+        project.setEndDate(LocalDate.parse("2018-10-10"));
         project.setClientId(2);
 
         given()
@@ -59,8 +60,8 @@ public class ProjectControllerRestTest {
         Project project = new Project();
         project.setId((long)10);
         project.setName("Nowy projekt");
-        project.setStartDate("2017-10-10");
-        project.setEndDate("2018-10-10");
+        project.setStartDate(LocalDate.parse("2017-10-10"));
+        project.setEndDate(LocalDate.parse("2018-10-10"));
         project.setClientId(2);
 
         Set<Employee> employees = new HashSet<>();
@@ -83,7 +84,7 @@ public class ProjectControllerRestTest {
         Project project = new Project();
         project.setId((long) 2);
         project.setName("Nowa nazwa");
-        project.setStartDate("2017-12-10");
+        project.setStartDate(LocalDate.parse("2017-12-10"));
         project.setEndDate(null);
         project.setClientId(1);
 
@@ -102,7 +103,7 @@ public class ProjectControllerRestTest {
         Project project = new Project();
         project.setId((long) 3);
         project.setName("Test edycji daty rozpoczecia");
-        project.setStartDate("2016-10-10");
+        project.setStartDate(LocalDate.parse("2016-10-10"));
         project.setEndDate(null);
         project.setClientId(1);
 
@@ -121,8 +122,8 @@ public class ProjectControllerRestTest {
         Project project = new Project();
         project.setId((long) 4);
         project.setName("Test edycji daty zakonczenia");
-        project.setStartDate("2017-12-09");
-        project.setEndDate("2018-10-10");
+        project.setStartDate(LocalDate.parse("2017-12-09"));
+        project.setEndDate(LocalDate.parse("2018-10-10"));
         project.setClientId(1);
 
         given()
@@ -140,7 +141,7 @@ public class ProjectControllerRestTest {
         Project project = new Project();
         project.setId((long) 5);
         project.setName("Test edycji klienta");
-        project.setStartDate("2017-12-09");
+        project.setStartDate(LocalDate.parse("2017-12-09"));
         project.setEndDate(null);
         project.setClientId(3);
 
@@ -159,7 +160,7 @@ public class ProjectControllerRestTest {
         Project project = new Project();
         project.setId((long)6);
         project.setName("Test edycji pracownikow");
-        project.setStartDate("2017-12-09");
+        project.setStartDate(LocalDate.parse("2017-12-09"));
         project.setEndDate(null);
         project.setClientId(1);
 
@@ -183,8 +184,8 @@ public class ProjectControllerRestTest {
         Project project = new Project();
         project.setId((long)8);
         project.setName("Test usuwania pracownikow");
-        project.setStartDate("2017-12-09");
-        project.setEndDate("2017-12-09");
+        project.setStartDate(LocalDate.parse("2017-12-09"));
+        project.setEndDate(LocalDate.parse("2017-12-09"));
         project.setClientId(1);
 
         given()
@@ -201,7 +202,7 @@ public class ProjectControllerRestTest {
     public void addProjectEmptyName() {
         Project project = new Project();
         project.setName(null);
-        project.setStartDate("2017-12-09");
+        project.setStartDate(LocalDate.parse("2017-12-09"));
         project.setEndDate(null);
         project.setClientId(3);
 
@@ -218,36 +219,6 @@ public class ProjectControllerRestTest {
         project.setName("Pusta data rozpoczecia");
         project.setStartDate(null);
         project.setEndDate(null);
-        project.setClientId(3);
-
-        given()
-                .contentType("application/json")
-                .body(project)
-                .when().post("/projects").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
-                .statusCode(500);
-    }
-    @Test
-    public void addProjectInvalidStartDateFormat(){
-        Project project = new Project();
-        project.setName("Niepoprawny format daty");
-        project.setStartDate("test");
-        project.setEndDate(null);
-        project.setClientId(3);
-
-        given()
-                .contentType("application/json")
-                .body(project)
-                .when().post("/projects").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
-                .statusCode(500);
-    }
-    @Test
-    public void addProjectInvalidEndDateFormat(){
-        Project project = new Project();
-        project.setName("Niepoprawny format daty");
-        project.setStartDate("2017-12-12");
-        project.setEndDate("test");
         project.setClientId(3);
 
         given()

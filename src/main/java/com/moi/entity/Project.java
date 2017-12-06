@@ -1,7 +1,7 @@
 package com.moi.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Entity
@@ -25,10 +26,12 @@ public class Project implements Serializable {
 	@Column(name = "name")
 	private String name;
 	@NotNull
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_date")
-	private String startDate;
+	private LocalDate startDate;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "end_date")
-	private String endDate;
+	private LocalDate endDate;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)
 	@JsonBackReference(value = "client")
