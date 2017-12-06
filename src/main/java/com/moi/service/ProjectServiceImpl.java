@@ -29,15 +29,15 @@ public class ProjectServiceImpl implements ProjectService {
 		projectRepository.save(project);
 	}
 
-	public Project getProjectById(Long projectId) {
-		return projectRepository.findOne(projectId);
+	public Project getProjectById(Long id) {
+		return projectRepository.findOne(id);
 	}
 
 	public void updateProject(Project project) {
 		projectRepository.save(project);
 	}
 
-	public void deleteProject(Long projectId) {
-		projectRepository.delete(projectId);
+	public void deleteProject(Long id) {
+		projectRepository.delete(id);
 	}
 }

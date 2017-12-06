@@ -6,8 +6,8 @@ import com.moi.entity.Client;
 
 public interface ClientService {
     List<Client> getAllClients();
-	Client getClientById(Long clientId);
+	Client getClientById(Long id);
 	void addClient(Client client);
 	void updateClient(Client client);
-	void deleteClient(Long clientId);
+	void deleteClient(Long id);
 }

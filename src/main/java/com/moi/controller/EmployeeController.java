@@ -34,7 +34,7 @@ public class EmployeeController {
 	public ResponseEntity<Void> addEmployee(@RequestBody Employee employee, UriComponentsBuilder builder) {
 		employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getEmployeeId()).toUri());
+        headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("employees")

@@ -83,7 +83,7 @@ public class ClientControllerRestTest{
     @Test
     public void updateClientName() {
         Client client = new Client();
-        client.setClientId((long) 2);
+        client.setId((long) 2);
         client.setName("Wyedytowana nazwa");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Jan kowalski");
@@ -102,7 +102,7 @@ public class ClientControllerRestTest{
     @Test
     public void updateClientAddress() {
         Client client = new Client();
-        client.setClientId((long) 3);
+        client.setId((long) 3);
         client.setName("Test edycji adresu");
         client.setAddress("Krakow, ul. Poznanska");
         client.setContact("Jan kowalski");
@@ -121,7 +121,7 @@ public class ClientControllerRestTest{
     @Test
     public void updateClientContact() {
         Client client = new Client();
-        client.setClientId((long) 4);
+        client.setId((long) 4);
         client.setName("Test edycji kontaktu");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Damian Nowak");
@@ -140,7 +140,7 @@ public class ClientControllerRestTest{
     @Test
     public void updateClientPhone() {
         Client client = new Client();
-        client.setClientId((long) 5);
+        client.setId((long) 5);
         client.setName("Test edycji telefonu");
         client.setAddress("Lublin, ul. Morwowa");
         client.setContact("Jan kowalski");
@@ -159,7 +159,7 @@ public class ClientControllerRestTest{
     @Test
     public void updateClient() {
         Client client = new Client();
-        client.setClientId((long) 6);
+        client.setId((long) 6);
         client.setName("Wyedytowana nazwa2");
         client.setAddress("Wyedytowany adres");
         client.setContact("Wyedytowany kontakt");

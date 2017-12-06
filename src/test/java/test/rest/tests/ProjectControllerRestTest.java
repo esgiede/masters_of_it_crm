@@ -57,7 +57,7 @@ public class ProjectControllerRestTest {
     @Test
     public void addEmployeeToProject(){
         Project project = new Project();
-        project.setProjectId((long)10);
+        project.setId((long)10);
         project.setName("Nowy projekt");
         project.setStartDate("2017-10-10");
         project.setEndDate("2018-10-10");
@@ -81,7 +81,7 @@ public class ProjectControllerRestTest {
     @Test
     public void updateProjectName() {
         Project project = new Project();
-        project.setProjectId((long) 2);
+        project.setId((long) 2);
         project.setName("Nowa nazwa");
         project.setStartDate("2017-12-10");
         project.setEndDate(null);
@@ -100,7 +100,7 @@ public class ProjectControllerRestTest {
     @Test
     public void updateStartDate() {
         Project project = new Project();
-        project.setProjectId((long) 3);
+        project.setId((long) 3);
         project.setName("Test edycji daty rozpoczecia");
         project.setStartDate("2016-10-10");
         project.setEndDate(null);
@@ -119,7 +119,7 @@ public class ProjectControllerRestTest {
     @Test
     public void updateEndDate() {
         Project project = new Project();
-        project.setProjectId((long) 4);
+        project.setId((long) 4);
         project.setName("Test edycji daty zakonczenia");
         project.setStartDate("2017-12-09");
         project.setEndDate("2018-10-10");
@@ -138,7 +138,7 @@ public class ProjectControllerRestTest {
     @Test
     public void updateClientId() {
         Project project = new Project();
-        project.setProjectId((long) 5);
+        project.setId((long) 5);
         project.setName("Test edycji klienta");
         project.setStartDate("2017-12-09");
         project.setEndDate(null);
@@ -157,7 +157,7 @@ public class ProjectControllerRestTest {
     @Test
     public void editEmployeesInProject(){
         Project project = new Project();
-        project.setProjectId((long)6);
+        project.setId((long)6);
         project.setName("Test edycji pracownikow");
         project.setStartDate("2017-12-09");
         project.setEndDate(null);
@@ -181,7 +181,7 @@ public class ProjectControllerRestTest {
     @Test
     public void deleteEmployeesInProject(){
         Project project = new Project();
-        project.setProjectId((long)8);
+        project.setId((long)8);
         project.setName("Test usuwania pracownikow");
         project.setStartDate("2017-12-09");
         project.setEndDate("2017-12-09");

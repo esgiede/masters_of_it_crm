@@ -4,9 +4,6 @@
 # Log file
 *.log
 
-# BlueJ files
-*.ctxt
-
 # Package Files #
 *.jar
 *.war
@@ -14,3 +11,11 @@
 *.zip
 *.tar.gz
 *.rar
+
+*.name
+*.idea
+*.settings
+*.project
+*.classpath
+*.lst
+*.txt

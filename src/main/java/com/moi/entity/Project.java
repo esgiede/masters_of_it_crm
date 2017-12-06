@@ -20,7 +20,7 @@ public class Project implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "project_id")
-	private Long projectId;
+	private Long id;
 	@NotNull
 	@Column(name = "name")
 	private String name;

@@ -51,7 +51,7 @@ public class EmployeeControllerRestTest {
     @Test
     public void updateEmployeeName() {
         Employee employee = new Employee();
-        employee.setEmployeeId((long) 6);
+        employee.setId((long) 6);
         employee.setName("Wyedytowane");
         employee.setLastName("Imienia");
         employee.setRole("Project manager");
@@ -69,7 +69,7 @@ public class EmployeeControllerRestTest {
     @Test
     public void updateEmployeeLastName() {
         Employee employee = new Employee();
-        employee.setEmployeeId((long) 7);
+        employee.setId((long) 7);
         employee.setName("Edycja");
         employee.setLastName("Wyedytowane");
         employee.setRole("Project manager");
@@ -87,7 +87,7 @@ public class EmployeeControllerRestTest {
     @Test
     public void updateEmployeeRole() {
         Employee employee = new Employee();
-        employee.setEmployeeId((long) 8);
+        employee.setId((long) 8);
         employee.setName("Edycja");
         employee.setLastName("Stanowiska");
         employee.setRole("Analyst");
@@ -105,7 +105,7 @@ public class EmployeeControllerRestTest {
     @Test
     public void updateEmployee() {
         Employee employee = new Employee();
-        employee.setEmployeeId((long) 9);
+        employee.setId((long) 9);
         employee.setName("Wyedytowany");
         employee.setLastName("Wpis");
         employee.setRole("Analyst");
@@ -123,7 +123,7 @@ public class EmployeeControllerRestTest {
                 .statusCode(200);
     }
     @Test
-    public void deleteClient() {
+    public void deleteEmployee() {
         given().when().delete("employees/10").then().statusCode(204);
     }
     @Test

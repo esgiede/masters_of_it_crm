@@ -33,7 +33,7 @@ public class ClientController {
 	public ResponseEntity<Void> addClient(@RequestBody Client client, UriComponentsBuilder builder) {
 		clientService.addClient(client);
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getClientId()).toUri());
+		headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getId()).toUri());
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("clients")

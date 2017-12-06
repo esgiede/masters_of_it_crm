@@ -41,7 +41,7 @@ public class ProjectController {
 	public ResponseEntity<Void> addProject(@RequestBody Project project, UriComponentsBuilder builder) {
                 projectService.addProject(project);
                 HttpHeaders headers = new HttpHeaders();
-                headers.setLocation(builder.path("/project/{id}").buildAndExpand(project.getProjectId()).toUri());
+                headers.setLocation(builder.path("/project/{id}").buildAndExpand(project.getId()).toUri());
                 return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
