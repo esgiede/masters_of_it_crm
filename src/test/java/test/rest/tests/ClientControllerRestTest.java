@@ -54,11 +54,13 @@ public class ClientControllerRestTest{
     }
    @Test
     public void addClient() {
-        Client client = new Client();
-        client.setName("Test dodawania klienta");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact("Jan kowalski");
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .name("Test dodawania klienta")
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -68,11 +70,13 @@ public class ClientControllerRestTest{
     }
     @Test
     public void addClientConflict() {
-        Client client = new Client();
-        client.setName("Test dodawania klienta");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact("Jan kowalski");
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .name("Test dodawania klienta")
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -82,12 +86,14 @@ public class ClientControllerRestTest{
     }
     @Test
     public void updateClientName() {
-        Client client = new Client();
-        client.setId((long) 2);
-        client.setName("Wyedytowana nazwa");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact("Jan kowalski");
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .id((long)2)
+                .name("Wyedytowana nazwa")
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -101,12 +107,14 @@ public class ClientControllerRestTest{
     }
     @Test
     public void updateClientAddress() {
-        Client client = new Client();
-        client.setId((long) 3);
-        client.setName("Test edycji adresu");
-        client.setAddress("Krakow, ul. Poznanska");
-        client.setContact("Jan kowalski");
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .id((long)3)
+                .name("Test edycji adresu")
+                .address("Krakow, ul. Poznanska")
+                .contact("Jan kowalski")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -120,12 +128,14 @@ public class ClientControllerRestTest{
     }
     @Test
     public void updateClientContact() {
-        Client client = new Client();
-        client.setId((long) 4);
-        client.setName("Test edycji kontaktu");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact("Damian Nowak");
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .id((long)4)
+                .name("Test edycji kontaktu")
+                .address("Lublin, ul. Morwowa")
+                .contact("Damian Nowak")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -139,12 +149,14 @@ public class ClientControllerRestTest{
     }
     @Test
     public void updateClientPhone() {
-        Client client = new Client();
-        client.setId((long) 5);
-        client.setName("Test edycji telefonu");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact("Jan kowalski");
-        client.setPhone("222222222");
+
+        Client client =  new Client.Builder()
+                .id((long)5)
+                .name("Test edycji telefonu")
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .phone("222222222")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -158,12 +170,14 @@ public class ClientControllerRestTest{
     }
     @Test
     public void updateClient() {
-        Client client = new Client();
-        client.setId((long) 6);
-        client.setName("Wyedytowana nazwa2");
-        client.setAddress("Wyedytowany adres");
-        client.setContact("Wyedytowany kontakt");
-        client.setPhone("333333333");
+
+        Client client =  new Client.Builder()
+                .id((long)6)
+                .name("Wyedytowana nazwa2")
+                .address("Wyedytowany adres")
+                .contact("Wyedytowany kontakt")
+                .phone("333333333")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -184,102 +198,111 @@ public class ClientControllerRestTest{
     }
     @Test
     public void addClientEmptyName() {
-        Client client = new Client();
-        client.setName(null);
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact("Jan kowalski");
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .id((long)6)
+                .name(null)
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
     public void addClientEmptyAddress() {
-        Client client = new Client();
-        client.setName("Test dodawania klienta");
-        client.setAddress(null);
-        client.setContact("Jan kowalski");
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .id((long)6)
+                .name("Test dodawania klienta")
+                .contact("Jan kowalski")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
     public void addClientEmptyContact() {
-        Client client = new Client();
-        client.setName("Test dodawania klienta");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact(null);
-        client.setPhone("111111111");
+
+        Client client =  new Client.Builder()
+                .id((long)6)
+                .name("Test dodawania klienta")
+                .address("Lublin, ul. Morwowa")
+                .phone("111111111")
+                .build();
 
         given()
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
     public void addClientEmptyPhone() {
-        Client client = new Client();
-        client.setName("Test dodawania klienta");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact("Jan kowalski");
+
+        Client client =  new Client.Builder()
+                .id((long)6)
+                .name("Test dodawania klienta")
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .build();
 
         given()
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
     public void addClientEmptyAllParameters() {
-        Client client = new Client();
+        Client client =  new Client.Builder().build();
 
         given()
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
     public void addClientPhoneTooShort() {
-        Client client = new Client();
-        client.setName("Test dodawania klienta");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact(null);
-        client.setPhone("111");
+
+        Client client =  new Client.Builder()
+                .id((long)6)
+                .name("Test dodawania klienta")
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .phone("111")
+                .build();
 
         given()
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
     @Test
     public void addClientPhoneTooLong() {
-        Client client = new Client();
-        client.setName("Test dodawania klienta");
-        client.setAddress("Lublin, ul. Morwowa");
-        client.setContact(null);
-        client.setPhone("1111111111111");
+
+        Client client =  new Client.Builder()
+                .id((long)6)
+                .name("Test dodawania klienta")
+                .address("Lublin, ul. Morwowa")
+                .contact("Jan kowalski")
+                .phone("11111111111111")
+                .build();
 
         given()
                 .contentType("application/json")
                 .body(client)
                 .when().post("/clients").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
 }

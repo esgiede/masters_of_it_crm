@@ -42,11 +42,12 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void addProject() {
-        Project project = new Project();
-        project.setName("Nowy projekt");
-        project.setStartDate(LocalDate.parse("2017-10-10"));
-        project.setEndDate(LocalDate.parse("2018-10-10"));
-        project.setClientId(2);
+
+        Project project = new Project.Builder()
+                .name("Nowy projekt")
+                .startDate(LocalDate.parse("2017-10-10"))
+                .endDate(LocalDate.parse("2018-10-10"))
+                .build();
 
         given()
                 .contentType("application/json")
@@ -57,21 +58,28 @@ public class ProjectControllerRestTest {
     ///////////////////////////////////////////////////////
     @Test
     public void addEmployeeToProject(){
-        Project project = new Project();
-        project.setId((long)10);
-        project.setName("Nowy projekt");
-        project.setStartDate(LocalDate.parse("2017-10-10"));
-        project.setEndDate(LocalDate.parse("2018-10-10"));
-        project.setClientId(2);
 
         Set<Employee> employees = new HashSet<>();
 
         employees.add(given()
-        .body(project)
-        .when().get("/employees/2")
-        .as(Employee.class));
+                .when().get("/employees/3")
+                .as(Employee.class));
 
-        project.setEmployees(employees);
+        employees.add(given()
+                .when().get("/employees/2")
+                .as(Employee.class));
+
+        employees.add(given()
+                .when().get("/employees/5")
+                .as(Employee.class));
+
+        Project project = new Project.Builder()
+                .id((long) 10)
+                .name("Nowy projekt")
+                .startDate(LocalDate.parse("2017-10-10"))
+                .endDate(LocalDate.parse("2018-10-10"))
+                .employees(employees)
+                .build();
 
         given()
                 .contentType("application/json")
@@ -81,12 +89,13 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void updateProjectName() {
-        Project project = new Project();
-        project.setId((long) 2);
-        project.setName("Nowa nazwa");
-        project.setStartDate(LocalDate.parse("2017-12-10"));
-        project.setEndDate(null);
-        project.setClientId(1);
+
+        Project project = new Project.Builder()
+                .id((long) 2)
+                .name("Nowa nazwa")
+                .startDate(LocalDate.parse("2017-12-10"))
+                .endDate(null)
+                .build();
 
         given()
                 .contentType("application/json")
@@ -100,12 +109,13 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void updateStartDate() {
-        Project project = new Project();
-        project.setId((long) 3);
-        project.setName("Test edycji daty rozpoczecia");
-        project.setStartDate(LocalDate.parse("2016-10-10"));
-        project.setEndDate(null);
-        project.setClientId(1);
+
+        Project project = new Project.Builder()
+                .id((long) 3)
+                .name("Test edycji daty rozpoczecia")
+                .startDate(LocalDate.parse("2016-10-10"))
+                .endDate(null)
+                .build();
 
         given()
                 .contentType("application/json")
@@ -119,12 +129,13 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void updateEndDate() {
-        Project project = new Project();
-        project.setId((long) 4);
-        project.setName("Test edycji daty zakonczenia");
-        project.setStartDate(LocalDate.parse("2017-12-09"));
-        project.setEndDate(LocalDate.parse("2018-10-10"));
-        project.setClientId(1);
+
+        Project project = new Project.Builder()
+                .id((long) 4)
+                .name("Test edycji daty zakonczenia")
+                .startDate(LocalDate.parse("2017-12-09"))
+                .endDate(LocalDate.parse("2018-10-10"))
+                .build();
 
         given()
                 .contentType("application/json")
@@ -137,41 +148,21 @@ public class ProjectControllerRestTest {
                 .statusCode(200);
     }
     @Test
-    public void updateClientId() {
-        Project project = new Project();
-        project.setId((long) 5);
-        project.setName("Test edycji klienta");
-        project.setStartDate(LocalDate.parse("2017-12-09"));
-        project.setEndDate(null);
-        project.setClientId(3);
-
-        given()
-                .contentType("application/json")
-                .body(project)
-                .when().put("/projects").then()
-                .statusCode(200);
-
-        given().when().get("/projects/5").then()
-                .body("clientId",equalTo(3))
-                .statusCode(200);
-    }
-    @Test
     public void editEmployeesInProject(){
-        Project project = new Project();
-        project.setId((long)6);
-        project.setName("Test edycji pracownikow");
-        project.setStartDate(LocalDate.parse("2017-12-09"));
-        project.setEndDate(null);
-        project.setClientId(1);
 
         Set<Employee> employees = new HashSet<>();
 
         employees.add(given()
-                .body(project)
                 .when().get("/employees/3")
                 .as(Employee.class));
 
-        project.setEmployees(employees);
+        Project project = new Project.Builder()
+                .id((long) 6)
+                .name("Test edycji pracownikow")
+                .startDate(LocalDate.parse("2017-12-09"))
+                .endDate(null)
+                .employees(employees)
+                .build();
 
         given()
                 .contentType("application/json")
@@ -181,12 +172,13 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void deleteEmployeesInProject(){
-        Project project = new Project();
-        project.setId((long)8);
-        project.setName("Test usuwania pracownikow");
-        project.setStartDate(LocalDate.parse("2017-12-09"));
-        project.setEndDate(LocalDate.parse("2017-12-09"));
-        project.setClientId(1);
+
+        Project project = new Project.Builder()
+                .id((long) 8)
+                .name("Test usuwania pracownikow")
+                .startDate(LocalDate.parse("2017-12-09"))
+                .endDate(LocalDate.parse("2017-12-09"))
+                .build();
 
         given()
                 .contentType("application/json")
@@ -200,11 +192,12 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void addProjectEmptyName() {
-        Project project = new Project();
-        project.setName(null);
-        project.setStartDate(LocalDate.parse("2017-12-09"));
-        project.setEndDate(null);
-        project.setClientId(3);
+
+        Project project = new Project.Builder()
+                .name(null)
+                .startDate(LocalDate.parse("2017-12-09"))
+                .endDate(null)
+                .build();
 
         given()
                 .contentType("application/json")
@@ -215,11 +208,12 @@ public class ProjectControllerRestTest {
     }
     @Test
     public void addProjectEmptyStartDate(){
-        Project project = new Project();
-        project.setName("Pusta data rozpoczecia");
-        project.setStartDate(null);
-        project.setEndDate(null);
-        project.setClientId(3);
+
+        Project project = new Project.Builder()
+                .name("Pusta data rozpoczecia")
+                .startDate(null)
+                .endDate(null)
+                .build();
 
         given()
                 .contentType("application/json")

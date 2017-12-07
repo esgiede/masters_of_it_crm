@@ -37,10 +37,12 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void addEmployee() {
-        Employee employee = new Employee();
-        employee.setName("Test");
-        employee.setLastName("Dodawania");
-        employee.setRole("Analyst");
+
+        Employee employee = new Employee.Builder()
+                .name("Test")
+                .lastName("Dodawania")
+                .role("Analyst")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -50,11 +52,13 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void updateEmployeeName() {
-        Employee employee = new Employee();
-        employee.setId((long) 6);
-        employee.setName("Wyedytowane");
-        employee.setLastName("Imienia");
-        employee.setRole("Project manager");
+
+        Employee employee = new Employee.Builder()
+                .id((long) 6)
+                .name("Wyedytowane")
+                .lastName("Imienia")
+                .role("Project manager")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -68,11 +72,13 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void updateEmployeeLastName() {
-        Employee employee = new Employee();
-        employee.setId((long) 7);
-        employee.setName("Edycja");
-        employee.setLastName("Wyedytowane");
-        employee.setRole("Project manager");
+
+        Employee employee = new Employee.Builder()
+                .id((long) 7)
+                .name("Edycja")
+                .lastName("Wyedytowane")
+                .role("Project manager")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -86,11 +92,13 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void updateEmployeeRole() {
-        Employee employee = new Employee();
-        employee.setId((long) 8);
-        employee.setName("Edycja");
-        employee.setLastName("Stanowiska");
-        employee.setRole("Analyst");
+
+        Employee employee = new Employee.Builder()
+                .id((long) 8)
+                .name("Edycja")
+                .lastName("Stanowiska")
+                .role("Analyst")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -104,11 +112,13 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void updateEmployee() {
-        Employee employee = new Employee();
-        employee.setId((long) 9);
-        employee.setName("Wyedytowany");
-        employee.setLastName("Wpis");
-        employee.setRole("Analyst");
+
+        Employee employee = new Employee.Builder()
+                .id((long) 9)
+                .name("Wyedytowany")
+                .lastName("Wpis")
+                .role("Analyst")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -128,10 +138,12 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void addEmployeeEmptyName() {
-        Employee employee = new Employee();
-        employee.setName(null);
-        employee.setLastName("Wpis");
-        employee.setRole("Analyst");
+
+        Employee employee = new Employee.Builder()
+                .name(null)
+                .lastName("Wpis")
+                .role("Analyst")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -142,10 +154,12 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void addEmployeeEmptyLastName() {
-        Employee employee = new Employee();
-        employee.setName("Jan");
-        employee.setLastName(null);
-        employee.setRole("Analyst");
+
+        Employee employee = new Employee.Builder()
+                .name("Jan")
+                .lastName(null)
+                .role("Analyst")
+                .build();
 
         given()
                 .contentType("application/json")
@@ -156,10 +170,12 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void addEmployeeEmptyRole() {
-        Employee employee = new Employee();
-        employee.setName("Jan");
-        employee.setLastName("Kowalski");
-        employee.setRole(null);
+
+        Employee employee = new Employee.Builder()
+                .name("Jan")
+                .lastName("Kowalski")
+                .role(null)
+                .build();
 
         given()
                 .contentType("application/json")
@@ -170,10 +186,12 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void addEmployeeInvalidRole() {
-        Employee employee = new Employee();
-        employee.setName("Jan");
-        employee.setLastName("Kowalski");
-        employee.setRole("invalid role");
+
+        Employee employee = new Employee.Builder()
+                .name("Jan")
+                .lastName("Kowalski")
+                .role("invalid role")
+                .build();
 
         given()
                 .contentType("application/json")

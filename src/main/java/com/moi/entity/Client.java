@@ -46,4 +46,55 @@ public class Client implements Serializable {
 	@JsonIgnore
 	private Set<Project> project = new HashSet<>();
 
+	public static class Builder{
+
+		private Long id;
+		private String name;
+		private String address;
+		private String contact;
+		private String phone;
+
+		public Builder id(Long id){
+			this.id = id;
+			return this;
+		}
+
+		public Builder name(String name){
+			this.name = name;
+			return this;
+		}
+
+		public Builder address(String address){
+			this.address = address;
+			return this;
+		}
+
+		public Builder contact(String contact){
+			this.contact = contact;
+			return this;
+		}
+
+		public Builder phone(String phone){
+			this.phone = phone;
+			return this;
+		}
+
+		public Client build(){
+			return new Client(this);
+		}
+
+	}
+
+	private Client(){
+
+	}
+
+	private Client(Builder builder){
+		id = builder.id;
+		name = builder.name;
+		address = builder.address;
+		contact = builder.contact;
+		phone = builder.phone;
+	}
+
 }

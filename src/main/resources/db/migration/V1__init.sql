@@ -89,7 +89,7 @@ CREATE TABLE `projects` (
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date DEFAULT NULL,
-  `client_id` int(4) NOT NULL
+  `client_id` int(4)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
