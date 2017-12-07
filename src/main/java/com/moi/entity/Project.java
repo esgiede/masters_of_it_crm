@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -32,9 +31,8 @@ public class Project implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "end_date")
 	private LocalDate endDate;
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "client_id", insertable = false, updatable = false)
-	@JsonBackReference(value = "client")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "client_id")
 	private Client client;
 	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(
@@ -54,6 +52,7 @@ public class Project implements Serializable {
 		this.startDate = builder.startDate;
 		this.endDate = builder.endDate;
 		this.employees = builder.employees;
+		this.client = builder.client;
 	}
 
 	public static class Builder{
@@ -63,6 +62,7 @@ public class Project implements Serializable {
 		private LocalDate startDate;
 		private LocalDate endDate;
 		private Set<Employee> employees = new HashSet<>();
+		private Client client;
 
 		public Builder id(Long id){
 			this.id = id;
@@ -86,6 +86,11 @@ public class Project implements Serializable {
 
 		public Builder employees(Set<Employee> employees){
 			this.employees = employees;
+			return this;
+		}
+
+		public Builder client(Client client){
+			this.client = client;
 			return this;
 		}
 

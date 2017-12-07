@@ -97,15 +97,18 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`project_id`, `name`, `start_date`, `end_date`, `client_id`) VALUES
-(1, 'Wykonanie aplikacji webowej', '2017-12-09', NULL, 1),
-(2, 'Edycja nazwy projektu', '2017-12-10', NULL, 1),
-(3, 'Test edycji daty rozpoczecia', '2017-12-09', NULL, 1),
-(4, 'Test edycji daty zakonczenia', '2017-12-09', NULL, 1),
-(5, 'Test edycji klienta', '2017-12-09', NULL, 1),
-(6, 'Test edycji pracownikow', '2017-12-09', NULL, 1),
-(7, 'Test dodawania pracownikow', '2017-12-09', NULL, 1),
-(8, 'Test usuwania pracownikow', '2017-12-09', NULL, 1),
-(9, 'Test usuwania', '2017-12-09', NULL, 1);
+(1, 'Wykonanie aplikacji webowej', '2017-12-09', NULL, NULL),
+(2, 'Edycja nazwy projektu', '2017-12-10', NULL, NULL),
+(3, 'Test edycji daty rozpoczecia', '2017-12-09', NULL, NULL),
+(4, 'Test edycji daty zakonczenia', '2017-12-09', NULL, NULL),
+(5, 'Test edycji klienta', '2017-12-09', NULL, NULL),
+(6, 'Test edycji pracownikow', '2017-12-09', NULL, NULL),
+(7, 'Test dodawania pracownikow', '2017-12-09', NULL, NULL),
+(8, 'Test usuwania pracownikow', '2017-12-09', NULL, NULL),
+(9, 'Test usuwania', '2017-12-09', NULL, NULL),
+(10, 'Test dodawania klienta', '2017-12-09', NULL, NULL),
+(11, 'Test usuwania Klienta', '2017-12-09', NULL, 2),
+(12, 'Test update klienta', '2017-12-09', NULL, 2);
 
 -- --------------------------------------------------------
 

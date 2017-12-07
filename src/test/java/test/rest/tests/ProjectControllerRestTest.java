@@ -1,5 +1,6 @@
 package test.rest.tests;
 
+import com.moi.entity.Client;
 import com.moi.entity.Employee;
 import com.moi.entity.Project;
 import org.junit.Test;
@@ -74,7 +75,7 @@ public class ProjectControllerRestTest {
                 .as(Employee.class));
 
         Project project = new Project.Builder()
-                .id((long) 10)
+                .id((long) 13)
                 .name("Nowy projekt")
                 .startDate(LocalDate.parse("2017-10-10"))
                 .endDate(LocalDate.parse("2018-10-10"))
@@ -221,6 +222,76 @@ public class ProjectControllerRestTest {
                 .when().post("/projects").then()
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
+    }
+    @Test
+    public void addClientToProject(){
+
+        Project project = new Project.Builder()
+                .id((long) 10)
+                .name("Klient dodany")
+                .startDate(LocalDate.parse("2017-12-09"))
+                .endDate(null)
+                .client((given()
+                        .when().get("/clients/1")
+                        .as(Client.class)))
+                .build();
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().put("/projects").then()
+                .statusCode(200);
+
+        given().when().get("/projects/10").then()
+                .body("name",equalTo("Klient dodany"))
+                .statusCode(200);
+
+    }
+    @Test
+    public void deleteClientInProject(){
+
+        Project project = new Project.Builder()
+                .id((long) 11)
+                .name("Klient usuniety")
+                .startDate(LocalDate.parse("2017-12-09"))
+                .endDate(null)
+                .client(null)
+                .build();
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().put("/projects").then()
+                .statusCode(200);
+
+        given().when().get("/projects/11").then()
+                .body("name",equalTo("Klient usuniety"))
+                .statusCode(200);
+
+    }
+    @Test
+    public void updateClientInProject(){
+
+        Project project = new Project.Builder()
+                .id((long) 12)
+                .name("Klient zmieniony")
+                .startDate(LocalDate.parse("2017-12-09"))
+                .endDate(null)
+                .client((given()
+                        .when().get("/clients/1")
+                        .as(Client.class)))
+                .build();
+
+        given()
+                .contentType("application/json")
+                .body(project)
+                .when().put("/projects").then()
+                .statusCode(200);
+
+        given().when().get("/projects/12").then()
+                .body("name",equalTo("Klient zmieniony"))
+                .statusCode(200);
+
     }
 
 
