@@ -1,5 +1,6 @@
 package com.moi.service;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,14 +19,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
-	public List<Project> getAllProjects() {
-		List<Project> list = new LinkedList<>();
-		for(Project prj : projectRepository.findAll())
-		{
-			list.add(prj);
-		}
-		return list;
-	}
+	public List<Project> getAllProjects() { return projectRepository.findAll(); }
 	
 	public synchronized void addProject(Project project) {
 		projectRepository.save(project);

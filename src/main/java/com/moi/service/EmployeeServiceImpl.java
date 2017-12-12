@@ -1,5 +1,6 @@
 package com.moi.service;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,14 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	public List<Employee> getAllEmployees() {
-		List<Employee> list = new LinkedList<>();
-		for(Employee empl : employeeRepository.findAll())
-		{
-			list.add(empl);
-		}
-		return list;
-	}
+	public List<Employee> getAllEmployees() { return employeeRepository.findAll(); }
 	
 	public synchronized void addEmployee(Employee employee){
             employeeRepository.save(employee);

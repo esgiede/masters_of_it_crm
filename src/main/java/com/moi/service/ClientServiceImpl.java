@@ -1,5 +1,6 @@
 package com.moi.service;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,14 +23,7 @@ public class ClientServiceImpl implements ClientService{
 		this.clientRepository = clientRepository;
 	}
 	@Override
-	public List<Client> getAllClients(){
-		List<Client> list = new LinkedList<>();
-		for(Client clt : clientRepository.findAll())
-		{
-			list.add(clt);
-		}
-		return list;
-	}
+	public List<Client> getAllClients(){ return clientRepository.findAll(); }
 	@Override
 	public Client getClientById(Long id) {
 		return clientRepository.findOne(id);
