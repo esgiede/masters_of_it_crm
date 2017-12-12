@@ -8,7 +8,7 @@ public class FunctionalTesting {
     @BeforeClass
     public static void setup() {
         String port = System.getProperty("server.port");
-        RestAssured.port = Integer.valueOf(8080);
+        RestAssured.port = 8080;
 
 
         String basePath;

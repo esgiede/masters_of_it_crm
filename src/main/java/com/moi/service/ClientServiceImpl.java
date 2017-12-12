@@ -1,7 +1,5 @@
 package com.moi.service;
 
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.moi.repository.ClientRepository;
@@ -17,6 +15,7 @@ import javax.transaction.Transactional;
 public class ClientServiceImpl implements ClientService{
 
 	@Autowired
+	private
 	ClientRepository clientRepository;
 
 	public ClientServiceImpl(ClientRepository clientRepository){

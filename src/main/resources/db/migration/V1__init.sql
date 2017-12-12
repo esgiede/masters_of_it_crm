@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `clients` (
-  `client_id` int(4) NOT NULL,
+  `client_id` int(10) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `contact` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -56,7 +56,7 @@ INSERT INTO `clients` (`client_id`, `name`, `address`, `contact`, `phone`) VALUE
 --
 
 CREATE TABLE `employees` (
-  `employee_id` int(4) NOT NULL,
+  `employee_id` int(10) NOT NULL,
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `role` enum('Front-end developer','Back-end developer','Software tester','Analyst','Scrum master','Project manager') COLLATE utf8_unicode_ci NOT NULL
@@ -85,7 +85,7 @@ INSERT INTO `employees` (`employee_id`, `name`, `last_name`, `role`) VALUES
 --
 
 CREATE TABLE `projects` (
-  `project_id` int(4) NOT NULL,
+  `project_id` int(10) NOT NULL,
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date DEFAULT NULL,
@@ -117,7 +117,7 @@ INSERT INTO `projects` (`project_id`, `name`, `start_date`, `end_date`, `client_
 --
 
 CREATE TABLE `projects_has_employees` (
-  `phe_id` int(4) NOT NULL,
+  `phe_id` int(10) NOT NULL,
   `project_id` int(4) NOT NULL,
   `employee_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
@@ -179,25 +179,25 @@ ALTER TABLE `projects_has_employees`
 -- AUTO_INCREMENT dla tabeli `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `client_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `project_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `projects_has_employees`
 --
 ALTER TABLE `projects_has_employees`
-  MODIFY `phe_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `phe_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Ograniczenia dla zrzutĂłw tabel
