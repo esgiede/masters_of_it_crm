@@ -2,6 +2,9 @@ package com.moi.controller;
 
 import java.util.List;
 
+import com.moi.entity.dto.ProjectCreateDTO;
+import com.moi.entity.dto.ProjectUpdateDTO;
+import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,7 +41,7 @@ public class ProjectController {
 	}
 	
 	@PostMapping("projects")
-	public ResponseEntity<Void> addProject(@RequestBody Project project, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addProject(@RequestBody @DTO(ProjectCreateDTO.class) Project project, UriComponentsBuilder builder) {
                 projectService.addProject(project);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(builder.path("/project/{id}").buildAndExpand(project.getId()).toUri());
@@ -46,7 +49,7 @@ public class ProjectController {
 	}
 	
 	@PutMapping("projects")
-	public ResponseEntity<Project> updateProject(@RequestBody Project project) {
+	public ResponseEntity<Project> updateProject(@RequestBody @DTO(ProjectUpdateDTO.class) Project project) {
 		projectService.updateProject(project);
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}

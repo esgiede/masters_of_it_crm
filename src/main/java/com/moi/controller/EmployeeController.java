@@ -2,6 +2,9 @@ package com.moi.controller;
 
 import java.util.List;
 
+import com.moi.entity.dto.EmployeeCreateDTO;
+import com.moi.entity.dto.EmployeeUpdateDTO;
+import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,14 +34,14 @@ public class EmployeeController {
 		
 	}
 	@PostMapping("employees")
-	public ResponseEntity<Void> addEmployee(@RequestBody Employee employee, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addEmployee(@RequestBody @DTO(EmployeeCreateDTO.class) Employee employee, UriComponentsBuilder builder) {
 		employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("employees")
-	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
+	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeUpdateDTO.class) Employee employee){
 		employeeService.updateEmployee(employee);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
