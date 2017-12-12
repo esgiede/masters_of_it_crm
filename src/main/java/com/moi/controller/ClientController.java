@@ -17,34 +17,35 @@ import com.moi.entity.Client;
 import com.moi.service.ClientService;
 
 @Controller
+@RequestMapping("clients")
 public class ClientController {
 
 	@Autowired
 	private ClientService clientService;
 
-	@GetMapping("clients")
+	@GetMapping
 	public ResponseEntity<List<Client>> getAllClients() {
 		List<Client> list = clientService.getAllClients();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	@GetMapping("clients/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Client> getClientById(@PathVariable("id") Long id) {
 		Client client = clientService.getClientById(id);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
-	@PostMapping("clients")
+	@PostMapping
 	public ResponseEntity<Void> addClient(@RequestBody @DTO(ClientCreateDTO.class) Client client, UriComponentsBuilder builder) {
 		clientService.addClient(client);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getId()).toUri());
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
-	@PutMapping("clients")
+	@PutMapping
 	public ResponseEntity<Client> updateClient(@RequestBody @DTO(ClientUpdateDTO.class) Client client) {
 		clientService.updateClient(client);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
-	@DeleteMapping("clients/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteClient(@PathVariable("id") Long id) {
 		clientService.deleteClient(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -17,35 +17,36 @@ import com.moi.entity.Employee;
 import com.moi.service.EmployeeService;
 
 @Controller
+@RequestMapping("employees")
 public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@GetMapping("employees/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
 		Employee employee = employeeService.getEmployeeById(id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
-	@GetMapping("employees")
+	@GetMapping
 	public ResponseEntity<List<Employee>> getAllEmployees() {
 		List<Employee> list = employeeService.getAllEmployees();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}
-	@PostMapping("employees")
+	@PostMapping
 	public ResponseEntity<Void> addEmployee(@RequestBody @DTO(EmployeeCreateDTO.class) Employee employee, UriComponentsBuilder builder) {
 		employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
-	@PutMapping("employees")
+	@PutMapping
 	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeUpdateDTO.class) Employee employee){
 		employeeService.updateEmployee(employee);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
-	@DeleteMapping("employees/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> employeeClient(@PathVariable("id") Long id) {
 		employeeService.deleteEmployee(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
