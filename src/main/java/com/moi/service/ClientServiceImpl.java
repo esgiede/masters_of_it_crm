@@ -15,27 +15,19 @@ import javax.transaction.Transactional;
 public class ClientServiceImpl implements ClientService{
 
 	@Autowired
-	private
-	ClientRepository clientRepository;
+	private ClientRepository clientRepository;
 
 	public ClientServiceImpl(ClientRepository clientRepository){
 		this.clientRepository = clientRepository;
 	}
-	@Override
 	public List<Client> getAllClients(){ return clientRepository.findAll(); }
-	@Override
 	public Client getClientById(Long id) {
 		return clientRepository.findOne(id);
 	}
-	@Override
-	public void addClient(Client client) {
-		clientRepository.save(client);
-	}
-	@Override
+	public void addClient(Client client) { clientRepository.save(client); }
 	public void updateClient(Client client) {
 		clientRepository.save(client);
 	}
-	@Override
 	public void deleteClient(Long id) {
 		clientRepository.delete(id);
 	}

@@ -18,19 +18,13 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectRepository projectRepository;
 
 	public List<Project> getAllProjects() { return projectRepository.findAll(); }
-	
-	public synchronized void addProject(Project project) {
-		projectRepository.save(project);
-	}
-
+	public synchronized void addProject(Project project) { projectRepository.save(project); }
 	public Project getProjectById(Long id) {
 		return projectRepository.findOne(id);
 	}
-
 	public void updateProject(Project project) {
 		projectRepository.save(project);
 	}
-
 	public void deleteProject(Long id) {
 		projectRepository.delete(id);
 	}

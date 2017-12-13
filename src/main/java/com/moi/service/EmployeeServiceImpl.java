@@ -10,7 +10,6 @@ import com.moi.entity.Employee;
 
 import javax.transaction.Transactional;
 
-
 @Service
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
@@ -19,19 +18,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository employeeRepository;
 
 	public List<Employee> getAllEmployees() { return employeeRepository.findAll(); }
-	
 	public synchronized void addEmployee(Employee employee){
             employeeRepository.save(employee);
 	}
-
 	public Employee getEmployeeById(Long id) {
 		return employeeRepository.findOne(id);
 	}
-
 	public void updateEmployee(Employee employee) {
 		employeeRepository.save(employee);
 	}
-
 	public void deleteEmployee(Long id) {
 		employeeRepository.delete(id);
 	}
