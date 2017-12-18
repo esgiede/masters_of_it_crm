@@ -25,11 +25,12 @@ public class ClientServiceImpl implements ClientService{
 		return clientRepository.findOne(id);
 	}
 	public void addClient(Client client) { clientRepository.save(client); }
-	public void updateClient(Client client) {
+	public void updateClient(Client client, Long id) {
+		client.setId(id);
 		clientRepository.save(client);
 	}
 	public void deleteClient(Long id) {
-		clientRepository.delete(id);
+			clientRepository.delete(id);
 	}
 
 

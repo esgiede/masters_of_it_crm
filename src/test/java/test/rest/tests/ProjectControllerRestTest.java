@@ -34,7 +34,7 @@ public class ProjectControllerRestTest {
         given().when().post("projects/11").then().statusCode(405);
     }
     @Test
-    public void methodNotSupportedPut(){ given().when().put("projects/12").then().statusCode(405); }
+    public void methodNotSupportedPut(){ given().when().put("projects").then().statusCode(405); }
     @Test
     public void verifyProjectName() {
         given().when().get("/projects/1").then()
@@ -75,7 +75,6 @@ public class ProjectControllerRestTest {
                 .as(Employee.class));
 
         Project project = new Project.Builder()
-                .id((long) 13)
                 .name("Nowy projekt")
                 .startDate(LocalDate.parse("2017-10-10"))
                 .endDate(LocalDate.parse("2018-10-10"))
@@ -85,14 +84,13 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/13").then()
                 .statusCode(200);
     }
     @Test
     public void updateProjectName() {
 
         Project project = new Project.Builder()
-                .id((long) 2)
                 .name("Nowa nazwa")
                 .startDate(LocalDate.parse("2017-12-10"))
                 .endDate(null)
@@ -101,7 +99,7 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/2").then()
                 .statusCode(200);
 
         given().when().get("/projects/2").then()
@@ -112,7 +110,6 @@ public class ProjectControllerRestTest {
     public void updateStartDate() {
 
         Project project = new Project.Builder()
-                .id((long) 3)
                 .name("Test edycji daty rozpoczecia")
                 .startDate(LocalDate.parse("2016-10-10"))
                 .endDate(null)
@@ -121,7 +118,7 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/3").then()
                 .statusCode(200);
 
         given().when().get("/projects/3").then()
@@ -132,7 +129,6 @@ public class ProjectControllerRestTest {
     public void updateEndDate() {
 
         Project project = new Project.Builder()
-                .id((long) 4)
                 .name("Test edycji daty zakonczenia")
                 .startDate(LocalDate.parse("2017-12-09"))
                 .endDate(LocalDate.parse("2018-10-10"))
@@ -141,7 +137,7 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/4").then()
                 .statusCode(200);
 
         given().when().get("/projects/4").then()
@@ -158,7 +154,6 @@ public class ProjectControllerRestTest {
                 .as(Employee.class));
 
         Project project = new Project.Builder()
-                .id((long) 6)
                 .name("Test edycji pracownikow")
                 .startDate(LocalDate.parse("2017-12-09"))
                 .endDate(null)
@@ -168,14 +163,13 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/6").then()
                 .statusCode(200);
     }
     @Test
     public void deleteEmployeesInProject(){
 
         Project project = new Project.Builder()
-                .id((long) 8)
                 .name("Test usuwania pracownikow")
                 .startDate(LocalDate.parse("2017-12-09"))
                 .endDate(LocalDate.parse("2017-12-09"))
@@ -184,7 +178,7 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/8").then()
                 .statusCode(200);
     }
     @Test
@@ -227,7 +221,6 @@ public class ProjectControllerRestTest {
     public void addClientToProject(){
 
         Project project = new Project.Builder()
-                .id((long) 10)
                 .name("Klient dodany")
                 .startDate(LocalDate.parse("2017-12-09"))
                 .endDate(null)
@@ -239,7 +232,7 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/10").then()
                 .statusCode(200);
 
         given().when().get("/projects/10").then()
@@ -251,7 +244,6 @@ public class ProjectControllerRestTest {
     public void deleteClientInProject(){
 
         Project project = new Project.Builder()
-                .id((long) 11)
                 .name("Klient usuniety")
                 .startDate(LocalDate.parse("2017-12-09"))
                 .endDate(null)
@@ -261,7 +253,7 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/11").then()
                 .statusCode(200);
 
         given().when().get("/projects/11").then()
@@ -273,7 +265,6 @@ public class ProjectControllerRestTest {
     public void updateClientInProject(){
 
         Project project = new Project.Builder()
-                .id((long) 12)
                 .name("Klient zmieniony")
                 .startDate(LocalDate.parse("2017-12-09"))
                 .endDate(null)
@@ -285,7 +276,7 @@ public class ProjectControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(project)
-                .when().put("/projects").then()
+                .when().put("/projects/12").then()
                 .statusCode(200);
 
         given().when().get("/projects/12").then()

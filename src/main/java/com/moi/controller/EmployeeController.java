@@ -2,8 +2,7 @@ package com.moi.controller;
 
 import java.util.List;
 
-import com.moi.entity.dto.EmployeeCreateDTO;
-import com.moi.entity.dto.EmployeeUpdateDTO;
+import com.moi.entity.dto.EmployeeDTO;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -35,15 +34,15 @@ public class EmployeeController {
 		
 	}
 	@PostMapping
-	public ResponseEntity<Void> addEmployee(@RequestBody @DTO(EmployeeCreateDTO.class) Employee employee, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, UriComponentsBuilder builder) {
 		employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
-	@PutMapping
-	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeUpdateDTO.class) Employee employee){
-		employeeService.updateEmployee(employee);
+	@PutMapping("/{id}")
+	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, @PathVariable("id") Long id){
+		employeeService.updateEmployee(employee, id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")

@@ -22,7 +22,8 @@ public class ProjectServiceImpl implements ProjectService {
 	public Project getProjectById(Long id) {
 		return projectRepository.findOne(id);
 	}
-	public void updateProject(Project project) {
+	public void updateProject(Project project, Long id) {
+		project.setId(id);
 		projectRepository.save(project);
 	}
 	public void deleteProject(Long id) {

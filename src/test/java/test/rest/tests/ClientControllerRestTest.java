@@ -43,7 +43,7 @@ public class ClientControllerRestTest{
     @Test
     public void methodNotSupportedPut(){
         given()
-                .when().put("clients/12").then()
+                .when().put("clients").then()
                 .body("message",equalTo("Method not supported"))
                 .statusCode(405); }
     @Test
@@ -88,7 +88,6 @@ public class ClientControllerRestTest{
     public void updateClientName() {
 
         Client client =  new Client.Builder()
-                .id((long)2)
                 .name("Wyedytowana nazwa")
                 .address("Lublin, ul. Morwowa")
                 .contact("Jan kowalski")
@@ -98,7 +97,7 @@ public class ClientControllerRestTest{
         given()
                 .contentType("application/json")
                 .body(client)
-                .when().put("/clients").then()
+                .when().put("/clients/2").then()
                 .statusCode(200);
 
         given().when().get("/clients/2").then()
@@ -109,7 +108,6 @@ public class ClientControllerRestTest{
     public void updateClientAddress() {
 
         Client client =  new Client.Builder()
-                .id((long)3)
                 .name("Test edycji adresu")
                 .address("Krakow, ul. Poznanska")
                 .contact("Jan kowalski")
@@ -119,7 +117,7 @@ public class ClientControllerRestTest{
         given()
                 .contentType("application/json")
                 .body(client)
-                .when().put("/clients").then()
+                .when().put("/clients/3").then()
                 .statusCode(200);
 
         given().when().get("/clients/3").then()
@@ -130,7 +128,6 @@ public class ClientControllerRestTest{
     public void updateClientContact() {
 
         Client client =  new Client.Builder()
-                .id((long)4)
                 .name("Test edycji kontaktu")
                 .address("Lublin, ul. Morwowa")
                 .contact("Damian Nowak")
@@ -140,7 +137,7 @@ public class ClientControllerRestTest{
         given()
                 .contentType("application/json")
                 .body(client)
-                .when().put("/clients").then()
+                .when().put("/clients/4").then()
                 .statusCode(200);
 
         given().when().get("/clients/4").then()
@@ -151,7 +148,6 @@ public class ClientControllerRestTest{
     public void updateClientPhone() {
 
         Client client =  new Client.Builder()
-                .id((long)5)
                 .name("Test edycji telefonu")
                 .address("Lublin, ul. Morwowa")
                 .contact("Jan kowalski")
@@ -161,7 +157,7 @@ public class ClientControllerRestTest{
         given()
                 .contentType("application/json")
                 .body(client)
-                .when().put("/clients").then()
+                .when().put("/clients/5").then()
                 .statusCode(200);
 
         given().when().get("/clients/5").then()
@@ -172,7 +168,6 @@ public class ClientControllerRestTest{
     public void updateClient() {
 
         Client client =  new Client.Builder()
-                .id((long)6)
                 .name("Wyedytowana nazwa2")
                 .address("Wyedytowany adres")
                 .contact("Wyedytowany kontakt")
@@ -182,7 +177,7 @@ public class ClientControllerRestTest{
         given()
                 .contentType("application/json")
                 .body(client)
-                .when().put("/clients").then()
+                .when().put("/clients/6").then()
                 .statusCode(200);
 
         given().when().get("/clients/6").then()

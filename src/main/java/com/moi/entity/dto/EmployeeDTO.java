@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class EmployeeCreateDTO {
+public class EmployeeDTO {
     @NotNull
     private String name;
     @NotNull
@@ -13,11 +13,11 @@ public class EmployeeCreateDTO {
     @NotNull
     private String role;
 
-    private EmployeeCreateDTO(){
+    private EmployeeDTO(){
 
     }
 
-    private EmployeeCreateDTO(Builder builder){
+    private EmployeeDTO(Builder builder){
         this.name = builder.name;
         this.lastName = builder.lastName;
         this.role = builder.role;
@@ -43,8 +43,8 @@ public class EmployeeCreateDTO {
             return this;
         }
 
-        public EmployeeCreateDTO build(){
-            return new EmployeeCreateDTO(this);
+        public EmployeeDTO build(){
+            return new EmployeeDTO(this);
         }
 
     }

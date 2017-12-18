@@ -2,8 +2,7 @@ package com.moi.controller;
 
 import java.util.List;
 
-import com.moi.entity.dto.ClientCreateDTO;
-import com.moi.entity.dto.ClientUpdateDTO;
+import com.moi.entity.dto.ClientDTO;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,15 +33,15 @@ public class ClientController {
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 	@PostMapping
-	public ResponseEntity<Void> addClient(@RequestBody @DTO(ClientCreateDTO.class) Client client, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addClient(@RequestBody @DTO(ClientDTO.class) Client client, UriComponentsBuilder builder) {
 		clientService.addClient(client);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getId()).toUri());
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
-	@PutMapping
-	public ResponseEntity<Client> updateClient(@RequestBody @DTO(ClientUpdateDTO.class) Client client) {
-		clientService.updateClient(client);
+	@PutMapping("/{id}")
+	public ResponseEntity<Client> updateClient(@RequestBody @DTO(ClientDTO.class) Client client, @PathVariable("id") Long id) {
+		clientService.updateClient(client, id);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")

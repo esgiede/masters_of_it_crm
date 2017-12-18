@@ -2,16 +2,11 @@ package com.moi.entity.dto;
 
 import lombok.Data;
 
-import javax.persistence.Id;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class ClientUpdateDTO {
-    @Id
-    @NotNull
-    private Long id;
+public class ClientDTO {
     @NotNull
     private String name;
     @NotNull
@@ -22,12 +17,11 @@ public class ClientUpdateDTO {
     @Size(min = 9, max = 12)
     private String phone;
 
-    private ClientUpdateDTO(){
+    private ClientDTO(){
 
     }
 
-    private ClientUpdateDTO(Builder builder){
-        id = builder.id;
+    private ClientDTO(Builder builder){
         name = builder.name;
         address = builder.address;
         contact = builder.contact;
@@ -36,16 +30,10 @@ public class ClientUpdateDTO {
 
     public static class Builder{
 
-        private Long id;
         private String name;
         private String address;
         private String contact;
         private String phone;
-
-        public Builder id(Long id){
-            this.id = id;
-            return this;
-        }
 
         public Builder name(String name){
             this.name = name;
@@ -67,8 +55,8 @@ public class ClientUpdateDTO {
             return this;
         }
 
-        public ClientUpdateDTO build(){
-            return new ClientUpdateDTO(this);
+        public ClientDTO build(){
+            return new ClientDTO(this);
         }
 
     }

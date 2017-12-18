@@ -2,8 +2,7 @@ package com.moi.controller;
 
 import java.util.List;
 
-import com.moi.entity.dto.ProjectCreateDTO;
-import com.moi.entity.dto.ProjectUpdateDTO;
+import com.moi.entity.dto.ProjectDTO;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,16 +36,16 @@ public class ProjectController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> addProject(@RequestBody @DTO(ProjectCreateDTO.class) Project project, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addProject(@RequestBody @DTO(ProjectDTO.class) Project project, UriComponentsBuilder builder) {
                 projectService.addProject(project);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(builder.path("/project/{id}").buildAndExpand(project.getId()).toUri());
                 return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
-	@PutMapping
-	public ResponseEntity<Project> updateProject(@RequestBody @DTO(ProjectUpdateDTO.class) Project project) {
-		projectService.updateProject(project);
+	@PutMapping("/{id}")
+	public ResponseEntity<Project> updateProject(@RequestBody @DTO(ProjectDTO.class) Project project, @PathVariable("id") Long id) {
+		projectService.updateProject(project, id);
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")

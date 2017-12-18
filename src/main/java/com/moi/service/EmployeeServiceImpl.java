@@ -24,7 +24,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee getEmployeeById(Long id) {
 		return employeeRepository.findOne(id);
 	}
-	public void updateEmployee(Employee employee) {
+	public void updateEmployee(Employee employee, Long id) {
+		employee.setId(id);
 		employeeRepository.save(employee);
 	}
 	public void deleteEmployee(Long id) {

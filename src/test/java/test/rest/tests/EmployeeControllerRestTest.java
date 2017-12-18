@@ -27,7 +27,7 @@ public class EmployeeControllerRestTest {
         given().when().post("employees/11").then().statusCode(405);
     }
     @Test
-    public void methodNotSupportedPut(){ given().when().put("employees/12").then().statusCode(405); }
+    public void methodNotSupportedPut(){ given().when().put("employees").then().statusCode(405); }
     @Test
     public void verifyEmployeeName() {
         given().when().get("/employees/1").then()
@@ -54,7 +54,6 @@ public class EmployeeControllerRestTest {
     public void updateEmployeeName() {
 
         Employee employee = new Employee.Builder()
-                .id((long) 6)
                 .name("Wyedytowane")
                 .lastName("Imienia")
                 .role("Project manager")
@@ -63,7 +62,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().put("/employees/6").then()
                 .statusCode(200);
 
         given().when().get("/employees/6").then()
@@ -74,7 +73,6 @@ public class EmployeeControllerRestTest {
     public void updateEmployeeLastName() {
 
         Employee employee = new Employee.Builder()
-                .id((long) 7)
                 .name("Edycja")
                 .lastName("Wyedytowane")
                 .role("Project manager")
@@ -83,7 +81,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().put("/employees/7").then()
                 .statusCode(200);
 
         given().when().get("/employees/7").then()
@@ -94,7 +92,6 @@ public class EmployeeControllerRestTest {
     public void updateEmployeeRole() {
 
         Employee employee = new Employee.Builder()
-                .id((long) 8)
                 .name("Edycja")
                 .lastName("Stanowiska")
                 .role("Analyst")
@@ -103,7 +100,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().put("/employees/8").then()
                 .statusCode(200);
 
         given().when().get("/employees/8").then()
@@ -114,7 +111,6 @@ public class EmployeeControllerRestTest {
     public void updateEmployee() {
 
         Employee employee = new Employee.Builder()
-                .id((long) 9)
                 .name("Wyedytowany")
                 .lastName("Wpis")
                 .role("Analyst")
@@ -123,7 +119,7 @@ public class EmployeeControllerRestTest {
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees").then()
+                .when().put("/employees/9").then()
                 .statusCode(200);
 
         given().when().get("/employees/9").then()
