@@ -3,6 +3,7 @@ package com.moi.controller;
 import java.util.List;
 
 import com.moi.entity.dto.ClientDTO;
+import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +29,7 @@ public class ClientController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<Client> getClientById(@PathVariable("id") Long id) {
+	public ResponseEntity<Client> getClientById(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		Client client = clientService.getClientById(id);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
@@ -40,12 +41,12 @@ public class ClientController {
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<Client> updateClient(@RequestBody @DTO(ClientDTO.class) Client client, @PathVariable("id") Long id) {
+	public ResponseEntity<Client> updateClient(@RequestBody @DTO(ClientDTO.class) Client client, @PathVariable("id") Long id) throws ObjectNotFoundException {
 		clientService.updateClient(client, id);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteClient(@PathVariable("id") Long id) {
+	public ResponseEntity<Void> deleteClient(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		clientService.deleteClient(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

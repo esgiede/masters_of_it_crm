@@ -1,5 +1,6 @@
 package com.moi.errors;
 
+import com.moi.errors.exceptions.ObjectNotFoundException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.validation.ConstraintViolationException;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -70,6 +72,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             JpaSystemException ex) {
         ApiError apiError = new ApiError(INTERNAL_SERVER_ERROR);
         apiError.setMessage("Wprowadź poprawnie wszystkie parametry");
+        return buildResponseEntity(apiError);
+    }
+    @ExceptionHandler(ObjectNotFoundException.class)
+    protected ResponseEntity<Object> handleObjectNotFoundException(
+            ObjectNotFoundException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND);
+        apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
 

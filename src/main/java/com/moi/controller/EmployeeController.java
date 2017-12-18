@@ -3,6 +3,7 @@ package com.moi.controller;
 import java.util.List;
 
 import com.moi.entity.dto.EmployeeDTO;
+import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		Employee employee = employeeService.getEmployeeById(id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
@@ -41,12 +42,12 @@ public class EmployeeController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, @PathVariable("id") Long id){
+	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, @PathVariable("id") Long id) throws ObjectNotFoundException {
 		employeeService.updateEmployee(employee, id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> employeeClient(@PathVariable("id") Long id) {
+	public ResponseEntity<Void> employeeClient(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		employeeService.deleteEmployee(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

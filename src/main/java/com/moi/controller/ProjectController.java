@@ -3,6 +3,7 @@ package com.moi.controller;
 import java.util.List;
 
 import com.moi.entity.dto.ProjectDTO;
+import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,7 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Project> getProjectById(@PathVariable("id") Long id) {
+	public ResponseEntity<Project> getProjectById(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		Project project = projectService.getProjectById(id);
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
@@ -44,12 +45,12 @@ public class ProjectController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Project> updateProject(@RequestBody @DTO(ProjectDTO.class) Project project, @PathVariable("id") Long id) {
+	public ResponseEntity<Project> updateProject(@RequestBody @DTO(ProjectDTO.class) Project project, @PathVariable("id") Long id) throws ObjectNotFoundException {
 		projectService.updateProject(project, id);
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteProject(@PathVariable("id") Long id) {
+	public ResponseEntity<Void> deleteProject(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		projectService.deleteProject(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
