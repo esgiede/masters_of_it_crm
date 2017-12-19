@@ -3,6 +3,7 @@ package com.moi.controller;
 import java.util.List;
 
 import com.moi.entity.dto.EmployeeDTO;
+import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,14 @@ public class EmployeeController {
 		
 	}
 	@PostMapping
-	public ResponseEntity<Void> addEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, UriComponentsBuilder builder) throws ObjectAlreadyExistException {
 		employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, @PathVariable("id") Long id) throws ObjectNotFoundException {
+	public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, @PathVariable("id") Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		employeeService.updateEmployee(employee, id);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}

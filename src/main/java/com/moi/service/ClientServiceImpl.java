@@ -2,6 +2,7 @@ package com.moi.service;
 
 import java.util.List;
 
+import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,22 @@ public class ClientServiceImpl implements ClientService{
 			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}
 	}
-	public void addClient(Client client) {
+	public void addClient(Client client) throws ObjectAlreadyExistException {
+		if(clientExist(client) == false){
 			clientRepository.save(client);
-
+		}else{
+			throw new ObjectAlreadyExistException("Klient o podanej nazwie juz istnieje");
+		}
 	}
-	public void updateClient(Client client, Long id) throws ObjectNotFoundException {
+	public void updateClient(Client client, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		if(clientRepository.exists(id) == true){
-			client.setId(id);
-			clientRepository.save(client);
+			if(clientExist(client) == false){
+				client.setId(id);
+				clientRepository.save(client);
+			}else{
+				throw new ObjectAlreadyExistException("Klient o podanej nazwie już istnieje");
+			}
+
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}
@@ -48,8 +57,14 @@ public class ClientServiceImpl implements ClientService{
 			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}
 	}
+	public boolean clientExist(Client client){
+		boolean isExist = false;
 
-
-
-	
+		for(Client temp : clientRepository.findAll()){
+			if(temp.getName().equalsIgnoreCase(client.getName())){
+				isExist = true;
+			}
+		}
+		return isExist;
+	}
 }

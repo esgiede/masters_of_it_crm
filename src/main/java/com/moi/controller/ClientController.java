@@ -3,6 +3,7 @@ package com.moi.controller;
 import java.util.List;
 
 import com.moi.entity.dto.ClientDTO;
+import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,14 @@ public class ClientController {
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 	@PostMapping
-	public ResponseEntity<Void> addClient(@RequestBody @DTO(ClientDTO.class) Client client, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addClient(@RequestBody @DTO(ClientDTO.class) Client client, UriComponentsBuilder builder) throws ObjectAlreadyExistException {
 		clientService.addClient(client);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(builder.path("/client/{id}").buildAndExpand(client.getId()).toUri());
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<Client> updateClient(@RequestBody @DTO(ClientDTO.class) Client client, @PathVariable("id") Long id) throws ObjectNotFoundException {
+	public ResponseEntity<Client> updateClient(@RequestBody @DTO(ClientDTO.class) Client client, @PathVariable("id") Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		clientService.updateClient(client, id);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}

@@ -2,6 +2,7 @@ package com.moi.service;
 
 import java.util.List;
 
+import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,14 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectRepository projectRepository;
 
 	public List<Project> getAllProjects() { return projectRepository.findAll(); }
-	public synchronized void addProject(Project project) { projectRepository.save(project); }
+	public synchronized void addProject(Project project) throws ObjectAlreadyExistException {
+		if(projectExist(project) == false){
+			projectRepository.save(project);
+		}else{
+			throw new ObjectAlreadyExistException("Projekt o podanej nazwie już istnieje");
+		}
+
+	}
 	public Project getProjectById(Long id) throws ObjectNotFoundException {
 		if(projectRepository.exists(id) == true){
 			return projectRepository.findOne(id);
@@ -27,10 +35,15 @@ public class ProjectServiceImpl implements ProjectService {
 			throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
 		}
 	}
-	public void updateProject(Project project, Long id) throws ObjectNotFoundException {
+	public void updateProject(Project project, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		if(projectRepository.exists(id)){
-			project.setId(id);
-			projectRepository.save(project);
+			if(projectExist(project) == false){
+				project.setId(id);
+				projectRepository.save(project);
+			}else{
+				throw new ObjectAlreadyExistException("Projekt o podanej nazwie już istnieje");
+			}
+
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
 		}
@@ -41,5 +54,15 @@ public class ProjectServiceImpl implements ProjectService {
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
 		}
+	}
+	public boolean projectExist(Project project){
+		boolean isExist = false;
+
+		for(Project temp : projectRepository.findAll()){
+			if(temp.getName().equalsIgnoreCase(project.getName())){
+				isExist = true;
+			}
+		}
+		return isExist;
 	}
 }

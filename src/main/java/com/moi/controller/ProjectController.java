@@ -3,6 +3,7 @@ package com.moi.controller;
 import java.util.List;
 
 import com.moi.entity.dto.ProjectDTO;
+import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class ProjectController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> addProject(@RequestBody @DTO(ProjectDTO.class) Project project, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addProject(@RequestBody @DTO(ProjectDTO.class) Project project, UriComponentsBuilder builder) throws ObjectAlreadyExistException {
                 projectService.addProject(project);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(builder.path("/project/{id}").buildAndExpand(project.getId()).toUri());
@@ -45,7 +46,7 @@ public class ProjectController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Project> updateProject(@RequestBody @DTO(ProjectDTO.class) Project project, @PathVariable("id") Long id) throws ObjectNotFoundException {
+	public ResponseEntity<Project> updateProject(@RequestBody @DTO(ProjectDTO.class) Project project, @PathVariable("id") Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		projectService.updateProject(project, id);
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
