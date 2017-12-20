@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.moi.entity.dto.ProjectDTO;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
+import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class ProjectController {
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteProject(@PathVariable("id") Long id) throws ObjectNotFoundException {
+	public ResponseEntity<Void> deleteProject(@PathVariable("id") Long id) throws ObjectNotFoundException, ObjectDeletingException {
 		projectService.deleteProject(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
