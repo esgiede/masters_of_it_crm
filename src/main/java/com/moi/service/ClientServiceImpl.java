@@ -3,6 +3,7 @@ package com.moi.service;
 import java.util.List;
 
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
+import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,22 @@ public class ClientServiceImpl implements ClientService{
 	}
 	public List<Client> getAllClients(){ return clientRepository.findAll(); }
 	public Client getClientById(Long id) throws ObjectNotFoundException {
-		if(clientRepository.exists(id) == true){
+		if(clientRepository.exists(id)){
 			return clientRepository.findOne(id);
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}
 	}
 	public void addClient(Client client) throws ObjectAlreadyExistException {
-		if(clientExist(client) == false){
+		if(!clientExist(client)){
 			clientRepository.save(client);
 		}else{
 			throw new ObjectAlreadyExistException("Klient o podanej nazwie juz istnieje");
 		}
 	}
 	public void updateClient(Client client, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
-		if(clientRepository.exists(id) == true){
-			if(clientExist(client) == false){
+		if(clientRepository.exists(id)){
+			if(!clientExist(client)){
 				client.setId(id);
 				clientRepository.save(client);
 			}else{
@@ -50,9 +51,13 @@ public class ClientServiceImpl implements ClientService{
 			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}
 	}
-	public void deleteClient(Long id) throws ObjectNotFoundException {
-		if(clientRepository.exists(id) == true){
-			clientRepository.delete(id);
+	public void deleteClient(Long id) throws ObjectNotFoundException, ObjectDeletingException {
+		if(clientRepository.exists(id)){
+			if(clientRepository.findOne(id).getProject().isEmpty()){
+				clientRepository.delete(id);
+			}else {
+				throw new ObjectDeletingException("Klient posiada przypisane projekty.");
+			}
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}

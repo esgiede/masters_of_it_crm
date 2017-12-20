@@ -1,6 +1,7 @@
 package com.moi.errors;
 
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
+import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.Ordered;
@@ -84,6 +85,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(ObjectAlreadyExistException.class)
     protected ResponseEntity<Object> handleObjectAlreadyExistException(ObjectAlreadyExistException ex){
+        ApiError apiError = new ApiError(CONFLICT);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+    @ExceptionHandler(ObjectDeletingException.class)
+    protected ResponseEntity<Object> handleObjectDeletingException(ObjectDeletingException ex){
         ApiError apiError = new ApiError(CONFLICT);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);

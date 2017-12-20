@@ -6,10 +6,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "employees")
-@Data
+@Getter
+@Setter
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -10,10 +10,13 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "projects")
-@Data
+@Getter
+@Setter
 public class Project implements Serializable {
 
 	private static final long serialVersionUID = 1L;

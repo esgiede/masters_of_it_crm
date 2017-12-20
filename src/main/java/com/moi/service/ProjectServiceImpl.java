@@ -37,14 +37,9 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	public void updateProject(Project project, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		if(projectRepository.exists(id)){
-			if(projectExist(project) == false){
 				project.setId(id);
 				projectRepository.save(project);
 			}else{
-				throw new ObjectAlreadyExistException("Projekt o podanej nazwie już istnieje");
-			}
-
-		}else{
 			throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
 		}
 	}

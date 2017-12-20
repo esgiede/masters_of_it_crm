@@ -16,10 +16,13 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name="clients")
-@Data
+@Getter
+@Setter
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
