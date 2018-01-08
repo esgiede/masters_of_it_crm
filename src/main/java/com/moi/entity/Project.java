@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,13 +38,9 @@ public class Project implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "client_id")
 	private Client client;
-	@ManyToMany(cascade = {CascadeType.ALL})
-	@JoinTable(
-			name = "projects_has_employees",
-			joinColumns = { @JoinColumn(name = "project_id")},
-			inverseJoinColumns = { @JoinColumn(name = "employee_id" )}
-	)
-	Set<Employee> employees = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.project")
+	@JsonIgnore
+	private Set<ProjectsHasEmployees> projectsHasEmployees = new HashSet<>();
 
 	private Project(){
 
@@ -54,7 +51,6 @@ public class Project implements Serializable {
 		this.name = builder.name;
 		this.startDate = builder.startDate;
 		this.endDate = builder.endDate;
-		this.employees = builder.employees;
 		this.client = builder.client;
 	}
 

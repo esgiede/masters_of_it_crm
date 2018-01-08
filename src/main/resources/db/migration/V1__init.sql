@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 04 Gru 2017, 07:55
+-- Czas generowania: 08 Sty 2018, 10:51
 -- Wersja serwera: 10.1.28-MariaDB
 -- Wersja PHP: 7.1.11
 
@@ -36,19 +36,6 @@ CREATE TABLE `clients` (
   `phone` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Zrzut danych tabeli `clients`
---
-
-INSERT INTO `clients` (`client_id`, `name`, `address`, `contact`, `phone`) VALUES
-(1, 'Drutex sp. z o.o.', 'Bytow, ul. Slaska 123', 'Jan Kowalczyk', 794355428),
-(2, 'Test edycji nazwy', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
-(3, 'Test edycji adresu', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
-(4, 'Test edycji kontaktu', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
-(5, 'Test edycji numeru telefonu', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
-(6, 'Test edycji wszystkich parametrów', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111),
-(7, 'Test usuwania', 'Lublin, ul. Morwowa', 'Jan kowalski', 111111111);
-
 -- --------------------------------------------------------
 
 --
@@ -58,26 +45,8 @@ INSERT INTO `clients` (`client_id`, `name`, `address`, `contact`, `phone`) VALUE
 CREATE TABLE `employees` (
   `employee_id` int(10) NOT NULL,
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `role` enum('Front-end developer','Back-end developer','Software tester','Analyst','Scrum master','Project manager') COLLATE utf8_unicode_ci NOT NULL
+  `last_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Zrzut danych tabeli `employees`
---
-
-INSERT INTO `employees` (`employee_id`, `name`, `last_name`, `role`) VALUES
-(1, 'Jan', 'Kowalski', 'Front-end developer'),
-(2, 'Marcin', 'Nowak', 'Back-end developer'),
-(3, 'Joanna', 'Brzoza', 'Software tester'),
-(4, 'Jakub', 'Wolny', 'Analyst'),
-(5, 'Miroslaw', 'Kamionka', 'Project manager'),
-(6, 'Edycja', 'Imienia', 'Project manager'),
-(7, 'Edycja', 'Nazwiska', 'Project manager'),
-(8, 'Edycja', 'Stanowiska', 'Project manager'),
-(9, 'Edycja', 'Wpisu', 'Project manager'),
-(10, 'Usuniecie', 'Wpisu', 'Project manager');
-
 -- --------------------------------------------------------
 
 --
@@ -89,27 +58,8 @@ CREATE TABLE `projects` (
   `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date DEFAULT NULL,
-  `client_id` int(4)
+  `client_id` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Zrzut danych tabeli `projects`
---
-
-INSERT INTO `projects` (`project_id`, `name`, `start_date`, `end_date`, `client_id`) VALUES
-(1, 'Wykonanie aplikacji webowej', '2017-12-09', NULL, NULL),
-(2, 'Edycja nazwy projektu', '2017-12-10', NULL, NULL),
-(3, 'Test edycji daty rozpoczecia', '2017-12-09', NULL, NULL),
-(4, 'Test edycji daty zakonczenia', '2017-12-09', NULL, NULL),
-(5, 'Test edycji klienta', '2017-12-09', NULL, NULL),
-(6, 'Test edycji pracownikow', '2017-12-09', NULL, NULL),
-(7, 'Test dodawania pracownikow', '2017-12-09', NULL, NULL),
-(8, 'Test usuwania pracownikow', '2017-12-09', NULL, NULL),
-(9, 'Test usuwania', '2017-12-09', NULL, NULL),
-(10, 'Test dodawania klienta', '2017-12-09', NULL, NULL),
-(11, 'Test usuwania Klienta', '2017-12-09', NULL, 2),
-(12, 'Test update klienta', '2017-12-09', NULL, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -118,24 +68,14 @@ INSERT INTO `projects` (`project_id`, `name`, `start_date`, `end_date`, `client_
 
 CREATE TABLE `projects_has_employees` (
   `phe_id` int(10) NOT NULL,
-  `project_id` int(4) NOT NULL,
-  `employee_id` int(4) NOT NULL
+  `project_id` int(10) NOT NULL,
+  `employee_id` int(4) NOT NULL,
+  `role` varchar(30) COLLATE utf8mb4_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
-
---
--- Zrzut danych tabeli `projects_has_employees`
---
-
-INSERT INTO `projects_has_employees` (`phe_id`, `project_id`, `employee_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 6, 1),
-(5, 6, 4),
-(6, 8, 2);
 
 -- --------------------------------------------------------
 
+--
 -- Indeksy dla zrzutĂłw tabel
 --
 
@@ -165,12 +105,9 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `projects_has_employees`
   ADD PRIMARY KEY (`phe_id`),
-  ADD KEY `project_id` (`project_id`),
-  ADD KEY `employee_id` (`employee_id`);
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `project_id` (`project_id`);
 
---
--- Indexes for table `schema_version`
---
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -179,25 +116,25 @@ ALTER TABLE `projects_has_employees`
 -- AUTO_INCREMENT dla tabeli `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `client_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `employee_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `project_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `projects_has_employees`
 --
 ALTER TABLE `projects_has_employees`
-  MODIFY `phe_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `phe_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- Ograniczenia dla zrzutĂłw tabel
@@ -213,8 +150,8 @@ ALTER TABLE `projects`
 -- Ograniczenia dla tabeli `projects_has_employees`
 --
 ALTER TABLE `projects_has_employees`
-  ADD CONSTRAINT `projects_has_employees_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `projects_has_employees_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `projects_has_employees_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`),
+  ADD CONSTRAINT `projects_has_employees_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,9 +1,13 @@
 package com.moi.entity.dto;
 
+import com.moi.entity.Project;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class ClientDTO {
@@ -17,7 +21,7 @@ public class ClientDTO {
     @Size(min = 9, max = 12)
     private String phone;
 
-    private ClientDTO(){
+   private ClientDTO(){
 
     }
 

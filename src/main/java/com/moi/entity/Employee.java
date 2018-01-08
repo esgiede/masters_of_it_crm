@@ -1,10 +1,13 @@
 package com.moi.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,9 +29,9 @@ public class Employee implements Serializable {
 	@NotNull
 	@Column(name = "last_name")
 	private String lastName;
-	@NotNull
-	@Column(name = "role")
-	private String role;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.employee")
+	@JsonIgnore
+	private Set<ProjectsHasEmployees> projectsHasEmployees = new HashSet<>();
 
 	private Employee(){
 
@@ -38,14 +41,12 @@ public class Employee implements Serializable {
 		this.id = builder.id;
 		this.name = builder.name;
 		this.lastName = builder.lastName;
-		this.role = builder.role;
 	}
 	public static class Builder{
 
 		private Long id;
 		private String name;
 		private String lastName;
-		private String role;
 
 
 		public Builder id(Long id){
@@ -60,11 +61,6 @@ public class Employee implements Serializable {
 
 		public Builder lastName(String lastName){
 			this.lastName = lastName;
-			return this;
-		}
-
-		public Builder role(String role){
-			this.role = role;
 			return this;
 		}
 
