@@ -21,7 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public List<Employee> getAllEmployees() { return employeeRepository.findAll(); }
 	public synchronized void addEmployee(Employee employee) throws ObjectAlreadyExistException {
-        if(employeeExist(employee) == false){
+        if(!employeeExist(employee)){
 			employeeRepository.save(employee);
 		}else{
         	throw new ObjectAlreadyExistException("Pracownik o podanych danych już istnieje");
@@ -29,15 +29,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	}
 	public Employee getEmployeeById(Long id) throws ObjectNotFoundException {
-		if (employeeRepository.exists(id) == true){
+		if (employeeRepository.exists(id)){
 			return employeeRepository.findOne(id);
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
 		}
 	}
 	public void updateEmployee(Employee employee, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
-		if(employeeRepository.exists(id) == true){
-			if(employeeExist(employee) == false){
+		if(employeeRepository.exists(id)){
+			if(!employeeExist(employee)){
 				employee.setId(id);
 				employeeRepository.save(employee);
 			}else{
@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 	public void deleteEmployee(Long id) throws ObjectNotFoundException {
-		if(employeeRepository.exists(id) == true){
+		if(employeeRepository.exists(id)){
 			employeeRepository.delete(id);
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");

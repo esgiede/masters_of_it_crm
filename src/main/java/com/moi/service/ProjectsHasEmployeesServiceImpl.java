@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -50,7 +51,7 @@ public class ProjectsHasEmployeesServiceImpl implements ProjectsHasEmployeesServ
     public boolean pheExist(ProjectsHasEmployees phe) {
 
         for(ProjectsHasEmployees temp : projectsHasEmployeesRepository.findAll()){
-            if(temp.getProjectId() == phe.getProjectId() && temp.getEmployeeId() == phe.getEmployeeId()){
+            if(Objects.equals(temp.getProjectId(), phe.getProjectId()) && Objects.equals(temp.getEmployeeId(), phe.getEmployeeId())){
                 return true;
             }
         }

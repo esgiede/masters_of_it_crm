@@ -1,7 +1,6 @@
 package com.moi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.moi.repository.ProjectsHasEmployeesRepository;
 import lombok.Getter;
 import lombok.Setter;
 
