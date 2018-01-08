@@ -2,6 +2,7 @@ package com.moi.service;
 
 import com.moi.entity.ProjectsHasEmployees;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
+import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ProjectsHasEmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,30 +24,42 @@ public class ProjectsHasEmployeesServiceImpl implements ProjectsHasEmployeesServ
     }
 
     @Override
-    public ProjectsHasEmployees getPheById(Long id) {
-        return projectsHasEmployeesRepository.findOne(id);
+    public ProjectsHasEmployees getPheById(Long id) throws ObjectNotFoundException {
+        if(projectsHasEmployeesRepository.exists(id)){
+            return projectsHasEmployeesRepository.findOne(id);
+        }else{
+            throw new ObjectNotFoundException("Nie znaleziono wpisu o podanym Id");
+        }
     }
-
     @Override
     public synchronized void addPhe(ProjectsHasEmployees phe) throws ObjectAlreadyExistException {
         if(!pheExist(phe)){
             projectsHasEmployeesRepository.save(phe);
         }else{
-            throw new ObjectAlreadyExistException("Wpis już istnieje");
+            throw new ObjectAlreadyExistException("Wpis o podanych parametrach już istnieje");
         }
     }
-
     @Override
-    public void updatePhe(ProjectsHasEmployees phe, Long id) {
-        phe.setId(id);
-        projectsHasEmployeesRepository.save(phe);
+    public void updatePhe(ProjectsHasEmployees phe, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
+        if(projectsHasEmployeesRepository.exists(id)){
+            if(!pheExist(phe)){
+                phe.setId(id);
+                projectsHasEmployeesRepository.save(phe);
+            }else{
+                throw new ObjectAlreadyExistException("Wpis o podanych parametrach już istnieje");
+            }
+        }else{
+            throw new ObjectNotFoundException("Nie znaleziono wpisu o podanym id");
+        }
     }
-
     @Override
-    public void deletePhe(Long id) {
-        projectsHasEmployeesRepository.delete(id);
+    public void deletePhe(Long id) throws ObjectNotFoundException{
+        if(projectsHasEmployeesRepository.exists(id)){
+            projectsHasEmployeesRepository.delete(id);
+        }else{
+            throw new ObjectNotFoundException("Wpis o podanym id nie istnieje");
+        }
     }
-
     @Override
     public boolean pheExist(ProjectsHasEmployees phe) {
 
