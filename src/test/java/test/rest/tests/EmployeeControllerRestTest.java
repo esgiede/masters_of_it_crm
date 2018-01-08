@@ -8,7 +8,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class EmployeeControllerRestTest {
 
-    @Test
+    /*@Test
     public void basicPingTest(){
         given().when().get("employees").then().statusCode(200);
     }
@@ -196,5 +196,5 @@ public class EmployeeControllerRestTest {
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
-
+*/
 }

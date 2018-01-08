@@ -40,13 +40,8 @@ public class ClientServiceImpl implements ClientService{
 	}
 	public void updateClient(Client client, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		if(clientRepository.exists(id)){
-			if(!clientExist(client)){
 				client.setId(id);
 				clientRepository.save(client);
-			}else{
-				throw new ObjectAlreadyExistException("Klient o podanej nazwie już istnieje");
-			}
-
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}
