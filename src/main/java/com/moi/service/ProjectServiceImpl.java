@@ -45,16 +45,11 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 	public void deleteProject(Long id) throws ObjectNotFoundException, ObjectDeletingException {
-		/*if(projectRepository.exists(id)){
-			if(projectRepository.findOne(id).getEmployees().isEmpty() && projectRepository.findOne(id).getClient() == null){
-				projectRepository.delete(id);
-			}else{
-				throw new ObjectDeletingException("Projekt jest przypisany do klienta lub posiada przypisanych pracowników");
-			}
-
+		if(projectRepository.exists(id)){
+			projectRepository.delete(id);
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
-		}*/
+		}
 	}
 	public boolean projectExist(Project project){
 		boolean isExist = false;
