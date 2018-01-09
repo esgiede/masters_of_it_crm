@@ -37,13 +37,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	public void updateEmployee(Employee employee, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
 		if(employeeRepository.exists(id)){
-			if(!employeeExist(employee)){
-				employee.setId(id);
-				employeeRepository.save(employee);
-			}else{
-				throw new ObjectAlreadyExistException("Pracownik o podanych danych już istnieje");
-			}
-
+			employee.setId(id);
+			employeeRepository.save(employee);
 		}else{
 			throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
 		}

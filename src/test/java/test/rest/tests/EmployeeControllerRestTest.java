@@ -8,7 +8,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class EmployeeControllerRestTest {
 
-    /*@Test
+    @Test
     public void basicPingTest(){
         given().when().get("employees").then().statusCode(200);
     }
@@ -32,18 +32,20 @@ public class EmployeeControllerRestTest {
     public void verifyEmployeeName() {
         given().when().get("/employees/1").then()
                 .body("name",equalTo("Jan"))
-                .body("lastName",equalTo("Kowalski"))
+                .body("lastName",equalTo("Nowak"))
                 .statusCode(200);
     }
     @Test
+    public void employeeNotFound() {
+        given().when().get("/employees/20").then()
+                .statusCode(404);
+    }
+    @Test
     public void addEmployee() {
-
         Employee employee = new Employee.Builder()
-                .name("Test")
-                .lastName("Dodawania")
-                .role("Analyst")
+                .name("Janusz")
+                .lastName("Chwastek")
                 .build();
-
         given()
                 .contentType("application/json")
                 .body(employee)
@@ -51,96 +53,80 @@ public class EmployeeControllerRestTest {
                 .statusCode(201);
     }
     @Test
-    public void updateEmployeeName() {
-
+    public void addEmployeeConflict() {
         Employee employee = new Employee.Builder()
-                .name("Wyedytowane")
-                .lastName("Imienia")
-                .role("Project manager")
+                .name("Janusz")
+                .lastName("Chwastek")
                 .build();
-
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees/6").then()
+                .when().post("/employees").then()
+                .statusCode(409);
+    }
+    @Test
+    public void updateEmployeeName() {
+        Employee employee = new Employee.Builder()
+                .name("Wyedytowane")
+                .lastName("Imienia")
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().put("/employees/2").then()
                 .statusCode(200);
-
-        given().when().get("/employees/6").then()
+        given()
+                .when().get("/employees/2").then()
                 .body("name",equalTo("Wyedytowane"))
                 .statusCode(200);
     }
     @Test
     public void updateEmployeeLastName() {
-
         Employee employee = new Employee.Builder()
                 .name("Edycja")
                 .lastName("Wyedytowane")
-                .role("Project manager")
                 .build();
-
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees/7").then()
+                .when().put("/employees/3").then()
                 .statusCode(200);
-
-        given().when().get("/employees/7").then()
+        given()
+                .when().get("/employees/3").then()
                 .body("lastName",equalTo("Wyedytowane"))
                 .statusCode(200);
     }
     @Test
-    public void updateEmployeeRole() {
-
-        Employee employee = new Employee.Builder()
-                .name("Edycja")
-                .lastName("Stanowiska")
-                .role("Analyst")
-                .build();
-
-        given()
-                .contentType("application/json")
-                .body(employee)
-                .when().put("/employees/8").then()
-                .statusCode(200);
-
-        given().when().get("/employees/8").then()
-                .body("role",equalTo("Analyst"))
-                .statusCode(200);
-    }
-    @Test
     public void updateEmployee() {
-
         Employee employee = new Employee.Builder()
                 .name("Wyedytowany")
                 .lastName("Wpis")
-                .role("Analyst")
                 .build();
-
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().put("/employees/9").then()
+                .when().put("/employees/4").then()
                 .statusCode(200);
-
-        given().when().get("/employees/9").then()
+        given()
+                .when().get("/employees/4").then()
                 .body("name",equalTo("Wyedytowany"))
                 .body("lastName",equalTo("Wpis"))
-                .body("role",equalTo("Analyst"))
                 .statusCode(200);
     }
     @Test
     public void deleteEmployee() {
-        given().when().delete("employees/10").then().statusCode(204);
+        given().when().delete("employees/5").then().statusCode(204);
+    }
+    @Test
+    public void deleteEmployeeNotFound() {
+        given().when().delete("employees/22").then().statusCode(404);
     }
     @Test
     public void addEmployeeEmptyName() {
-
         Employee employee = new Employee.Builder()
                 .name(null)
                 .lastName("Wpis")
-                .role("Analyst")
                 .build();
-
         given()
                 .contentType("application/json")
                 .body(employee)
@@ -150,13 +136,10 @@ public class EmployeeControllerRestTest {
     }
     @Test
     public void addEmployeeEmptyLastName() {
-
         Employee employee = new Employee.Builder()
                 .name("Jan")
                 .lastName(null)
-                .role("Analyst")
                 .build();
-
         given()
                 .contentType("application/json")
                 .body(employee)
@@ -165,36 +148,15 @@ public class EmployeeControllerRestTest {
                 .statusCode(500);
     }
     @Test
-    public void addEmployeeEmptyRole() {
-
+    public void updateEmployeeNotFound() {
         Employee employee = new Employee.Builder()
-                .name("Jan")
-                .lastName("Kowalski")
-                .role(null)
+                .name("Wyedytowany")
+                .lastName("Wpis2")
                 .build();
-
         given()
                 .contentType("application/json")
                 .body(employee)
-                .when().post("/employees").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
-                .statusCode(500);
+                .when().put("/employees/21").then()
+                .statusCode(404);
     }
-    @Test
-    public void addEmployeeInvalidRole() {
-
-        Employee employee = new Employee.Builder()
-                .name("Jan")
-                .lastName("Kowalski")
-                .role("invalid role")
-                .build();
-
-        given()
-                .contentType("application/json")
-                .body(employee)
-                .when().post("/employees").then()
-                .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
-                .statusCode(500);
-    }
-*/
 }

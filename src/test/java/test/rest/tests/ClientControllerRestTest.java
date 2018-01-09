@@ -350,4 +350,12 @@ public class ClientControllerRestTest{
                 .when().put("/clients/1").then()
                 .statusCode(500);
     }
+    @Test
+    public void deleteClientHasProject() {
+        given().when().delete("clients/8").then().statusCode(409);
+    }
+    @Test
+    public void deleteClientWrongId() {
+        given().when().delete("clients/20").then().statusCode(404);
+    }
 }

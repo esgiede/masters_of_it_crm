@@ -25,7 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="a8f25cd5-af58-40eb-b9eb-862f4b43a065">
-        <schema name="masters_of_it" object-types="column, function, table, view" />
+        <schema name="masters_of_it" object-types="column, function, table" />
       </connection>
     </loaded-nodes>
   </component>
