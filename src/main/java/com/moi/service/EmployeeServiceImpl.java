@@ -3,6 +3,7 @@ package com.moi.service;
 import java.util.List;
 
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
+import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}else{
         	throw new ObjectAlreadyExistException("Pracownik o podanych danych już istnieje");
 		}
-
 	}
 	public Employee getEmployeeById(Long id) throws ObjectNotFoundException {
 		if (employeeRepository.exists(id)){
@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
 		}
 	}
-	public void updateEmployee(Employee employee, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
+	public void updateEmployee(Employee employee, Long id) throws ObjectNotFoundException{
 		if(employeeRepository.exists(id)){
 			employee.setId(id);
 			employeeRepository.save(employee);
@@ -43,11 +43,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
 		}
 	}
-	public void deleteEmployee(Long id) throws ObjectNotFoundException {
+	public void deleteEmployee(Long id) throws ObjectNotFoundException, ObjectDeletingException {
 		if(employeeRepository.exists(id)){
-			employeeRepository.delete(id);
+			if(employeeRepository.findOne(id).getProjectsHasEmployees().isEmpty()){
+				employeeRepository.delete(id);
+			}else {
+				throw new ObjectDeletingException("Klient posiada przypisane projekty.");
+			}
 		}else{
-			throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
+			throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
 		}
 	}
 	public boolean employeeExist(Employee employee){

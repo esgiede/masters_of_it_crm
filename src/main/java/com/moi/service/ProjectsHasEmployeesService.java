@@ -2,7 +2,6 @@ package com.moi.service;
 
 import com.moi.entity.ProjectsHasEmployees;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
-import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 
 import java.util.List;

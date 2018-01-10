@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.moi.entity.dto.EmployeeDTO;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
+import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class EmployeeController {
 		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> employeeClient(@PathVariable("id") Long id) throws ObjectNotFoundException {
+	public ResponseEntity<Void> employeeClient(@PathVariable("id") Long id) throws ObjectNotFoundException, ObjectDeletingException {
 		employeeService.deleteEmployee(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

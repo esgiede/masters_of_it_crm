@@ -64,6 +64,7 @@ public class ProjectsHasEmployeesServiceImpl implements ProjectsHasEmployeesServ
     public boolean pheExist(ProjectsHasEmployees phe) {
 
         for(ProjectsHasEmployees temp : projectsHasEmployeesRepository.findAll()){
+
             if(Objects.equals(temp.getProjectId(), phe.getProjectId()) && Objects.equals(temp.getEmployeeId(), phe.getEmployeeId())){
                 return true;
             }

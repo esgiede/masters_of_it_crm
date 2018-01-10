@@ -11,7 +11,7 @@ public interface ClientService {
     List<Client> getAllClients();
 	Client getClientById(Long id) throws ObjectNotFoundException;
 	void addClient(Client client) throws ObjectAlreadyExistException;
-	void updateClient(Client client, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException;
+	void updateClient(Client client, Long id) throws ObjectNotFoundException;
 	void deleteClient(Long id) throws ObjectNotFoundException, ObjectDeletingException;
 	boolean clientExist(Client client);
 }

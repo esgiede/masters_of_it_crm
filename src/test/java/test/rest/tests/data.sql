@@ -18,7 +18,9 @@ INSERT INTO `employees` (`employee_id`, `name`, `last_name`) VALUES
 (2, 'Edycja', 'Imienia'),
 (3, 'Edycja', 'Nazwiska'),
 (4, 'Edycja', 'Wpisu'),
-(5, 'Test', 'Usuwania');
+(5, 'Test', 'Usuwania'),
+(6, 'Test', 'Phe'),
+(7, 'Test Usuwania', 'W projekcie');
 
 INSERT INTO `projects` (`project_id`, `name`, `start_date`, `end_date`, `client_id`) VALUES
 (1, 'Wykonanie strony internetowej', '2018-01-03', '2018-01-31', 1),
@@ -29,8 +31,10 @@ INSERT INTO `projects` (`project_id`, `name`, `start_date`, `end_date`, `client_
 (6, 'Test dodawania klienta', '2018-01-03', '2018-01-31', null),
 (7, 'Test usuwania klienta', '2018-01-03', null, 1),
 (8, 'Test edycji klienta', '2018-01-03', null, 1),
-(9, 'Konflikt', '2018-01-03', null, 1);
+(9, 'Konflikt', '2018-01-03', null, 1),
+(10, 'Test PHE', '2018-01-03', null, 1);
 
 INSERT INTO `projects_has_employees` (`phe_id`, `project_id`, `employee_id`, `role`) VALUES
 (1, 1, 1, 'PM'),
-(2, 1, 2, 'Front-end developer');
+(2, 1, 2, 'Front-end developer'),
+(3, 1, 7, 'Front-end developer');

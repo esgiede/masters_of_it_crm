@@ -17,18 +17,48 @@ import java.io.Serializable;
 @Setter
 public class ProjectsHasEmployees implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "phe_id")
     private Long id;
 
     @JsonIgnore
-    private ProjectsHasEmployeesId pk = new ProjectsHasEmployeesId();
+    private ProjectsHasEmployeesId pk;
     @Column(name = "role")
     private String role;
 
-    public ProjectsHasEmployees() {
+    private ProjectsHasEmployees() {
+
+    }
+
+    private ProjectsHasEmployees(Builder builder){
+        this.id = builder.id;
+        this.pk = builder.pk;
+        this.role = builder.role;
+    }
+
+    public static class Builder{
+
+        private Long id;
+        private ProjectsHasEmployeesId pk;
+        private  String role;
+
+        public Builder id(Long id){
+            this.id = id;
+            return this;
+        }
+
+        public Builder pk(ProjectsHasEmployeesId pk){
+            this.pk = pk;
+            return this;
+        }
+
+        public Builder role(String role){
+            this.role = role;
+            return this;
+        }
+
+        public ProjectsHasEmployees build(){ return new ProjectsHasEmployees(this);}
 
     }
 

@@ -122,6 +122,10 @@ public class EmployeeControllerRestTest {
         given().when().delete("employees/22").then().statusCode(404);
     }
     @Test
+    public void deleteEmployeeInProject(){
+        given().when().delete("employees/7").then().statusCode(409);
+    }
+    @Test
     public void addEmployeeEmptyName() {
         Employee employee = new Employee.Builder()
                 .name(null)

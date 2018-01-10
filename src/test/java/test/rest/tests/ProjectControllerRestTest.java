@@ -1,12 +1,10 @@
 package test.rest.tests;
 
 import com.moi.entity.Client;
-import com.moi.entity.Employee;
 import com.moi.entity.Project;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.*;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
