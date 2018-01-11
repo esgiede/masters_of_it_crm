@@ -228,4 +228,25 @@ public class ProjectControllerRestTest {
                 .body("name",equalTo("Klient zmieniony"))
                 .statusCode(200);
     }
+    @Test
+    public void getPageSize(){
+        given()
+                .when().get("/projects?size=2").then()
+                .body("size", equalTo(2))
+                .statusCode(200);
+    }
+    @Test
+    public void getPageNumber(){
+        given()
+                .when().get("/projects?page=1&size=2").then()
+                .body("number",equalTo(1))
+                .statusCode(200);
+    }
+    @Test
+    public void getPageElements(){
+        given()
+                .when().get("/projects?page=0&size=2").then()
+                .body("numberOfElements",equalTo(2))
+                .statusCode(200);
+    }
 }

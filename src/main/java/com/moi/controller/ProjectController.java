@@ -1,13 +1,13 @@
 package com.moi.controller;
 
-import java.util.List;
-
 import com.moi.entity.dto.ProjectDTO;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +32,8 @@ public class ProjectController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Project>> getAllProjects() {
-		List<Project> list = projectService.getAllProjects();
+	public ResponseEntity<Page<Project>> getAllProjectsByPage(Pageable pageable) {
+		Page<Project> list = projectService.getAllProjectsByPage(pageable);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}

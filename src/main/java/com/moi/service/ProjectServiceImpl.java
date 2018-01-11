@@ -1,12 +1,12 @@
 package com.moi.service;
 
-import java.util.List;
-
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.moi.entity.Project;
@@ -20,7 +20,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
-	public List<Project> getAllProjects() { return projectRepository.findAll(); }
+	public Page<Project> getAllProjectsByPage(Pageable pageable) { return projectRepository.findAll(pageable); }
 	public synchronized void addProject(Project project) throws ObjectAlreadyExistException {
 		if(!projectExist(project)){
 			projectRepository.save(project);
@@ -36,7 +36,7 @@ public class ProjectServiceImpl implements ProjectService {
 			throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
 		}
 	}
-	public void updateProject(Project project, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
+	public void updateProject(Project project, Long id) throws ObjectNotFoundException {
 		if(projectRepository.exists(id)){
 				project.setId(id);
 				projectRepository.save(project);

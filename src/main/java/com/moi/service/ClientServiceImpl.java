@@ -1,12 +1,12 @@
 package com.moi.service;
 
-import java.util.List;
-
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.moi.entity.Client;
@@ -20,10 +20,9 @@ public class ClientServiceImpl implements ClientService{
 	@Autowired
 	private ClientRepository clientRepository;
 
-	public ClientServiceImpl(ClientRepository clientRepository){
-		this.clientRepository = clientRepository;
+	public Page<Client> getAllClientsByPage(Pageable pageable){
+		return clientRepository.findAll(pageable);
 	}
-	public List<Client> getAllClients(){ return clientRepository.findAll(); }
 	public Client getClientById(Long id) throws ObjectNotFoundException {
 		if(clientRepository.exists(id)){
 			return clientRepository.findOne(id);

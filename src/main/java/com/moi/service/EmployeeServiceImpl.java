@@ -1,12 +1,12 @@
 package com.moi.service;
 
-import java.util.List;
-
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.moi.entity.Employee;
@@ -20,7 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	public List<Employee> getAllEmployees() { return employeeRepository.findAll(); }
+	public Page<Employee> getAllEmployeesByPage(Pageable pageable) { return employeeRepository.findAll(pageable); }
 	public synchronized void addEmployee(Employee employee) throws ObjectAlreadyExistException {
         if(!employeeExist(employee)){
 			employeeRepository.save(employee);

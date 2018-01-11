@@ -163,4 +163,25 @@ public class EmployeeControllerRestTest {
                 .when().put("/employees/21").then()
                 .statusCode(404);
     }
+    @Test
+    public void getPageSize(){
+        given()
+                .when().get("/employees?size=5").then()
+                .body("size", equalTo(5))
+                .statusCode(200);
+    }
+    @Test
+    public void getPageNumber(){
+        given()
+                .when().get("/employees?page=1&size=5").then()
+                .body("number",equalTo(1))
+                .statusCode(200);
+    }
+    @Test
+    public void getPageElements(){
+        given()
+                .when().get("/employees?page=0&size=2").then()
+                .body("numberOfElements",equalTo(2))
+                .statusCode(200);
+    }
 }

@@ -1,10 +1,7 @@
 package com.moi.repository;
 
 import com.moi.entity.Project;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
-
-public interface ProjectRepository extends CrudRepository<Project, Long> {
-    List<Project> findAll();
+public interface ProjectRepository extends PagingAndSortingRepository<Project, Long> {
 }

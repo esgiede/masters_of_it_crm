@@ -173,6 +173,27 @@ public class ClientControllerRestTest{
                 .statusCode(200);
     }
     @Test
+    public void getPageSize(){
+        given()
+                .when().get("/clients?size=5").then()
+                .body("size", equalTo(5))
+                .statusCode(200);
+    }
+    @Test
+    public void getPageNumber(){
+        given()
+                .when().get("/clients?page=1&size=5").then()
+                .body("number",equalTo(1))
+                .statusCode(200);
+    }
+    @Test
+    public void getPageElements(){
+        given()
+                .when().get("/clients?page=0&size=5").then()
+                .body("numberOfElements",equalTo(5))
+                .statusCode(200);
+    }
+    @Test
     public void deleteClient() {
         given().when().delete("clients/7").then().statusCode(204);
     }

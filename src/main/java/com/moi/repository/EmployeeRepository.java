@@ -1,10 +1,7 @@
 package com.moi.repository;
 
 import com.moi.entity.Employee;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
-
-public interface EmployeeRepository extends CrudRepository<Employee, Long> {
-    List<Employee> findAll();
+public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> {
 }

@@ -1,13 +1,13 @@
 package com.moi.controller;
 
-import java.util.List;
-
 import com.moi.entity.dto.ClientDTO;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,8 @@ public class ClientController {
 	private ClientService clientService;
 
 	@GetMapping
-	public ResponseEntity<List<Client>> getAllClients() {
-		List<Client> list = clientService.getAllClients();
+	public ResponseEntity<Page<Client>> getAllClientsByPage(Pageable pageable){
+		Page<Client> list = clientService.getAllClientsByPage(pageable);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	@GetMapping("/{id}")

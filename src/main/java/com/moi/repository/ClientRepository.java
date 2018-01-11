@@ -1,10 +1,7 @@
 package com.moi.repository;
 
 import com.moi.entity.Client;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
-
-public interface ClientRepository extends CrudRepository<Client, Long> {
-    List<Client> findAll();
+public interface ClientRepository extends PagingAndSortingRepository<Client, Long> {
 }
