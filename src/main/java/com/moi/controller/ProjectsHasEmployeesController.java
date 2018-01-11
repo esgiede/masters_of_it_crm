@@ -28,7 +28,6 @@ public class ProjectsHasEmployeesController {
     public ResponseEntity<List<ProjectsHasEmployees>> getAllPhe() {
         List<ProjectsHasEmployees> list = projectsHasEmployeesService.getAllPhe();
         return new ResponseEntity<>(list, HttpStatus.OK);
-
     }
 
     @GetMapping("/{id}")
@@ -48,7 +47,7 @@ public class ProjectsHasEmployeesController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProjectsHasEmployees> updatePhe(@RequestBody @DTO(ProjectsHasEmployeesDTO.class)
-                                                                      ProjectsHasEmployees projectsHasEmployees,
+                                                                  ProjectsHasEmployees projectsHasEmployees,
                                                           @PathVariable("id") Long id) throws ObjectNotFoundException,
             ObjectAlreadyExistException {
         projectsHasEmployeesService.updatePhe(projectsHasEmployees, id);

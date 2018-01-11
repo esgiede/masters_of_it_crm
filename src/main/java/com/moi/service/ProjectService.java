@@ -8,10 +8,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProjectService {
-	Page<Project> getAllProjectsByPage(Pageable pageable);
-	Project getProjectById(Long id) throws ObjectNotFoundException;
-	void addProject(Project project) throws ObjectAlreadyExistException;
-	void updateProject(Project project, Long id) throws ObjectNotFoundException;
-	void deleteProject(Long id) throws ObjectNotFoundException, ObjectDeletingException;
-	boolean projectExist(Project project);
+    Page<Project> getAllProjectsByPage(Pageable pageable);
+
+    Project getProjectById(Long id) throws ObjectNotFoundException;
+
+    void addProject(Project project) throws ObjectAlreadyExistException;
+
+    void updateProject(Project project, Long id) throws ObjectNotFoundException;
+
+    void deleteProject(Long id) throws ObjectNotFoundException, ObjectDeletingException;
+
+    boolean projectExist(Project project);
 }

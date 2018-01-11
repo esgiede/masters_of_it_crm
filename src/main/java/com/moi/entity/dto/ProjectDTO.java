@@ -16,38 +16,38 @@ public class ProjectDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    private ProjectDTO(){
+    private ProjectDTO() {
 
     }
 
-    private ProjectDTO(Builder builder){
+    private ProjectDTO(Builder builder) {
         this.name = builder.name;
         this.startDate = builder.startDate;
         this.endDate = builder.endDate;
     }
 
-    public static class Builder{
+    public static class Builder {
 
         private String name;
         private LocalDate startDate;
         private LocalDate endDate;
 
-        public Builder name(String name){
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder startDate(LocalDate startDate){
+        public Builder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder endDate(LocalDate endDate){
+        public Builder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }
 
-        public ProjectDTO build(){
+        public ProjectDTO build() {
             return new ProjectDTO(this);
         }
 

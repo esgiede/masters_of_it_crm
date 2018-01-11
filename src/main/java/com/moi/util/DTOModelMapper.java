@@ -24,7 +24,7 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 
 
-public class DTOModelMapper extends RequestResponseBodyMethodProcessor{
+public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
 
     private static final ModelMapper modelMapper = new ModelMapper();
 

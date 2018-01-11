@@ -9,37 +9,49 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class EmployeeControllerRestTest {
 
     @Test
-    public void basicPingTest(){
+    public void basicPingTest() {
         given().when().get("employees").then().statusCode(200);
     }
+
     @Test
-    public void badRequest(){
+    public void badRequest() {
         given().when().get("embloyees/b").then().statusCode(404);
     }
+
     @Test
-    public void wrongUrl(){
+    public void wrongUrl() {
         given().when().get("employes").then().statusCode(404);
     }
+
     @Test
-    public void methodNotSupportedDelete(){ given().when().delete("employees").then().statusCode(405); }
+    public void methodNotSupportedDelete() {
+        given().when().delete("employees").then().statusCode(405);
+    }
+
     @Test
-    public void methodNotSupportedPost(){
+    public void methodNotSupportedPost() {
         given().when().post("employees/11").then().statusCode(405);
     }
+
     @Test
-    public void methodNotSupportedPut(){ given().when().put("employees").then().statusCode(405); }
+    public void methodNotSupportedPut() {
+        given().when().put("employees").then().statusCode(405);
+    }
+
     @Test
     public void verifyEmployeeName() {
         given().when().get("/employees/1").then()
-                .body("name",equalTo("Jan"))
-                .body("lastName",equalTo("Nowak"))
+                .body("name", equalTo("Jan"))
+                .body("lastName", equalTo("Nowak"))
                 .statusCode(200);
     }
+
     @Test
     public void employeeNotFound() {
         given().when().get("/employees/20").then()
                 .statusCode(404);
     }
+
     @Test
     public void addEmployee() {
         Employee employee = new Employee.Builder()
@@ -52,6 +64,7 @@ public class EmployeeControllerRestTest {
                 .when().post("/employees").then()
                 .statusCode(201);
     }
+
     @Test
     public void addEmployeeConflict() {
         Employee employee = new Employee.Builder()
@@ -64,6 +77,7 @@ public class EmployeeControllerRestTest {
                 .when().post("/employees").then()
                 .statusCode(409);
     }
+
     @Test
     public void updateEmployeeName() {
         Employee employee = new Employee.Builder()
@@ -77,9 +91,10 @@ public class EmployeeControllerRestTest {
                 .statusCode(200);
         given()
                 .when().get("/employees/2").then()
-                .body("name",equalTo("Wyedytowane"))
+                .body("name", equalTo("Wyedytowane"))
                 .statusCode(200);
     }
+
     @Test
     public void updateEmployeeLastName() {
         Employee employee = new Employee.Builder()
@@ -93,9 +108,10 @@ public class EmployeeControllerRestTest {
                 .statusCode(200);
         given()
                 .when().get("/employees/3").then()
-                .body("lastName",equalTo("Wyedytowane"))
+                .body("lastName", equalTo("Wyedytowane"))
                 .statusCode(200);
     }
+
     @Test
     public void updateEmployee() {
         Employee employee = new Employee.Builder()
@@ -109,22 +125,26 @@ public class EmployeeControllerRestTest {
                 .statusCode(200);
         given()
                 .when().get("/employees/4").then()
-                .body("name",equalTo("Wyedytowany"))
-                .body("lastName",equalTo("Wpis"))
+                .body("name", equalTo("Wyedytowany"))
+                .body("lastName", equalTo("Wpis"))
                 .statusCode(200);
     }
+
     @Test
     public void deleteEmployee() {
         given().when().delete("employees/5").then().statusCode(204);
     }
+
     @Test
     public void deleteEmployeeNotFound() {
         given().when().delete("employees/22").then().statusCode(404);
     }
+
     @Test
-    public void deleteEmployeeInProject(){
+    public void deleteEmployeeInProject() {
         given().when().delete("employees/7").then().statusCode(409);
     }
+
     @Test
     public void addEmployeeEmptyName() {
         Employee employee = new Employee.Builder()
@@ -138,6 +158,7 @@ public class EmployeeControllerRestTest {
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
+
     @Test
     public void addEmployeeEmptyLastName() {
         Employee employee = new Employee.Builder()
@@ -151,6 +172,7 @@ public class EmployeeControllerRestTest {
                 .body("message", equalTo("Wprowadź poprawnie wszystkie parametry"))
                 .statusCode(500);
     }
+
     @Test
     public void updateEmployeeNotFound() {
         Employee employee = new Employee.Builder()
@@ -163,25 +185,28 @@ public class EmployeeControllerRestTest {
                 .when().put("/employees/21").then()
                 .statusCode(404);
     }
+
     @Test
-    public void getPageSize(){
+    public void getPageSize() {
         given()
                 .when().get("/employees?size=5").then()
                 .body("size", equalTo(5))
                 .statusCode(200);
     }
+
     @Test
-    public void getPageNumber(){
+    public void getPageNumber() {
         given()
                 .when().get("/employees?page=1&size=5").then()
-                .body("number",equalTo(1))
+                .body("number", equalTo(1))
                 .statusCode(200);
     }
+
     @Test
-    public void getPageElements(){
+    public void getPageElements() {
         given()
                 .when().get("/employees?page=0&size=2").then()
-                .body("numberOfElements",equalTo(2))
+                .body("numberOfElements", equalTo(2))
                 .statusCode(200);
     }
 }

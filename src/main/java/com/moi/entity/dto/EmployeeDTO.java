@@ -13,37 +13,38 @@ public class EmployeeDTO {
     @NotNull
     private String role;
 
-    private EmployeeDTO(){
+    private EmployeeDTO() {
 
     }
 
-    private EmployeeDTO(Builder builder){
+    private EmployeeDTO(Builder builder) {
         this.name = builder.name;
         this.lastName = builder.lastName;
         this.role = builder.role;
     }
-    public static class Builder{
+
+    public static class Builder {
 
         private String name;
         private String lastName;
         private String role;
 
-        public Builder name(String name){
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder lastName(String lastName){
+        public Builder lastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public Builder role(String role){
+        public Builder role(String role) {
             this.role = role;
             return this;
         }
 
-        public EmployeeDTO build(){
+        public EmployeeDTO build() {
             return new EmployeeDTO(this);
         }
 

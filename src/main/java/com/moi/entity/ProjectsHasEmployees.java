@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 @Entity
 @Table(name = "projects_has_employees")
 @AssociationOverrides({
@@ -31,60 +32,64 @@ public class ProjectsHasEmployees implements Serializable {
 
     }
 
-    private ProjectsHasEmployees(Builder builder){
+    private ProjectsHasEmployees(Builder builder) {
         this.id = builder.id;
         this.pk = builder.pk;
         this.role = builder.role;
     }
 
-    public static class Builder{
-
-        private Long id;
-        private ProjectsHasEmployeesId pk;
-        private  String role;
-
-        public Builder id(Long id){
-            this.id = id;
-            return this;
-        }
-
-        public Builder pk(ProjectsHasEmployeesId pk){
-            this.pk = pk;
-            return this;
-        }
-
-        public Builder role(String role){
-            this.role = role;
-            return this;
-        }
-
-        public ProjectsHasEmployees build(){ return new ProjectsHasEmployees(this);}
-
-    }
-
     @Transient
-    public Project getProject(){
+    public Project getProject() {
         return getPk().getProject();
     }
 
-    public void setProject(Project project){
+    public void setProject(Project project) {
         getPk().setProject(project);
     }
 
     @Transient
-    public Employee getEmployee(){ return getPk().getEmployee(); }
+    public Employee getEmployee() {
+        return getPk().getEmployee();
+    }
 
-    public void setEmployee(Employee employee){
+    public void setEmployee(Employee employee) {
         getPk().setEmployee(employee);
     }
 
     @JsonIgnore
-    public Long getProjectId(){
+    public Long getProjectId() {
         return pk.getProject().getId();
     }
 
     @JsonIgnore
-    public Long getEmployeeId(){
+    public Long getEmployeeId() {
         return pk.getEmployee().getId();
+    }
+
+    public static class Builder {
+
+        private Long id;
+        private ProjectsHasEmployeesId pk;
+        private String role;
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder pk(ProjectsHasEmployeesId pk) {
+            this.pk = pk;
+            return this;
+        }
+
+        public Builder role(String role) {
+            this.role = role;
+            return this;
+        }
+
+        public ProjectsHasEmployees build() {
+            return new ProjectsHasEmployees(this);
+        }
+
     }
 }

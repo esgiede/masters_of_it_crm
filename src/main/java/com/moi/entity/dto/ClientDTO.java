@@ -17,45 +17,45 @@ public class ClientDTO {
     @Size(min = 9, max = 12)
     private String phone;
 
-   private ClientDTO(){
+    private ClientDTO() {
 
     }
 
-    private ClientDTO(Builder builder){
+    private ClientDTO(Builder builder) {
         name = builder.name;
         address = builder.address;
         contact = builder.contact;
         phone = builder.phone;
     }
 
-    public static class Builder{
+    public static class Builder {
 
         private String name;
         private String address;
         private String contact;
         private String phone;
 
-        public Builder name(String name){
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder address(String address){
+        public Builder address(String address) {
             this.address = address;
             return this;
         }
 
-        public Builder contact(String contact){
+        public Builder contact(String contact) {
             this.contact = contact;
             return this;
         }
 
-        public Builder phone(String phone){
+        public Builder phone(String phone) {
             this.phone = phone;
             return this;
         }
 
-        public ClientDTO build(){
+        public ClientDTO build() {
             return new ClientDTO(this);
         }
 

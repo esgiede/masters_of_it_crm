@@ -25,47 +25,51 @@ public class ProjectsHasEmployeesServiceImpl implements ProjectsHasEmployeesServ
 
     @Override
     public ProjectsHasEmployees getPheById(Long id) throws ObjectNotFoundException {
-        if(projectsHasEmployeesRepository.exists(id)){
+        if (projectsHasEmployeesRepository.exists(id)) {
             return projectsHasEmployeesRepository.findOne(id);
-        }else{
+        } else {
             throw new ObjectNotFoundException("Nie znaleziono wpisu o podanym Id");
         }
     }
+
     @Override
     public synchronized void addPhe(ProjectsHasEmployees phe) throws ObjectAlreadyExistException {
-        if(!pheExist(phe)){
+        if (!pheExist(phe)) {
             projectsHasEmployeesRepository.save(phe);
-        }else{
+        } else {
             throw new ObjectAlreadyExistException("Wpis o podanych parametrach już istnieje");
         }
     }
+
     @Override
     public void updatePhe(ProjectsHasEmployees phe, Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
-        if(projectsHasEmployeesRepository.exists(id)){
-            if(!pheExist(phe)){
+        if (projectsHasEmployeesRepository.exists(id)) {
+            if (!pheExist(phe)) {
                 phe.setId(id);
                 projectsHasEmployeesRepository.save(phe);
-            }else{
+            } else {
                 throw new ObjectAlreadyExistException("Wpis o podanych parametrach już istnieje");
             }
-        }else{
+        } else {
             throw new ObjectNotFoundException("Nie znaleziono wpisu o podanym id");
         }
     }
+
     @Override
-    public void deletePhe(Long id) throws ObjectNotFoundException{
-        if(projectsHasEmployeesRepository.exists(id)){
+    public void deletePhe(Long id) throws ObjectNotFoundException {
+        if (projectsHasEmployeesRepository.exists(id)) {
             projectsHasEmployeesRepository.delete(id);
-        }else{
+        } else {
             throw new ObjectNotFoundException("Wpis o podanym id nie istnieje");
         }
     }
+
     @Override
     public boolean pheExist(ProjectsHasEmployees phe) {
 
-        for(ProjectsHasEmployees temp : projectsHasEmployeesRepository.findAll()){
+        for (ProjectsHasEmployees temp : projectsHasEmployeesRepository.findAll()) {
 
-            if(Objects.equals(temp.getProjectId(), phe.getProjectId()) && Objects.equals(temp.getEmployeeId(), phe.getEmployeeId())){
+            if (Objects.equals(temp.getProjectId(), phe.getProjectId()) && Objects.equals(temp.getEmployeeId(), phe.getEmployeeId())) {
                 return true;
             }
         }

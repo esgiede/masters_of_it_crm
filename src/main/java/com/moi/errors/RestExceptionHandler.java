@@ -21,9 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ConstraintViolationException;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -54,6 +52,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<Object> handleDataIntegrityViolationException(
             DataIntegrityViolationException ex) {
@@ -69,6 +68,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage("Wprowadź poprawnie wszystkie parametry");
         return buildResponseEntity(apiError);
     }
+
     @ExceptionHandler(JpaSystemException.class)
     protected ResponseEntity<Object> handleJpaSystemException(
             JpaSystemException ex) {
@@ -76,6 +76,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage("Wprowadź poprawnie wszystkie parametry");
         return buildResponseEntity(apiError);
     }
+
     @ExceptionHandler(ObjectNotFoundException.class)
     protected ResponseEntity<Object> handleObjectNotFoundException(
             ObjectNotFoundException ex) {
@@ -83,14 +84,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
+
     @ExceptionHandler(ObjectAlreadyExistException.class)
-    protected ResponseEntity<Object> handleObjectAlreadyExistException(ObjectAlreadyExistException ex){
+    protected ResponseEntity<Object> handleObjectAlreadyExistException(ObjectAlreadyExistException ex) {
         ApiError apiError = new ApiError(CONFLICT);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
+
     @ExceptionHandler(ObjectDeletingException.class)
-    protected ResponseEntity<Object> handleObjectDeletingException(ObjectDeletingException ex){
+    protected ResponseEntity<Object> handleObjectDeletingException(ObjectDeletingException ex) {
         ApiError apiError = new ApiError(CONFLICT);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
