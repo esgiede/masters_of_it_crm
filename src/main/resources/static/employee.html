@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lista pracowników</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Masters of It</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Strona główna</a></li>
+            <li class="active"><a href="#/employee">Lista pracowników</a></li>
+            <li><a href="#">Lista projektów</a></li>
+            <li><a href="#">Lista klientów</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div ng-controller="EmployeesCtrl" ng-init="getEmployees()">
+
+    <div id="filters" >
+        <button ng-click="showme=false">Pokaż filtry</button>
+        <button ng-click="showme=true">Ukryj filtry</button>
+        <form ng-hide="showme">
+            <div class="form-group">
+                <label for="name">Imię:</label>
+                <input type="text" class="form-control" id="name" ng-model="name">
+            </div>
+        </form>
+    </div>
+    <table id="employees">
+        <tr>
+            <th>Id</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>PESEL</th>
+            <th>Adres</th>
+            <th>Telefon</th>
+            <th>Rodzaj umowy</th>
+            <th>Zatrudniony od</th>
+        </tr>
+        <tr ng-repeat="x in employees | filter : name">
+            <td>{{ x.id}}</td>
+            <td>{{ x.name }}</td>
+            <td>{{ x.lastName }}</td>
+            <td>{{ x.pesel }}</td>
+            <td>{{ x.address }}</td>
+            <td>{{ x.phone }}</td>
+            <td>{{ x.typeOfContract }}</td>
+            <td>{{ x.employedSince }}</td>
+        </tr>
+    </table>
+</div>
+
+</body>

@@ -45,8 +45,14 @@ CREATE TABLE `clients` (
 CREATE TABLE `employees` (
   `employee_id` int(10) NOT NULL,
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+  `last_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `pesel` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type_of_contract` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `employed_since` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -90,7 +96,9 @@ ALTER TABLE `clients`
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
-  ADD PRIMARY KEY (`employee_id`);
+  ADD PRIMARY KEY (`employee_id`),
+  ADD UNIQUE KEY `pesel` (`pesel`);
+
 
 --
 -- Indexes for table `projects`

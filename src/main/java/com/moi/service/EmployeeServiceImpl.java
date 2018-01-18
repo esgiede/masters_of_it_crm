@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,8 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Page<Employee> getAllEmployeesByPage(Pageable pageable) {
-        return employeeRepository.findAll(pageable);
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 
     public synchronized void addEmployee(Employee employee) throws ObjectAlreadyExistException {

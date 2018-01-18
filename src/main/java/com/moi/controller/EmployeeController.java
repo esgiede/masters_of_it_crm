@@ -17,8 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("employees")
+@CrossOrigin("*")
 public class EmployeeController {
 
     @Autowired
@@ -31,17 +34,17 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Employee>> getAllEmployeesByPage(Pageable pageable) {
-        Page<Employee> list = employeeService.getAllEmployeesByPage(pageable);
+    public ResponseEntity<List<Employee>> getAllEmployeesByPage() {
+        List<Employee> list = employeeService.getAllEmployees();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Void> addEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, UriComponentsBuilder builder) throws ObjectAlreadyExistException {
+    public ResponseEntity<Employee> addEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, UriComponentsBuilder builder) throws ObjectAlreadyExistException {
         employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
