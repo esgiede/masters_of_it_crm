@@ -17,6 +17,9 @@ mainApp.config(function($routeProvider) {
 mainApp.controller('EmployeesCtrl', ['$scope','EmployeesService',
   function ($scope,EmployeesService) {
 
+      $scope.sortType     = 'name';
+      $scope.sortReverse  = false;
+
       $scope.getEmployees = function () {
           EmployeesService.getEmployees()
             .then(function success(response) {
