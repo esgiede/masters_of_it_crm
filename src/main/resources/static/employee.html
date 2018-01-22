@@ -44,7 +44,7 @@
             </div>
         </form>
     </div>
-    <h2>Lista pracowników</h2>
+    <h2><span class="glyphicon glyphicon-list"></span> Lista pracowników</h2>
     <table id="employees">
         <tr>
             <th ng-click="sortType = 'id'; sortReverse = !sortReverse">
@@ -75,7 +75,7 @@
                 <span ng-show="sortType == 'employedSince' && sortReverse" class="fa fa-caret-up"></span>
             </th>
         </tr>
-        <tr ng-repeat="x in employees | orderBy:sortType:sortReverse | filter : search">
+        <tr ng-repeat="x in employees | orderBy:sortType:sortReverse | filter : search | pagination : currentPage*itemsPerPage | limitTo: itemsPerPage">
             <td>{{ x.id}}</td>
             <td>{{ x.name }}</td>
             <td>{{ x.lastName }}</td>
@@ -85,7 +85,24 @@
             <td>{{ x.typeOfContract }}</td>
             <td>{{ x.employedSince }}</td>
         </tr>
+        <tr>
+
+        </tr>
     </table>
+
+    <div id="pagination-div">
+        <ul class="pagination">
+            <li ng-class="DisablePrevPage()">
+                <a href ng-click="prevPage()"><span class="glyphicon glyphicon-triangle-left"></span></a>
+            </li>
+            <li ng-repeat="n in range()" ng-class="{active: n == currentPage}">
+                <a href ng-click="setPage(n)">{{n+1}}</a>
+            </li>
+            <li ng-class="DisableNextPage()">
+                <a href ng-click="nextPage()"><span class="glyphicon glyphicon-triangle-right"></span></a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </body>

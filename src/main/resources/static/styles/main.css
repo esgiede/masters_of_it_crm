@@ -12,6 +12,11 @@
     padding-top: 30px;
 }
 
+#pagination-div{
+  display: table;
+  margin: 0 auto;
+}
+
 #employeeForm h2{
     text-align: center;
     padding-bottom: 40px;
