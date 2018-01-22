@@ -5,7 +5,6 @@ import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,8 +15,11 @@ import javax.transaction.Transactional;
 @Transactional
 public class ProjectServiceImpl implements ProjectService {
 
-    @Autowired
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
+
+    public ProjectServiceImpl(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
     public Page<Project> getAllProjectsByPage(Pageable pageable) {
         return projectRepository.findAll(pageable);

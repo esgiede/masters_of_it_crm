@@ -4,7 +4,6 @@ import com.moi.entity.ProjectsHasEmployees;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.ProjectsHasEmployeesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,8 +14,11 @@ import java.util.Objects;
 @Transactional
 public class ProjectsHasEmployeesServiceImpl implements ProjectsHasEmployeesService {
 
-    @Autowired
-    private ProjectsHasEmployeesRepository projectsHasEmployeesRepository;
+    private final ProjectsHasEmployeesRepository projectsHasEmployeesRepository;
+
+    public ProjectsHasEmployeesServiceImpl(ProjectsHasEmployeesRepository projectsHasEmployeesRepository) {
+        this.projectsHasEmployeesRepository = projectsHasEmployeesRepository;
+    }
 
     @Override
     public List<ProjectsHasEmployees> getAllPhe() {

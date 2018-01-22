@@ -7,7 +7,6 @@ import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.service.ProjectService;
 import com.moi.util.DTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -21,8 +20,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("projects")
 public class ProjectController {
 
-    @Autowired
-    private ProjectService projectService;
+    private final ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable("id") Long id) throws ObjectNotFoundException {

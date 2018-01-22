@@ -7,7 +7,6 @@ import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.service.ClientService;
 import com.moi.util.DTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -21,8 +20,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("clients")
 public class ClientController {
 
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping
     public ResponseEntity<Page<Client>> getAllClientsByPage(Pageable pageable) {

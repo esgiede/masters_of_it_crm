@@ -9,9 +9,13 @@ mainApp.config(function($routeProvider) {
 			templateUrl: 'employee.html',
 			controller: 'EmployeesCtrl'
 		})
+		.when('/employee-add', {
+        	templateUrl: 'addEmployee.html',
+        	controller: 'EmployeesCtrl'
+        })
 		.otherwise({
-        			redirectTo: '/home'
-        		});
+        	redirectTo: '/home'
+        });
 });
 
 mainApp.controller('EmployeesCtrl', ['$scope','EmployeesService',
@@ -26,25 +30,26 @@ mainApp.controller('EmployeesCtrl', ['$scope','EmployeesService',
                 $scope.employees = response.data;
             });
       }
-      $scope.getEmployee = function () {
-              var id = $scope.employee.id;
-              EmployeesService.getEmployee($scope.employee.id)
-                .then(function success(response){
-                    $scope.employee = response.data;
-                    $scope.employee.id = id;
-                    $scope.message='';
+
+      $scope.addEmployee = function () {
+          if ($scope.employee != null && $scope.employee.name) {
+              EmployeesService.addEmployee($scope.employee.name, $scope.employee.lastName, $scope.employee.pesel,
+              $scope.employee.address, $scope.employee.phone, $scope.employee.typeOfContract, $scope.employee.employedSince)
+                .then (function success(response){
+                    $scope.message = 'Employee added!';
                     $scope.errorMessage = '';
                 },
-                function error (response ){
+                function error(response){
+                    $scope.errorMessage = 'Error adding employee!';
                     $scope.message = '';
-                    if (response.status === 404){
-                        $scope.errorMessage = 'Employee not found!';
-                    }
-                    else {
-                        $scope.errorMessage = "Error getting Employee!";
-                    }
-                });
+              });
           }
+          else {
+              $scope.errorMessage = 'Please enter a name!';
+              $scope.message = '';
+          }
+      }
+
 }]);
 
 mainApp.service('EmployeesService', [ '$http', function($http) {
@@ -56,11 +61,20 @@ mainApp.service('EmployeesService', [ '$http', function($http) {
         });
     }
 
-    this.getEmployee = function getEmployee(employeeId){
-            return $http({
-              method: 'GET',
-              url: 'employees/'+employeeId
-            });
-    	}
+      this.addEmployee = function addEmployee(name, lastName, pesel, address, phone, typeOfContract, employedSince) {
+          return $http({
+              method : 'POST',
+              url : 'employees',
+              data : {
+                  name : name,
+                  lastName : lastName,
+                  pesel : pesel,
+                  address : address,
+                  phone : phone,
+                  typeOfContract : typeOfContract,
+                  employedSince : employedSince
+              }
+          });
+      }
 
 } ]);

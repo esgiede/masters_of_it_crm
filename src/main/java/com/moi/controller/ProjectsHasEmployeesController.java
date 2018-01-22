@@ -7,7 +7,6 @@ import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.service.ProjectsHasEmployeesService;
 import com.moi.util.DTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +20,11 @@ import java.util.List;
 @RequestMapping("phe")
 public class ProjectsHasEmployeesController {
 
-    @Autowired
-    ProjectsHasEmployeesService projectsHasEmployeesService;
+    private final ProjectsHasEmployeesService projectsHasEmployeesService;
+
+    public ProjectsHasEmployeesController(ProjectsHasEmployeesService projectsHasEmployeesService) {
+        this.projectsHasEmployeesService = projectsHasEmployeesService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ProjectsHasEmployees>> getAllPhe() {

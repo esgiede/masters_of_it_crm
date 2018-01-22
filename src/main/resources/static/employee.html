@@ -29,15 +29,22 @@
 <div ng-controller="EmployeesCtrl" ng-init="getEmployees()">
 
     <div id="filters" >
-        <button ng-click="showme=false">Pokaż filtry</button>
-        <button ng-click="showme=true">Ukryj filtry</button>
-        <form ng-hide="showme">
+        <button class="btn btn-default" ng-click="showme=true">Ukryj filtry</button>
+        <button class="btn btn-default" ng-click="showme=false">Pokaż filtry</button>
+        <button class="btn btn-default">Wyczyść filtry</button>
+        <a href="#/employee-add" class="btn btn-default" role="button">Dodaj nowego pracownika</a>
+        <form ng-hide="showme" id="filtersInput" ng-init="showme=true">
             <div class="form-group">
                 <label for="name">Imię:</label>
-                <input type="text" class="form-control" id="name" ng-model="name">
+                <input type="text" class="form-control" id="name" ng-model="search.name">
+                <label for="lastName">Nazwisko:</label>
+                <input type="text" class="form-control" id="lastName" ng-model="search.lastName">
+                <label for="address">Adres:</label>
+                <input type="text" class="form-control" id="address" ng-model="search.address">
             </div>
         </form>
     </div>
+    <h2>Lista pracowników</h2>
     <table id="employees">
         <tr>
             <th ng-click="sortType = 'id'; sortReverse = !sortReverse">
@@ -68,7 +75,7 @@
                 <span ng-show="sortType == 'employedSince' && sortReverse" class="fa fa-caret-up"></span>
             </th>
         </tr>
-        <tr ng-repeat="x in employees | orderBy:sortType:sortReverse | filter : name">
+        <tr ng-repeat="x in employees | orderBy:sortType:sortReverse | filter : search">
             <td>{{ x.id}}</td>
             <td>{{ x.name }}</td>
             <td>{{ x.lastName }}</td>

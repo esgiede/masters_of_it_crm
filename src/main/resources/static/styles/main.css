@@ -6,6 +6,23 @@
     margin-right:auto;
 }
 
+#employeeForm {
+    margin-left:auto;
+    margin-right:auto;
+    padding-top: 30px;
+}
+
+#employeeForm h2{
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+h2{
+    text-align: center;
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+
 #employees td, #employees th {
     border: 1px solid #ddd;
     padding: 8px;
@@ -31,4 +48,8 @@
     border-radius: 25px;
     padding: 20px;
     margin-bottom: 20px;
+}
+
+#filtersInput{
+    padding: 20px;
 }

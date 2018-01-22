@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Lista pracowników</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Masters of It</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Strona główna</a></li>
+            <li class="active"><a href="#/employee">Lista pracowników</a></li>
+            <li><a href="#">Lista projektów</a></li>
+            <li><a href="#">Lista klientów</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div ng-controller="EmployeesCtrl" id = "employeeForm">
+    <h2>Dodaj nowego pracownika</h2>
+    <div class="row" id="filters">
+        <form class="form-horizontal">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Imię:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="imię" name="name" ng-model="employee.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pesel">Pesel:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="pesel" placeholder="pesel" name="pesel" ng-model="employee.pesel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="phone">Telefon:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="phone" placeholder="telefon" name="phone" ng-model="employee.phone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="employedSince">Zatrudniony od:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="employedSince" placeholder="zatrudniony od" name="employedSince" ng-model="employee.employedSince">
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" ng-click="addEmployee(employee.name,employee.lastName,
+                employee.pesel, employee.address, employee.typeOfContract, employee.employedSince)">Dodaj</button>
+                <button type="reset" class="btn btn-default">Anuluj</button>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="lastName">Nazwisko:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lastName" placeholder="nazwisko" name="lastName" ng-model="employee.lastName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="address">Adres:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="address" placeholder="adres" name="address" ng-model="employee.address">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="typeOfContract">Rodzaj umowy:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="typeOfContract" ng-model="employee.typeOfContract">
+                        <option>Umowa o pracę</option>
+                        <option>Umowa zlecenie</option>
+                        <option>Umowa o dzieło</option>
+                        <option>B2B</option>
+                        <option>Inna forma zatrudnienia</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
