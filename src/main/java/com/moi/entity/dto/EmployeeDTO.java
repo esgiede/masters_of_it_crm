@@ -1,26 +1,18 @@
 package com.moi.entity.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 public class EmployeeDTO {
-    @NotNull
+
     private String name;
-    @NotNull
     private String lastName;
-    @NotNull
     private String pesel;
-    @NotNull
     private String address;
     private String phone;
-    @NotNull
     private String typeOfContract;
-    @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate employedSince;
 
     private EmployeeDTO() {
@@ -51,42 +43,34 @@ public class EmployeeDTO {
             this.name = name;
             return this;
         }
-
         public Builder lastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
-
         public Builder pesel(String pesel) {
             this.pesel = pesel;
             return this;
         }
-
         public Builder address(String address) {
             this.address = address;
             return this;
         }
-
         public Builder phone(String phone) {
             this.phone = phone;
             return this;
         }
-
         public Builder typeOfContract(String typeOfContract) {
             this.typeOfContract = typeOfContract;
             return this;
         }
-
         public Builder employedSince(LocalDate employedSince) {
             this.employedSince = employedSince;
             return this;
         }
-
         public EmployeeDTO build() {
             return new EmployeeDTO(this);
         }
 
     }
-
 
 }

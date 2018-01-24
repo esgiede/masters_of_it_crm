@@ -31,7 +31,6 @@
     <div id="filters" >
         <button class="btn btn-default" ng-click="showme=true">Ukryj filtry</button>
         <button class="btn btn-default" ng-click="showme=false">Pokaż filtry</button>
-        <button class="btn btn-default">Wyczyść filtry</button>
         <a href="#/employee-add" class="btn btn-default" role="button">Dodaj nowego pracownika</a>
         <form ng-hide="showme" id="filtersInput" ng-init="showme=true">
             <div class="form-group">
@@ -42,6 +41,7 @@
                 <label for="address">Adres:</label>
                 <input type="text" class="form-control" id="address" ng-model="search.address">
             </div>
+            <button type="reset" ng-model="search." class="btn btn-default">Wyczyść filtry</button>
         </form>
     </div>
     <h2><span class="glyphicon glyphicon-list"></span> Lista pracowników</h2>
@@ -102,6 +102,14 @@
                 <a href ng-click="nextPage()"><span class="glyphicon glyphicon-triangle-right"></span></a>
             </li>
         </ul>
+
+        <select class="form-control" id="itemsPerPage" ng-model="itemsPerPage">
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
     </div>
 </div>
 

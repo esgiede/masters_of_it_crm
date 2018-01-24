@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -23,24 +22,18 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employee_id")
     private Long id;
-    @NotNull
     @Column(name = "name")
     private String name;
-    @NotNull
     @Column(name = "last_name")
     private String lastName;
-    @NotNull
     @Column(name = "pesel")
     private String pesel;
-    @NotNull
     @Column(name = "address")
     private String address;
     @Column(name = "phone")
     private String phone;
-    @NotNull
     @Column(name = "type_of_contract")
     private String typeOfContract;
-    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "employed_since")
     private LocalDate employedSince;

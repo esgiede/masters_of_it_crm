@@ -2,6 +2,7 @@ package com.moi.controller;
 
 import com.moi.entity.Employee;
 import com.moi.entity.dto.EmployeeDTO;
+import com.moi.errors.exceptions.EmptyFieldException;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
@@ -40,7 +41,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> addEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, UriComponentsBuilder builder) throws ObjectAlreadyExistException {
+    public ResponseEntity<Employee> addEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, UriComponentsBuilder builder) throws ObjectAlreadyExistException, EmptyFieldException {
         employeeService.addEmployee(employee);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/employee/{id}").buildAndExpand(employee.getId()).toUri());
@@ -48,7 +49,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, @PathVariable("id") Long id) throws ObjectNotFoundException, ObjectAlreadyExistException {
+    public ResponseEntity<Employee> updateEmployee(@RequestBody @DTO(EmployeeDTO.class) Employee employee, @PathVariable("id") Long id) throws ObjectNotFoundException, ObjectAlreadyExistException, EmptyFieldException {
         employeeService.updateEmployee(employee, id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
