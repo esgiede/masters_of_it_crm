@@ -132,59 +132,166 @@ public class EmployeeControllerRestTest {
     @Test
     public void addEmployeeEmptyName() {
         Employee employee = new Employee.Builder()
-                .name("Borys")
-                .lastName("Sobczak")
-                .pesel("86091153410")
-                .address("ul. Hutnicza 88 42-600 Tarnowskie Góry")
-                .phone("78 134 26 02")
-                .typeOfContract("B2B")
-                .employedSince(LocalDate.parse("2014-04-01"))
+                .lastName("Ostrowski")
+                .pesel("98011053913")
+                .address("ul. Żużlowców 94 51-050 Wrocław")
+                .phone("53 954 44 83")
+                .typeOfContract("Umowa zlecenie")
+                .employedSince(LocalDate.parse("2018-01-01"))
                 .build();
         given()
                 .contentType("application/json")
                 .body(employee)
                 .when().post("/employees").then()
-                .statusCode(201);
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeeEmptyLastName() {
-
+        Employee employee = new Employee.Builder()
+                .name("Jan")
+                .pesel("94081131102")
+                .address("ul. Szamarzewskiego Augustyna 3 60-569 Poznań")
+                .phone("53 432 94 15")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-05-01"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeeEmptyPesel() {
-
+        Employee employee = new Employee.Builder()
+                .name("Małgorzata")
+                .lastName("Tomaszewska")
+                .address("Pl. Matki Polki 18 71-461 Szczecin")
+                .phone("51 688 21 73")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2016-11-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeeEmptyAddress() {
-
+        Employee employee = new Employee.Builder()
+                .name("Zygmunt")
+                .lastName("Czerwiński")
+                .pesel("88053046992")
+                .phone("51 852 85 05")
+                .typeOfContract("Umowa zlecenie")
+                .employedSince(LocalDate.parse("2017-01-01"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeeEmptyTypeOfContract() {
-
+        Employee employee = new Employee.Builder()
+                .name("Juliana")
+                .lastName("Pawłowska")
+                .address("ul. Daszyńskiego Ignacego 89 42-600 Tarnowskie Góry")
+                .pesel("88053046992")
+                .phone("51 852 85 05")
+                .employedSince(LocalDate.parse("2014-09-01"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeeEmptyEmployedSince() {
-
+        Employee employee = new Employee.Builder()
+                .name("Maryla")
+                .lastName("Zielinska")
+                .address("ul. Mestwina 13 03-175 Warszawa")
+                .pesel("72090962269")
+                .phone("66 458 09 15")
+                .typeOfContract("B2B")
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeeAlreadyExist() {
-
+        Employee employee = new Employee.Builder()
+                .name("Franciszek")
+                .lastName("Adamski")
+                .address("Al. Solidarności 85 31-752 Kraków")
+                .pesel("95061558269")
+                .phone("78 145 65 68")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Pracownik o podanych danych już istnieje"))
+                .statusCode(409);
     }
 
     @Test
     public void addEmployeePeselTooLong() {
-
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeePeselTooShort() {
-
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("7810211720")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
@@ -194,12 +301,40 @@ public class EmployeeControllerRestTest {
 
     @Test
     public void addEmployeePhoneTooShort() {
-
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("78102117205")
+                .phone("78")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
     public void addEmployeePhoneTooLong() {
-
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58 4343")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
@@ -210,6 +345,271 @@ public class EmployeeControllerRestTest {
     @Test
     public void addEmployeeEmployedSinceWrongFormat() {
 
+    }
+    @Test
+    public void addEmployeeNameStartsWithWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("  Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeNameOnlyWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("    ")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeNameEmptyString() {
+        Employee employee = new Employee.Builder()
+                .name("")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeLastNameStartsWithWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("  Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeLastNameOnlyWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("   ")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeLastNameEmptyString() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeePeselStartsWithWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("  781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeePeselOnlyWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("           ")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeAddressStartsWithWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address(" ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeAddressOnlyWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("   ")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeAddressEmptyString() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeTypeOfContractStartsWithWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract(" B2B")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeTypeOfContractOnlyWhitespaces() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("   ")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
+    }
+
+    @Test
+    public void addEmployeeTypeOfContractEmptyString() {
+        Employee employee = new Employee.Builder()
+                .name("Dominika")
+                .lastName("Szymanska")
+                .address("ul. Konwaliowa 72 91-859 Łódź")
+                .pesel("781021172051")
+                .phone("78 408 39 58")
+                .typeOfContract("")
+                .employedSince(LocalDate.parse("2017-02-10"))
+                .build();
+        given()
+                .contentType("application/json")
+                .body(employee)
+                .when().post("/employees").then()
+                .body("message", equalTo("Wypełnij prawidłowo wszystkie pola"))
+                .statusCode(500);
     }
 
     @Test
