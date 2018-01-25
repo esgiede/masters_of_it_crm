@@ -6,6 +6,7 @@ import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.EmployeeRepository;
+import com.moi.util.FieldChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ import com.moi.util.FieldCheckerImpl;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-    private final FieldCheckerImpl fieldChecker;
+    private final FieldChecker fieldChecker;
 
     private static final int PESEL_LENGTH = 11;
     private static final int MIN_PHONE_LENGTH = 9;
@@ -111,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (!fieldChecker.checkLengthEqual(employee.getPesel(), PESEL_LENGTH)){
             return false;
         }
-        if (!fieldChecker.checkLength(employee.getPhone(), MIN_PHONE_LENGTH, MAX_PHONE_LENGTH)){
+        if (employee.getPhone() != null && !fieldChecker.checkLength(employee.getPhone(), MIN_PHONE_LENGTH, MAX_PHONE_LENGTH)){
             return false;
         }
         return true;
