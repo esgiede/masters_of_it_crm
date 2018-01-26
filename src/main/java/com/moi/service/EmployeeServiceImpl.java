@@ -94,27 +94,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public boolean fieldCheck(Employee employee){
-        if(!fieldChecker.checkIfEmpty(employee.getName())){
-            return false;
-        }
-        if (!fieldChecker.checkIfEmpty(employee.getLastName())){
-            return false;
-        }
-        if (!fieldChecker.checkIfEmpty(employee.getAddress())){
-            return false;
-        }
-        if (!fieldChecker.checkIfEmpty(employee.getPesel())){
-            return false;
-        }
-        if (!fieldChecker.checkIfEmpty(employee.getTypeOfContract())){
-            return false;
-        }
         if (!fieldChecker.checkLengthEqual(employee.getPesel(), PESEL_LENGTH)){
             return false;
         }
         if (employee.getPhone() != null && !fieldChecker.checkLength(employee.getPhone(), MIN_PHONE_LENGTH, MAX_PHONE_LENGTH)){
             return false;
         }
+        if(!fieldChecker.checkIfEmpty(employee.getToVerification())){
+            return false;
+        }
+
         return true;
     }
 }

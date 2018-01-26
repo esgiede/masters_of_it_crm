@@ -55,7 +55,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> employeeClient(@PathVariable("id") Long id) throws ObjectNotFoundException, ObjectDeletingException {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable("id") Long id) throws ObjectNotFoundException, ObjectDeletingException {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

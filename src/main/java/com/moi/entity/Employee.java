@@ -113,5 +113,15 @@ public class Employee implements Serializable {
 
     }
 
+    @JsonIgnore
+    public Set<String> getToVerification(){
+        Set<String> set = new HashSet<>();
+        set.add(this.name);
+        set.add(this.lastName);
+        set.add(this.pesel);
+        set.add(this.address);
+        set.add(this.typeOfContract);
+        return set;
+    }
 
 }
