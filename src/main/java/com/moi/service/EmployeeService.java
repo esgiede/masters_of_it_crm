@@ -20,6 +20,4 @@ public interface EmployeeService {
     void updateEmployee(Employee employee, Long id) throws ObjectNotFoundException, EmptyFieldException;
 
     void deleteEmployee(Long id) throws ObjectNotFoundException, ObjectDeletingException;
-
-    boolean employeeExist(Employee employee);
 }

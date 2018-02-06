@@ -1,5 +1,6 @@
 package com.moi.service;
 
+import com.google.common.base.Optional;
 import com.moi.entity.Employee;
 import com.moi.errors.exceptions.EmptyFieldException;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
@@ -49,40 +50,47 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployeeById(Long id) throws ObjectNotFoundException {
-        if (employeeRepository.exists(id)) {
-            return employeeRepository.findOne(id);
-        } else {
+        Optional<Employee> tempEmployee = Optional.fromNullable(employeeRepository.findOne(id));
+
+        if(tempEmployee.isPresent()){
+            return tempEmployee.get();
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
         }
     }
 
     public void updateEmployee(Employee employee, Long id) throws ObjectNotFoundException, EmptyFieldException {
-        if (employeeRepository.exists(id)) {
-            if (fieldCheck(employee)){
-                employee.setId(id);
-                employeeRepository.save(employee);
+
+        Optional<Employee> tempEmployee = Optional.fromNullable(employeeRepository.findOne(id));
+
+        if(tempEmployee.isPresent()){
+            if(fieldCheck(employee)){
+                tempEmployee.get().setId(id);
+                employeeRepository.save(tempEmployee.get());
             }else{
                 throw new EmptyFieldException("Wypełnij prawidłowo wszystkie pola");
             }
-
-        } else {
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
         }
     }
 
     public void deleteEmployee(Long id) throws ObjectNotFoundException, ObjectDeletingException {
-        if (employeeRepository.exists(id)) {
-            if (employeeRepository.findOne(id).getProjectsHasEmployees().isEmpty()) {
+
+        Optional<Employee> tempEmployee = Optional.fromNullable(employeeRepository.findOne(id));
+
+        if(tempEmployee.isPresent()){
+            if(employeeRepository.findOne(id).getProjectsHasEmployees().isEmpty()){
                 employeeRepository.delete(id);
-            } else {
+            }else{
                 throw new ObjectDeletingException("Klient posiada przypisane projekty.");
             }
-        } else {
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
         }
     }
 
-    public boolean employeeExist(Employee employee) {
+    private boolean employeeExist(Employee employee) {
         boolean isExist = false;
 
         for (Employee temp : employeeRepository.findAll()) {
@@ -93,13 +101,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return isExist;
     }
 
-    public boolean fieldCheck(Employee employee){
+    private boolean fieldCheck(Employee employee){
         if (!fieldChecker.checkLengthEqual(employee.getPesel(), PESEL_LENGTH)){
             return false;
         }
         if (employee.getPhone() != null && !fieldChecker.checkLength(employee.getPhone(), MIN_PHONE_LENGTH, MAX_PHONE_LENGTH)){
             return false;
         }
+
         if(!fieldChecker.checkIfEmpty(employee.getToVerification())){
             return false;
         }
