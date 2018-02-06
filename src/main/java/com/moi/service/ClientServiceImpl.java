@@ -1,5 +1,6 @@
 package com.moi.service;
 
+import com.google.common.base.Optional;
 import com.moi.entity.Client;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
@@ -26,9 +27,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     public Client getClientById(Long id) throws ObjectNotFoundException {
-        if (clientRepository.exists(id)) {
-            return clientRepository.findOne(id);
-        } else {
+
+        Optional<Client> tempClient = Optional.fromNullable(clientRepository.findOne(id));
+
+        if(tempClient.isPresent()){
+            return tempClient.get();
+        }else {
             throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
         }
     }
@@ -42,22 +46,26 @@ public class ClientServiceImpl implements ClientService {
     }
 
     public void updateClient(Client client, Long id) throws ObjectNotFoundException {
-        if (clientRepository.exists(id)) {
-            client.setId(id);
-            clientRepository.save(client);
-        } else {
+        Optional<Client> tempClient = Optional.fromNullable(clientRepository.findOne(id));
+
+        if(tempClient.isPresent()){
+            tempClient.get().setId(id);
+            clientRepository.save(tempClient.get());
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
         }
     }
 
     public void deleteClient(Long id) throws ObjectNotFoundException, ObjectDeletingException {
-        if (clientRepository.exists(id)) {
-            if (clientRepository.findOne(id).getProject().isEmpty()) {
+        Optional<Client> tempClient = Optional.fromNullable(clientRepository.findOne(id));
+
+        if(tempClient.isPresent()){
+            if(clientRepository.findOne(id).getProject().isEmpty()){
                 clientRepository.delete(id);
-            } else {
+            }else{
                 throw new ObjectDeletingException("Klient posiada przypisane projekty.");
             }
-        } else {
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono klienta o podanym Id");
         }
     }

@@ -1,5 +1,6 @@
 package com.moi.service;
 
+import com.google.common.base.Optional;
 import com.moi.entity.Project;
 import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
@@ -35,26 +36,32 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Project getProjectById(Long id) throws ObjectNotFoundException {
-        if (projectRepository.exists(id)) {
-            return projectRepository.findOne(id);
-        } else {
+        Optional<Project> tempProject = Optional.fromNullable(projectRepository.findOne(id));
+
+        if(tempProject.isPresent()){
+            return tempProject.get();
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
         }
     }
 
     public void updateProject(Project project, Long id) throws ObjectNotFoundException {
-        if (projectRepository.exists(id)) {
-            project.setId(id);
-            projectRepository.save(project);
-        } else {
+        Optional<Project> tempProject = Optional.fromNullable(projectRepository.findOne(id));
+
+        if(tempProject.isPresent()){
+            tempProject.get().setId(id);
+            projectRepository.save(tempProject.get());
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
         }
     }
 
     public void deleteProject(Long id) throws ObjectNotFoundException, ObjectDeletingException {
-        if (projectRepository.exists(id)) {
+        Optional<Project> tempProject = Optional.fromNullable(projectRepository.findOne(id));
+
+        if(tempProject.isPresent()){
             projectRepository.delete(id);
-        } else {
+        }else{
             throw new ObjectNotFoundException("Nie znaleziono projektu o podanym Id");
         }
     }
