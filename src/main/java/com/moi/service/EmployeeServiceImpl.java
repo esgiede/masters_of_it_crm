@@ -7,30 +7,29 @@ import com.moi.errors.exceptions.ObjectAlreadyExistException;
 import com.moi.errors.exceptions.ObjectDeletingException;
 import com.moi.errors.exceptions.ObjectNotFoundException;
 import com.moi.repository.EmployeeRepository;
-import com.moi.util.FieldChecker;
+import javassist.bytecode.stackmap.TypeData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.moi.util.FieldCheckerImpl;
+import com.moi.util.FieldChecker;
 
 @Service
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-    private final FieldChecker fieldChecker;
+    private final FieldChecker fieldChecker = FieldChecker.getInstance();
 
-    private static final int PESEL_LENGTH = 11;
-    private static final int MIN_PHONE_LENGTH = 9;
-    private static final int MAX_PHONE_LENGTH = 12;
+    private static final Logger LOGGER = Logger.getLogger( TypeData.ClassName.class.getName() );
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, FieldCheckerImpl fieldChecker) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.fieldChecker = fieldChecker;
     }
 
     public List<Employee> getAllEmployees() {
@@ -39,11 +38,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public synchronized void addEmployee(Employee employee) throws ObjectAlreadyExistException, EmptyFieldException {
         if (!employeeExist(employee)) {
-            if(fieldCheck(employee)){
-                employeeRepository.save(employee);
-            }else{
-                throw new EmptyFieldException("Wypełnij prawidłowo wszystkie pola");
-            }
+            fieldChecker.checkEmployee(employee);
+            employeeRepository.save(employee);
         } else {
             throw new ObjectAlreadyExistException("Pracownik o podanych danych już istnieje");
         }
@@ -64,12 +60,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Employee> tempEmployee = Optional.fromNullable(employeeRepository.findOne(id));
 
         if(tempEmployee.isPresent()){
-            if(fieldCheck(employee)){
                 tempEmployee.get().setId(id);
                 employeeRepository.save(tempEmployee.get());
-            }else{
-                throw new EmptyFieldException("Wypełnij prawidłowo wszystkie pola");
-            }
+
         }else{
             throw new ObjectNotFoundException("Nie znaleziono pracownika o podanym Id");
         }
@@ -99,21 +92,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
         return isExist;
-    }
-
-    private boolean fieldCheck(Employee employee){
-        if (!fieldChecker.checkLengthEqual(employee.getPesel(), PESEL_LENGTH)){
-            return false;
-        }
-        if (employee.getPhone() != null && !fieldChecker.checkLength(employee.getPhone(), MIN_PHONE_LENGTH, MAX_PHONE_LENGTH)){
-            return false;
-        }
-
-        if(!fieldChecker.checkIfEmpty(employee.getToVerification())){
-            return false;
-        }
-
-        return true;
     }
 }
 
